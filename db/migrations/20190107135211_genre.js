@@ -1,5 +1,5 @@
 exports.up = function(knex, Promise) {
-  knex.schema.createTable("genre", table => {
+  return knex.schema.createTable("genre", table => {
     table.increments();
     table.string("genre_name");
     table.timestamps(true, true);
@@ -7,5 +7,5 @@ exports.up = function(knex, Promise) {
 };
 
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTable("bus");
+  return knex.schema.dropTable("genre");
 };
