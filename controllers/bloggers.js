@@ -7,6 +7,8 @@ module.exports = {
   },
 
   bloggerLoggin :  function(req, res) {
-    
+    knex('buybookdata').then(results => {
+      res.redner("blogger_loggin")
+    })
   }
 };
