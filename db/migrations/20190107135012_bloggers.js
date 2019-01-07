@@ -9,6 +9,7 @@ exports.up = function(knex, Promise) {
     table.string("link");
     table.string("sample", 500), table.text("image_url");
     table.boolean("approved").defaultTo(false);
+    table.string("role").defaultTo("blogger");
     table.timestamps(true, true);
   });
 };
