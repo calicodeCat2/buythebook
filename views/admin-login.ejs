@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Administrator Login</title>
+  </head>
+  <body>
+    <h1>Adminstrator Login</h1>
+    <p>
+      WARNING: THIS PAGE IS FOR ADMINISTRATORS ONLY. BY LOGGING IN AS AN
+      ADMINISTRATOR YOU ARE AGREEING TO SOME RULES SOMEWHERE
+    </p>
+
+    <!-- LOGIN FORM -->
+    <div class="login">
+      <form action="/admin/login" method="POST">
+        <input type="email" placeholder="email" name="admin_email" />
+        <input type="password" placeholder="password" namne="admin_password" />
+        <input type="submit" />
+      </form>
+    </div>
+  </body>
+</html>
