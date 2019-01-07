@@ -6,7 +6,7 @@ exports.up = function(knex, Promise) {
       .integer("blog_id")
       .notNullable()
       .references("id")
-      .inTable("blog")
+      .inTable("blogs")
       .onDelete("CASCADE")
       .index();
     table

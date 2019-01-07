@@ -4,7 +4,7 @@ exports.up = function(knex, Promise) {
     table.string("blogger_name");
     table.string("blogger_email").unique();
     table.string("blogger_password");
-    table.integer("years_bogging");
+    table.integer("years_blogging");
     table.string("genre");
     table.string("link");
     table.string("sample", 500), table.text("image_url");
