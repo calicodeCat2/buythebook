@@ -13,16 +13,27 @@
         text-align: center;
         margin: 40px;
       }
+      .warning {
+        text-align: center;
+      }
     </style>
   </head>
   <body>
     <h1>Login or Register</h1>
+    <row class="warning">
+    <h3>**WARNING** 
+    </h3>
+    <p>This page is for Bloggers only. If you have not been approved for a Blogger account by and Admin, please visit the user login page.</p>
     <div class="container">
   <div class="row">
+    </row>
       <h3>Active Bloggers: Login</h3>
+      <div class="col">
       <form class="" action="/blogs/" method="post">
         <input type="text" name="email" placeholder="Email">
         <input type="text" name="blogger_password" placeholder="Password">
+        <button type="submit">Start Blogging</button>
+      </div>
       </form>
     <div class="col"><h3>New Bloggers: Register</h3>
       <form class="" action="/blogger/register" method="post">
