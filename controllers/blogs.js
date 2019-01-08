@@ -102,6 +102,7 @@ module.exports = {
       .then(results => {
         let blog = results[0][0];
         let comments = results[1];
+        console.log(comments);
         let commentMadeOn = comments.map(comment =>
           moment(comment.created_at)
             .toString()

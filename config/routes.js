@@ -81,6 +81,7 @@ module.exports = app => {
     adminAuthMiddleware,
     comments.adminDelete
   );
+  app.get("/admin/users/ban/:user_id", adminAuthMiddleware, users.adminBan);
 };
 function adminAuthMiddleware(req, res, next) {
   if (!req.session.admin || req.session.admin.role !== "admin") {
