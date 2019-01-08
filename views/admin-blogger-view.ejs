@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Admin Blogger View</title>
+  </head>
+  <body>
+    <main>
+      <section>
+        <div class="pic"><img src="<%= blogger.image_url %>" alt="" /></div>
+        <h1>Applicant: <%= blogger.blogger_name %></h1>
+        <h3>Application Submitted: <%= appSubmittedOn %></h3>
+        <h4>Genre: <%= blogger.genre %></h4>
+        <h4>Website: <a href="<%= blogger.link %>">Website</a></h4>
+        <h4>Sample:</h4>
+        <p><%= blogger.sample %></p>
+
+        <a href="/admin/approve/blogger/<%= blogger.id %>">Approve Blogger</a>
+        <span> | </span>
+        <a href="/admin/reject/blogger/<%= blogger.id %>">Reject Blogger</a>
+      </section>
+    </main>
+  </body>
+</html>

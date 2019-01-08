@@ -28,6 +28,16 @@ module.exports = app => {
     adminAuthMiddleware,
     bloggers.adminBloggerView
   );
+  app.get(
+    "/admin/reject/blogger/:blogger_id",
+    adminAuthMiddleware,
+    bloggers.adminRejectBlogger
+  );
+  app.get(
+    "/admin/pending-regs",
+    adminAuthMiddleware,
+    bloggers.adminPendingRegs
+  );
 };
 function adminAuthMiddleware(req, res, next) {
   if (!req.session.admin || req.session.admin.role !== "admin") {
