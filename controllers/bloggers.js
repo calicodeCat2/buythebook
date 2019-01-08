@@ -57,9 +57,23 @@ module.exports = {
       .orderBy("blogs.created_at")
       .innerJoin("bloggers", "blogs.blogger_id", "bloggers.id");
 
-    Promise.all([pendingBloggerRegistrations, pendingBlogPosts]).then(
-      results => {
-        console.log(results[1]);
+    let pendingBanRequests = knex("users")
+      .where("users.ban-requested", "=", "true")
+      .orderBy("users.created_at");
+
+    let approvedBlogs = knex("blogs")
+      .select("blogs.*", "bloggers.blogger_name")
+      .where("blogs.approved", "=", "true")
+      .orderBy("blogs.created_at")
+      .innerJoin("bloggers", "blogs.blogger_id", "bloggers.id");
+
+    Promise.all([
+      pendingBloggerRegistrations,
+      pendingBlogPosts,
+      pendingBanRequests,
+      approvedBlogs
+    ])
+      .then(results => {
         let firstThreeRegs = results[0].slice(0, 3);
         let requestedOn = firstThreeRegs.map(reg =>
           moment(reg.created_at)
@@ -72,14 +86,33 @@ module.exports = {
             .toString()
             .slice(0, 16)
         );
+
+        let firstThreeBanReqs = results[2].slice(0, 3);
+        let banRequestedOn = firstThreeBanReqs.map(blog =>
+          moment(req.created_at)
+            .toString()
+            .slice(0, 16)
+        );
+
+        let firstThreeApprovedBlogs = results[3].slice(0, 3);
+        let approvedBlogCreatedOn = firstThreeApprovedBlogs.map(blog =>
+          moment(req.created_at)
+            .toString()
+            .slice(0, 16)
+        );
+
         res.render("admin-home", {
           admin: req.session.admin,
           firstThreeRegs: firstThreeRegs,
           requestedOn: requestedOn,
           firstThreeBlogs: firstThreeBlogs,
-          blogCreatedOn: blogCreatedOn
+          blogCreatedOn: blogCreatedOn,
+          firstThreeBanReqs: firstThreeBanReqs,
+          banRequestedOn: banRequestedOn,
+          firstThreeApprovedBlogs: firstThreeApprovedBlogs,
+          approvedBlogCreatedOn: approvedBlogCreatedOn
         });
-      }
-    );
+      })
+      .catch(err => console.log(err));
   }
 };

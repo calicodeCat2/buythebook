@@ -6,6 +6,7 @@ exports.up = function(knex, Promise) {
     table.string("user_password");
     table.string("screen_name");
     table.boolean("banned").defaultTo(false);
+    table.boolean("ban-requested").defaultTo(false);
     table.timestamps(true, true);
   });
 };

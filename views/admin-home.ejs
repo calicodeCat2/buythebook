@@ -11,6 +11,9 @@
 
     <section class="pending-bloggers">
       <h2>Pending Blogger Applications</h2>
+      <% if(!firstThreeRegs) { %>
+      <p>You currently have no pending blogger applications.</p>
+      <% } %>
       <ul>
         <% for(let i = 0; i < firstThreeRegs.length; i++) { %>
         <li>
@@ -42,10 +45,14 @@
 
     <section class="pending-blogs">
       <h2>Pending Blog Posts</h2>
+      <% if(!firstThreeBlogs) { %>
+      <p>You currently have no pending blog posts.</p>
+      <% } %>
       <ul>
         <% for (let i = 0; i < firstThreeBlogs.length; i++) { %>
         <li>
           <h3><%= firstThreeBlogs[i].blog_title %></h3>
+          <h4>Post Created On: <%= blogCreatedOn[i] %></h4>
           <h4>By: <%= firstThreeBlogs[i].blogger_name %></h4>
           <p>
             Preview: <%= firstThreeBlogs[i].blog_content.slice(0, 140) + "..."
@@ -60,6 +67,57 @@
         </li>
         <% } %>
         <a href="/admin/pending-blogs">View All</a>
+      </ul>
+    </section>
+
+    <section class="approved-blogs">
+      <h2>Approved Blog Posts</h2>
+      <% if(!firstThreeApprovedBlogs) { %>
+      <p>You currently have no approved blog posts.</p>
+      <% } %>
+      <ul>
+        <% for (let i = 0; i < firstThreeApprovedBlogs.length; i++) { %>
+        <li>
+          <h3><%= firstThreeApprovedBlogs[i].blog_title %></h3>
+          <h4>Post Created On: <%= approvedBlogCreatedOn[i] %></h4>
+          <h4>By: <%= firstThreeApprovedBlogs[i].blogger_name %></h4>
+          <p>
+            Preview: <%= firstThreeApprovedBlogs[i].blog_content.slice(0, 140) +
+            "..." %>
+          </p>
+          <a href="/admin/approved/blog/<%= firstThreeApprovedBlogs[i].id %>"
+            >View Blog</a
+          >
+          <hr />
+        </li>
+        <% } %>
+        <a href="/admin/approved-blogs">View All</a>
+      </ul>
+    </section>
+
+    <section class="pending-ban-requests">
+      <h2>Pending User Ban Requests</h2>
+      <% if(!firstThreeBanReqs) { %>
+      <p>You currently have no pending ban requests.</p>
+      <% } %>
+      <ul>
+        <% for(let i = 0; i < firstThreeBanReqs.length; i++) { %>
+        <li>
+          <h4>Screen Name: <%= firstThreeBanReqs[i].screen_name %></h4>
+          <h3>Ban Requested On: <%= banRequestedOn[i] %></h3>
+          <a href="/admin/users/ban/<%= firstThreeBanReqs[i].id %>"
+            >Approve Ban</a
+          >
+          <span> | </span>
+          <a href="/admin/users/view/<%= firstThreeBanReqs[i].id %>"
+            >View User</a
+          >
+          <span> | </span>
+          <a href="/admin/users/unban/<%= firstThreeBanReqs[i].id %>"
+            >Reject Ban</a
+          >
+        </li>
+        <% } %>
       </ul>
     </section>
   </body>

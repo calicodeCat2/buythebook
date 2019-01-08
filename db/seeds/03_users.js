@@ -14,7 +14,8 @@ exports.seed = function(knex, Promise) {
           user_name: "Juan",
           user_email: "email2@email.com",
           user_password: "1234",
-          screen_name: "aficianado"
+          screen_name: "aficianado",
+          "ban-requested": true
         },
         {
           user_name: "Tom",
