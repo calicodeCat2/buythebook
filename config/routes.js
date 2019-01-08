@@ -14,7 +14,7 @@ module.exports = app => {
 
   // Greg's Routes (mainly)
   //Blogger Login
-  app.get("/blogger/login",  bloggers.bloggerLoginPage);
+  app.get("/blogger/login", bloggers.bloggerLoginPage);
 
   app.post("/blogger/login", bloggers.bloggerLogin);
 
@@ -22,8 +22,6 @@ module.exports = app => {
   //Redirect Blogger to home/main profile page
   app.get("/blogger/home", bloggerAuthMiddleware, bloggers.bloggerHome);
 
-
-  app.get("/blogger/home", bloggers.bloggerHome);
 
   //Mandy's routes
   //Admin routes
@@ -93,8 +91,14 @@ module.exports = app => {
     adminAuthMiddleware,
     users.adminRejectBan
   );
-  app.get("/admin/user-bans", adminAuthMiddleware, users.banReqViewAll);
+  app.get("/admin/user-bans", adminAuthMiddleware, users.adminBanReqViewAll);
+  app.get(
+    "/admin/users/view/:user_id",
+    adminAuthMiddleware,
+    users.adminViewOne
+  );
 };
+
 function adminAuthMiddleware(req, res, next) {
   if (!req.session.admin || req.session.admin.role !== "admin") {
     res.redirect("/admin/login");

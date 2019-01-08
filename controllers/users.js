@@ -53,8 +53,6 @@ module.exports = {
           bloggers: results[0],
           blogs: results[1]
         })
-      })
-  },
 
   profile: (req, res) => {
     knex("bloggers")
@@ -74,6 +72,7 @@ module.exports = {
         res.render("blogger_profile", { bloggers: results[0], blogs: results });
       });
   },
+
   adminBan: (req, res) => {
     knex("users")
       .where("users.id", req.params.user_id)
@@ -99,14 +98,26 @@ module.exports = {
       })
       .catch(err => console.log(err));
   },
-  banReqViewAll: (req, res) => {
-    knex("users")
+  adminBanReqViewAll: (req, res) => {
+    let users = knex("users")
       .where("users.ban-requested", "=", "true")
       .andWhereNot("users.banned", "true")
       .orderBy("users.created_at")
+
       .then(results => {
         console.log(results);
         res.render("admin-userbans-view", { users: results });
       });
+  },
+  adminViewOne: (req, res) => {
+    let user = knex("users").where("users.id", req.params.user_id);
+    let comments = knex("comments")
+      .select("comments.*", "users.screen_name")
+      .innerJoin("users", "comments.user_id", "users.id");
+
+    Promise.all([user, comments]).then(results => {
+      let user = results[0][0];
+      res.render("admin-userban-singleView", { user: user });
+    });
   }
 };
