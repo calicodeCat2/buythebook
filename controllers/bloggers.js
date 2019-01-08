@@ -35,4 +35,7 @@ module.exports = {
       .catch(err => console.log(err));
   }
   //THIS RENDERS THE ADMIN HOME PAGE
+  adminHome: (req, res) => {
+    console.log("yo")
+  }
 };
