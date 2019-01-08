@@ -3,40 +3,46 @@ const moment = require("moment");
 
 module.exports = {
   // CHANGE ME TO AN ACTUAL FUNCTION
-  index: function(req, res) {
+  index: function (req, res) {
     res.send("Hello");
   },
   //THIS RENDERS THE BLOGGER LOGIN PAGE
 
-  bloggerLoginPage: function(req, res) {
+  bloggerLoginPage: function (req, res) {
     res.render('blogger_login')
   },
 
-  bloggerLogin: function(req, res) {
-    knex('bloggers')
-      .where('blogger_email', req.body.blogger_email)
+  
+  //This logs in the bloggers then redirects them to their home page
+  bloggerLogin: (req, res) => {
+    knex("bloggers")
+      .andWhere("role", "blogger")
+      .andWhere("approved", true)
+      .where("blogger_email", req.body.blogger_email)
       .then((results) => {
         let blogger = results[0]
-        console.log(results[0])
-        if(!blogger){
-          res.redirect('blogger_login')
-        } else if(bloggers.blogger_password === req.body.password){
-          res.session.blogger = blogger
-
+        console.log(blogger)
+        if(!blogger) {
+          req.flash("Info", 'Not a valid Blogger email.')
+          res.redirect('/blogger/login')
+        } else if (
+          req.body.blogger_password && blogger.blogger_password === req.body.password) 
+          {
           req.session.user = null
           req.session.admin = null
-          res.render("blogger_home", {blogger:results[0]})
-        } else{
-          res.redirect("blogger_login")
+          res.session.blogger = blogger
+          res.redirect("/blogger/home")
+        } else {
+          req.flash("Info", "Invalid Password")
+          res.redirect("/blogger/login")
         }
       })
   },
-
+ 
   bloggerHome: function(req, res){
-    if(bloggerLogin === true){
-      res.render("blogger_home")
-    }
-    res.render("blogger_login");
+    knex('blogs').then((results) => {
+      res.render('blogger_home', {blogs : results})
+    })
   },
 
   //this renders the adminstrator login page
