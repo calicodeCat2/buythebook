@@ -15,6 +15,7 @@
 
     <!-- LOGIN FORM -->
     <div class="login">
+      <div class="login-fail"><p><%= message %></p></div>
       <form action="/admin/login" method="POST">
         <input type="email" placeholder="email" name="admin_email" />
         <input type="password" placeholder="password" name="admin_password" />

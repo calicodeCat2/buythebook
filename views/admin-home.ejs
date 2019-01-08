@@ -7,6 +7,35 @@
     <title>Document</title>
   </head>
   <body>
-    <h1>You're home, Admin</h1>
+    <h1>Welcome, <%= admin.blogger_name %></h1>
+
+    <section class="pending-bloggers">
+      <h2>Pending Blogger Applications</h2>
+      <ul>
+        <% for(let i = 0; i < firstThreeRegs.length; i++) { %>
+        <li>
+          <h3><%= firstThreeRegs[i].blogger_name %></h3>
+          <img src="<%= firstThreeRegs[i].image_url %>" alt="" />
+          <p>Requested On: <%= requestedOn[i] %></p>
+          <p>Years Blogging: <%= firstThreeRegs[i].years_blogging %></p>
+          <p>Blogger Website: <%= firstThreeRegs[i].link %></p>
+          <p>Genre: <%= firstThreeRegs[i].genre %></p>
+          <p>
+            Writing Snippet: <%= firstThreeRegs[i].sample.slice(0, 140) + "..."
+            %>
+          </p>
+          <a href="/admin/view/blogger/<%= firstThreeRegs[i].id %>"
+            >View Blogger</a
+          >
+          <span> | </span>
+          <a href="/admin/approve/blogger/<%= firstThreeRegs[i].id %>"
+            >Approve Blogger</a
+          >
+          <hr />
+        </li>
+        <% } %>
+        <a href="/admin/pending-regs">View All</a>
+      </ul>
+    </section>
   </body>
 </html>
