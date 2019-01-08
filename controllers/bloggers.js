@@ -114,5 +114,15 @@ module.exports = {
         });
       })
       .catch(err => console.log(err));
+  },
+  adminApprove: (req, res) => {
+    knex("bloggers")
+      .where("bloggers.id", "=", req.params.blogger_id)
+      .update({
+        approved: true
+      })
+      .then(() => {
+        res.redirect("/admin/home");
+      });
   }
 };

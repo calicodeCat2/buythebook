@@ -16,6 +16,18 @@ module.exports = app => {
 
   //PAGES ONLY AVAILABLE TO LOGGED IN ADMINS
   app.get("/admin/home", adminAuthMiddleware, bloggers.adminHome);
+  //ROUTE TO APPROVE BLOGGER
+  app.get(
+    "/admin/approve/blogger/:blogger_id",
+    adminAuthMiddleware,
+    bloggers.adminApprove
+  );
+  //ROUTE FOR VIEWING INDIVIDUAL BLOGGER FOR ADMIN
+  app.get(
+    "/admin/view/blogger/:blogger_id",
+    adminAuthMiddleware,
+    bloggers.adminBloggerView
+  );
 };
 function adminAuthMiddleware(req, res, next) {
   if (!req.session.admin || req.session.admin.role !== "admin") {
