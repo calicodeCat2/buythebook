@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Admin Blog View</title>
+  </head>
+  <body>
+    <main>
+      <h1><%= blog.blog_title %></h1>
+      <h2>By: <%= blog.blogger_name %></h2>
+      <h3>Written: <%= writtenOn %></h3>
+      <div class="content"><%= blog.blog_content %></div>
+      <a href="/admin/approve/blog/<%= blog.id %>">Approve Blog</a>
+      <span> | </span>
+      <a href="/admin/reject/blog/<%= blog.id %>">Reject Blog</a>
+    </main>
+  </body>
+</html>

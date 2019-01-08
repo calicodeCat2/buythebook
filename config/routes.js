@@ -6,9 +6,9 @@ module.exports = app => {
   app.get("/", users.index);
   app.get("", blogs.index);
 
-  app.get("/user/login", users.userLogin)
+  app.get("/user/login", users.userLogin);
   //User Login Only
-  app.post('/users/main', users.main)
+  app.post("/users/main", users.main);
 
   //Blogger Login Only
   app.get("/blogger/login", bloggers.bloggerLogin);
@@ -52,6 +52,7 @@ module.exports = app => {
     adminAuthMiddleware,
     blogs.adminApprove
   );
+  app.get("/admin/view/blog/:blog_id", adminAuthMiddleware, blogs.adminView);
 };
 function adminAuthMiddleware(req, res, next) {
   if (!req.session.admin || req.session.admin.role !== "admin") {
