@@ -6,10 +6,37 @@ module.exports = {
   index: function(req, res) {
     res.send("Hello");
   },
-  //THIS RENDERS THE ADMIN LOGIN PAGE
+  //THIS RENDERS THE BLOGGER LOGIN PAGE
+
+  bloggerLoginPage: function(req, res) {
+    res.render('blogger_login')
+  },
 
   bloggerLogin: function(req, res) {
-      res.render("blogger_login");
+    knex('bloggers')
+      .where('blogger_email', req.body.blogger_email)
+      .then((results) => {
+        let blogger = results[0]
+        console.log(results[0])
+        if(!blogger){
+          res.redirect('blogger_login')
+        } else if(bloggers.blogger_password === req.body.password){
+          res.session.blogger = blogger
+
+          req.session.user = null
+          req.session.admin = null
+          res.render("blogger_home", {blogger:results[0]})
+        } else{
+          res.redirect("blogger_login")
+        }
+      })
+  },
+
+  bloggerHome: function(req, res){
+    if(bloggerLogin === true){
+      res.render("blogger_home")
+    }
+    res.render("blogger_login");
   },
 
   //this renders the adminstrator login page
@@ -52,6 +79,7 @@ module.exports = {
     let pendingBlogPosts = knex("blogs")
       .select("blogs.*", "bloggers.blogger_name")
       .where("blogs.approved", "=", "false")
+      .andWhereNot("blogs.rejected", "=", "true")
       .orderBy("blogs.created_at")
       .innerJoin("bloggers", "blogs.blogger_id", "bloggers.id");
 

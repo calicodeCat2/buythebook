@@ -5,6 +5,7 @@ const blogs = require("../controllers/blogs");
 module.exports = app => {
   app.get("/", users.index);
   app.get("", blogs.index);
+
 //User Login Only
   app.get("/user/login", users.userLogin)
   app.post('/users/main', users.main)
@@ -12,9 +13,13 @@ module.exports = app => {
   app.get('/profile/:id', userMiddleware, users.profile)
 
 
+  // Greg's Routes (mainly)
   //Blogger Login Only
-  app.get("/blogger/login", bloggers.bloggerLogin);
+  app.get("/blogger/login", bloggers.bloggerLoginPage);
 
+  app.post("/blogger/login", bloggers.bloggerLogin)
+
+  app.get("/blogger/home", bloggers.bloggerHome)
   //Mandy's routes
   //Admin routes
   app.get("/admin/login", bloggers.adminLoginPage);
@@ -49,6 +54,18 @@ module.exports = app => {
     adminAuthMiddleware,
     bloggers.adminBloggerView
   );
+  app.get(
+    "/admin/approve/blog/:blog_id",
+    adminAuthMiddleware,
+    blogs.adminApprove
+  );
+  app.get("/admin/view/blog/:blog_id", adminAuthMiddleware, blogs.adminView);
+  app.get(
+    "/admin/reject/blog/:blog_id",
+    adminAuthMiddleware,
+    blogs.adminReject
+  );
+  app.get("/admin/pending-blogs", adminAuthMiddleware, blogs.adminPendingBlogs);
 };
 function adminAuthMiddleware(req, res, next) {
   if (!req.session.admin || req.session.admin.role !== "admin") {
