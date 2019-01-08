@@ -60,6 +60,16 @@ module.exports = app => {
     blogs.adminReject
   );
   app.get("/admin/pending-blogs", adminAuthMiddleware, blogs.adminPendingBlogs);
+  app.get(
+    "/admin/view/approved-blog/:blog_id",
+    adminAuthMiddleware,
+    blogs.adminApprovedView
+  );
+  app.get(
+    "/admin/approved-blogs",
+    adminAuthMiddleware,
+    blogs.adminApprovedBlogs
+  );
 };
 function adminAuthMiddleware(req, res, next) {
   if (!req.session.admin || req.session.admin.role !== "admin") {
