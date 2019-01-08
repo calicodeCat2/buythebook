@@ -44,6 +44,11 @@ module.exports = app => {
     adminAuthMiddleware,
     bloggers.adminBloggerView
   );
+  app.get(
+    "/admin/approve/blog/:blog_id",
+    adminAuthMiddleware,
+    blogs.adminApprove
+  );
 };
 function adminAuthMiddleware(req, res, next) {
   if (!req.session.admin || req.session.admin.role !== "admin") {
