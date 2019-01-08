@@ -6,6 +6,15 @@ module.exports = {
     res.send("Hello");
   },
   //THIS RENDERS THE ADMIN LOGIN PAGE
+
+  bloggerLoggin :  function(req, res) {
+    knex('buybookdata').then(results => {
+      res.render("blogger_loggin")
+    })
+    },
+    
+
+  //this renders the adminstrator login page
   adminLoginPage: (req, res) => {
     res.render("admin-login");
   },
