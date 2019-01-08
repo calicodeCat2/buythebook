@@ -41,6 +41,9 @@ function userMiddleware(req, res, next) {
   //Admin routes
   app.get("/admin/login", bloggers.adminLoginPage);
   app.post("/admin/login", bloggers.adminLogin);
+
+  //PAGES ONLY AVAILABLE TO LOGGED IN ADMINS
+  app.get("/admin/home", adminAuthMiddleware, bloggers.adminHome);
 };
 function adminAuthMiddleware(req, res, next) {
   if (!req.session.admin || req.session.admin.role !== "admin") {
