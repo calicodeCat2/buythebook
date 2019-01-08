@@ -1,4 +1,5 @@
 const knex = require("../db/knex.js");
+const moment = require("moment");
 
 module.exports = {
   // CHANGE ME TO AN ACTUAL FUNCTION
@@ -36,6 +37,7 @@ module.exports = {
   },
 
   show: (req, res) => {
+<<<<<<< HEAD
 
     let bloggers =
     knex('bloggers')
@@ -85,7 +87,25 @@ module.exports = {
           blogs: results
         }
         });
+=======
+    let bloggers = knex("bloggers").select(
+      "bloggers.id",
+      "bloggers.image_url",
+      "bloggers.blogger_name",
+      "bloggers.genre"
+    );
+    let blogs = knex("blogs")
+      .select("blogs.*", "bloggers.blogger_name")
+      .join("bloggers", "bloggers.id", "blogs.blogger_id");
+    Promise.all([bloggers, blogs]).then(results => {
+      console.log("bloggers", results[0]);
+      console.log("blogs", results[1]);
+      res.render("main_page", {
+        bloggers: results[0],
+        blogs: results[1]
+>>>>>>> 8317f05dd6c959c267997cc2956379f16d530065
       });
+    });
   },
 
   profile : (req, res) => {
@@ -106,6 +126,7 @@ module.exports = {
         res.render("blogger_profile", { bloggers: results[0], blogs: results });
       });
   },
+
   adminBan: (req, res) => {
     knex("users")
       .where("users.id", req.params.user_id)
@@ -130,7 +151,7 @@ module.exports = {
       })
       .catch(err => console.log(err));
   },
-  banReqViewAll: (req, res) => {
+  adminBanReqViewAll: (req, res) => {
     let users = knex("users")
       .where("users.ban-requested", "=", "true")
       .andWhereNot("users.banned", "true")
@@ -144,12 +165,24 @@ module.exports = {
   adminViewOne: (req, res) => {
     let user = knex("users").where("users.id", req.params.user_id);
     let comments = knex("comments")
+      .where("comments.user_id", req.params.user_id)
+      .orderBy("comments.created_at")
       .select("comments.*", "users.screen_name")
       .innerJoin("users", "comments.user_id", "users.id");
 
     Promise.all([user, comments]).then(results => {
       let user = results[0][0];
-      res.render("admin-userban-singleView", { user: user });
+      let comentHistory = results[1];
+      let commentCreatedOn = comentHistory.map(comment =>
+        moment(comment.created_at)
+          .toString()
+          .slice(0, 16)
+      );
+      res.render("admin-userban-singleView", {
+        user: user,
+        comentHistory: comentHistory,
+        commentCreatedOn: commentCreatedOn
+      });
     });
   }
 };

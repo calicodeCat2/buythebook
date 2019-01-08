@@ -20,7 +20,7 @@ module.exports = app => {
 
   //Redirect Blogger to home/main profile page
   app.get("/blogger/home", bloggerAuthMiddleware, bloggers.bloggerHome);
-  
+
   //Mandy's routes
   //Admin routes
   app.get("/admin/login", bloggers.adminLoginPage);
@@ -83,13 +83,18 @@ module.exports = app => {
     adminAuthMiddleware,
     comments.adminDelete
   );
+  app.get(
+    "/admin/userban/comments/delete/:comment_id/:blog_id",
+    adminAuthMiddleware,
+    comments.adminDeletetoUserBan
+  );
   app.get("/admin/users/ban/:user_id", adminAuthMiddleware, users.adminBan);
   app.get(
     "/admin/users/unban/:user_id",
     adminAuthMiddleware,
     users.adminRejectBan
   );
-  app.get("/admin/user-bans", adminAuthMiddleware, users.banReqViewAll);
+  app.get("/admin/user-bans", adminAuthMiddleware, users.adminBanReqViewAll);
   app.get(
     "/admin/users/view/:user_id",
     adminAuthMiddleware,
