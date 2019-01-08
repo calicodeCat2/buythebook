@@ -114,7 +114,6 @@
         <% for(let i = 0; i < firstThreeBanReqs.length; i++) { %>
         <li>
           <h4>Screen Name: <%= firstThreeBanReqs[i].screen_name %></h4>
-          <h3>Ban Requested On: <%= banRequestedOn[i] %></h3>
           <a href="/admin/users/ban/<%= firstThreeBanReqs[i].id %>"
             >Approve Ban</a
           >

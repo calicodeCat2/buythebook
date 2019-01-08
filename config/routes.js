@@ -88,7 +88,13 @@ module.exports = app => {
     users.adminRejectBan
   );
   app.get("/admin/user-bans", adminAuthMiddleware, users.banReqViewAll);
+  app.get(
+    "/admin/users/view/:user_id",
+    adminAuthMiddleware,
+    users.adminViewOne
+  );
 };
+
 function adminAuthMiddleware(req, res, next) {
   if (!req.session.admin || req.session.admin.role !== "admin") {
     res.redirect("/admin/login");
