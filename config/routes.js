@@ -9,6 +9,9 @@ module.exports = app => {
   //Admin routes
   app.get("/admin/login", bloggers.adminLoginPage);
   app.post("/admin/login", bloggers.adminLogin);
+
+  //PAGES ONLY AVAILABLE TO LOGGED IN ADMINS
+  app.get("/admin/home", adminAuthMiddleware, bloggers.adminHome);
 };
 
 function adminAuthMiddleware(req, res, next) {

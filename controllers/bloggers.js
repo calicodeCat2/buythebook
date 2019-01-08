@@ -9,24 +9,30 @@ module.exports = {
   adminLoginPage: (req, res) => {
     res.render("admin-login");
   },
-  //THIS LOGS THE ADMINISTRATOR IN
+  //THIS LOGS THE ADMINISTRATOR IN THEN REDIRECTS THEM TO THEIR HOME PAGE IF CREDENTIALS ARE VALID
   adminLogin: (req, res) => {
     knex("bloggers")
-        .where("email", req.body.email)
-        .then(results => {
-            let patient = results[0];
-            if (!patient) {
-                req.flash('info', 'Could not locate a user with that email')
-                res.redirect("patients/login");
-            } else if (req.body.password && patient.password === req.body.password) {
-                req.session.user = null;
-                req.session.patient = patient;
-                req.session.role = 'patient';
-                res.redirect("/patients/appointment-page/confirmed");
-            } else {
-                req.flash('info', 'Invalid password')
-                res.redirect("patients/login");
-            }
-        })
-        .catch(err => console.log(err));
+      .andWhere("role", "admin")
+      .where("email", req.body.admin_email)
+      .then(results => {
+        let admin = results[0];
+        if (!admin) {
+          req.flash("info", "Could not locate a user with that email");
+          res.redirect("/admin/login");
+        } else if (
+          req.body.admin_password &&
+          admin.password === req.body.admin_password
+        ) {
+          req.session.user = null;
+          req.session.blogger = null;
+          req.session.admin = admin;
+          res.redirect("/admin/home");
+        } else {
+          req.flash("info", "Invalid password");
+          res.redirect("/admin/login");
+        }
+      })
+      .catch(err => console.log(err));
+  }
+  //THIS RENDERS THE ADMIN HOME PAGE
 };
