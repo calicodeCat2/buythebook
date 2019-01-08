@@ -1,4 +1,5 @@
 const knex = require("../db/knex.js");
+const moment = require("moment");
 
 module.exports = {
   // CHANGE ME TO AN ACTUAL FUNCTION
@@ -112,12 +113,24 @@ module.exports = {
   adminViewOne: (req, res) => {
     let user = knex("users").where("users.id", req.params.user_id);
     let comments = knex("comments")
+      .where("comments.user_id", req.params.user_id)
+      .orderBy("comments.created_at")
       .select("comments.*", "users.screen_name")
       .innerJoin("users", "comments.user_id", "users.id");
 
     Promise.all([user, comments]).then(results => {
       let user = results[0][0];
-      res.render("admin-userban-singleView", { user: user });
+      let comentHistory = results[1];
+      let commentCreatedOn = comentHistory.map(comment =>
+        moment(comment.created_at)
+          .toString()
+          .slice(0, 16)
+      );
+      res.render("admin-userban-singleView", {
+        user: user,
+        comentHistory: comentHistory,
+        commentCreatedOn: commentCreatedOn
+      });
     });
   }
 };
