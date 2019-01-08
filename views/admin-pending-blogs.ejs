@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Pending Blogger Registrations</title>
+  </head>
+  <body>
+    <section class="pending-bloggers">
+      <h1>Pending Blogger Registrations</h1>
+      <% if(!pendingBlogPosts) { %>
+      <p>You currently have no pending blog posts.</p>
+      <% } %>
+      <ul>
+        <% for(let i = 0; i < pendingBlogPosts.length; i++) { %>
+        <li>
+          <h3><%= pendingBlogPosts[i].blog_title %></h3>
+          <h4>Post Created On: <%= requestedOn[i] %></h4>
+          <h4>By: <%= pendingBlogPosts[i].blogger_name %></h4>
+          <p>
+            Preview: <%= pendingBlogPosts[i].blog_content.slice(0, 140) + "..."
+            %>
+          </p>
+          <a href="/admin/view/blog/<%= pendingBlogPosts[i].id %>">View Blog</a>
+          <span> | </span>
+          <a href="/admin/approve/blog/<%= pendingBlogPosts[i].id %>"
+            >Approve Blog</a
+          >
+          <span> | </span>
+          <a href="/admin/reject/blog/<%= pendingBlogPosts[i].id %>"
+            >Reject Blog</a
+          >
+          <hr />
+        </li>
+        <% } %>
+      </ul>
+      <span> | </span> <a href="/admin/home">Return to Home</a>
+    </section>
+  </body>
+</html>

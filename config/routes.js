@@ -6,9 +6,9 @@ module.exports = app => {
   app.get("/", users.index);
   app.get("", blogs.index);
 
-  app.get("/user/login", users.userLogin)
+  app.get("/user/login", users.userLogin);
   //User Login Only
-  app.post('/users/main', users.main)
+  app.post("/users/main", users.main);
 
   // Greg's Routes (mainly)
   //Blogger Login Only
@@ -51,6 +51,18 @@ module.exports = app => {
     adminAuthMiddleware,
     bloggers.adminBloggerView
   );
+  app.get(
+    "/admin/approve/blog/:blog_id",
+    adminAuthMiddleware,
+    blogs.adminApprove
+  );
+  app.get("/admin/view/blog/:blog_id", adminAuthMiddleware, blogs.adminView);
+  app.get(
+    "/admin/reject/blog/:blog_id",
+    adminAuthMiddleware,
+    blogs.adminReject
+  );
+  app.get("/admin/pending-blogs", adminAuthMiddleware, blogs.adminPendingBlogs);
 };
 function adminAuthMiddleware(req, res, next) {
   if (!req.session.admin || req.session.admin.role !== "admin") {

@@ -36,6 +36,7 @@ module.exports = {
     if(bloggerLogin === true){
       res.render("blogger_home")
     }
+    res.render("blogger_login");
   },
 
   //this renders the adminstrator login page
@@ -78,6 +79,7 @@ module.exports = {
     let pendingBlogPosts = knex("blogs")
       .select("blogs.*", "bloggers.blogger_name")
       .where("blogs.approved", "=", "false")
+      .andWhereNot("blogs.rejected", "=", "true")
       .orderBy("blogs.created_at")
       .innerJoin("bloggers", "blogs.blogger_id", "bloggers.id");
 
