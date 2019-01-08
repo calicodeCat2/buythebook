@@ -19,7 +19,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use(flash());
 
-require("./config/sessions")(app);
+require("./config/session")(app);
 
 app.set("view engine", "ejs");
 

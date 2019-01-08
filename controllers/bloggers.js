@@ -7,12 +7,11 @@ module.exports = {
   },
   //THIS RENDERS THE ADMIN LOGIN PAGE
 
-  bloggerLoggin :  function(req, res) {
-    knex('buybookdata').then(results => {
-      res.render("blogger_loggin")
-    })
-    },
-    
+  bloggerLogin: function(req, res) {
+    knex("buybookdata").then(results => {
+      res.render("blogger_loggin");
+    });
+  },
 
   //this renders the adminstrator login page
   adminLoginPage: (req, res) => {
@@ -22,29 +21,31 @@ module.exports = {
   adminLogin: (req, res) => {
     knex("bloggers")
       .andWhere("role", "admin")
-      .where("email", req.body.admin_email)
+      .where("blogger_email", req.body.admin_email)
       .then(results => {
+        console.log(results);
         let admin = results[0];
         if (!admin) {
           req.flash("info", "Could not locate a user with that email");
           res.redirect("/admin/login");
         } else if (
           req.body.admin_password &&
-          admin.password === req.body.admin_password
+          admin.blogger_password === req.body.admin_password
         ) {
           req.session.user = null;
           req.session.blogger = null;
-          req.session.admin = admin;
+          req.session.admin;
           res.redirect("/admin/home");
         } else {
+          console.log(req.body);
           req.flash("info", "Invalid password");
           res.redirect("/admin/login");
         }
       })
       .catch(err => console.log(err));
-  }
+  },
   //THIS RENDERS THE ADMIN HOME PAGE
   adminHome: (req, res) => {
-    console.log("yo")
+    res.render("admin-home");
   }
 };
