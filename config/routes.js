@@ -3,36 +3,9 @@ const users = require("../controllers/users");
 const blogs = require("../controllers/blogs");
 
 module.exports = app => {
-<<<<<<< HEAD
 
-  app.get("/", users.index)
-
-
-
-
-
-};
-
-
-
-
-
-
-
-
-
-
-
-
-
-function userMiddleware(req, res, next) {
-    if (!req.session.id) {
-        res.redirect("/");
-    } else {
-        next();
-    }
-=======
   app.get("", blogs.index);
+  app.get("/", users.index)
 
   //Blogger Login Only
   app.get("/blogger/login", bloggers.bloggerLogin)
@@ -60,5 +33,10 @@ function adminAuthMiddleware(req, res, next) {
     }
    }
 
->>>>>>> e03c3c749d854d594100796315803c2e4b38a4ab
+   function userMiddleware(req, res, next) {
+       if (!req.session.id) {
+           res.redirect("/");
+       } else {
+           next();
+       }
 }
