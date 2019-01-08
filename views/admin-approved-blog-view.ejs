@@ -18,12 +18,17 @@
       <section class="comments">
         <h1>Comments</h1>
         <div class="comments-container">
-          <% for (let i = 0; i < comments.length; i++) { %>
+          <% if(!comments.length) { %>
+          <p>There are currently no comments for this blog post.</p>
+          <% } %> <% for (let i = 0; i < comments.length; i++) { %>
           <div class="comment-box">
             <h4><%= comments[i].screen_name %></h4>
             <h6>Date: <%= commentMadeOn[i] %></h6>
             <p><%= comments[i].content %></p>
-            <a href="admin/comments/delete">Delete Comment</a>
+            <a
+              href="/admin/comments/delete/<%= comments[i].id %>/<%= comments[i].blog_id %>"
+              >Delete Comment</a
+            >
           </div>
           <% } %>
         </div>

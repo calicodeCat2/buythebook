@@ -15,7 +15,8 @@ module.exports = {
       })
       .then(result => {
         res.redirect("/admin/home");
-      });
+      })
+      .catch(err => console.log(err));
   },
   adminView: (req, res) => {
     let blog = knex("blogs")
@@ -24,7 +25,6 @@ module.exports = {
       .innerJoin("bloggers", "bloggers.id", "blogs.blogger_id")
 
       .then(result => {
-        console.log(result[0]);
         let writtenOn = moment(result[0].created_on)
           .toString()
           .slice(0, 16);
@@ -32,7 +32,8 @@ module.exports = {
           blog: result[0],
           writtenOn: writtenOn
         });
-      });
+      })
+      .catch(err => console.log(err));
   },
   adminReject: (req, res) => {
     knex("blogs")
@@ -43,7 +44,8 @@ module.exports = {
       })
       .then(() => {
         res.redirect("/admin/home");
-      });
+      })
+      .catch(err => console.log(err));
   },
   adminPendingBlogs: (req, res) => {
     knex("blogs")
@@ -64,7 +66,8 @@ module.exports = {
           pendingBlogPosts: results,
           requestedOn: requestedOn
         });
-      });
+      })
+      .catch(err => console.log(err));
   },
   adminApprovedBlogs: (req, res) => {
     let approvedBlogs = knex("blogs")
@@ -74,7 +77,6 @@ module.exports = {
       .innerJoin("bloggers", "blogs.blogger_id", "bloggers.id")
 
       .then(results => {
-        console.log(results);
         let requestedOn = results.map(reg =>
           moment(reg.created_at)
             .toString()
@@ -84,7 +86,8 @@ module.exports = {
           approvedBlogs: results,
           requestedOn: requestedOn
         });
-      });
+      })
+      .catch(err => console.log(err));
   },
   adminApprovedView: (req, res) => {
     let blog = knex("blogs")
@@ -99,7 +102,6 @@ module.exports = {
       .then(results => {
         let blog = results[0][0];
         let comments = results[1];
-        console.log(comments);
         let commentMadeOn = comments.map(comment =>
           moment(comment.created_at)
             .toString()
