@@ -3,10 +3,6 @@ const users = require("../controllers/users");
 const blogs = require("../controllers/blogs");
 
 module.exports = app => {
-<<<<<<< HEAD
-  app.get("/", users.index);
-=======
->>>>>>> 46b3c0db55a46f9fe90248f952606fa41dd364f7
   app.get("/", users.index)
   app.get("", blogs.index);
   
@@ -39,7 +35,7 @@ function adminAuthMiddleware(req, res, next) {
   
 
    function userMiddleware(req, res, next) {
-       if (!req.session.id) {
+       if (!req.session.user) {
            res.redirect("/");
        } else {
            next();

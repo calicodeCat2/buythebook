@@ -34,7 +34,7 @@ module.exports = {
         ) {
           req.session.user = null;
           req.session.blogger = null;
-          req.session.admin;
+          req.session.admin = admin
           res.redirect("/admin/home");
         } else {
           console.log(req.body);
@@ -46,6 +46,16 @@ module.exports = {
   },
   //THIS RENDERS THE ADMIN HOME PAGE
   adminHome: (req, res) => {
-    res.render("admin-home");
+    let pendingBloggerRegistrations = knex(bloggers).where(
+      "bloggers.approved",
+      "=",
+      "false"
+    );
+    Promise.all([adminHome]);
+    .then(results => {
+      console.log(results)
+      res.render("admin-home");
+    })
+    
   }
 };
