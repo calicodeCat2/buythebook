@@ -52,22 +52,34 @@ module.exports = {
       .whereNot("role", "=", "admin");
 
     let pendingBlogPosts = knex("blogs")
+      .select("blogs.*", "bloggers.blogger_name")
       .where("blogs.approved", "=", "false")
-      .orderBy("created_at");
+      .orderBy("blogs.created_at")
+      .innerJoin("bloggers", "blogs.blogger_id", "bloggers.id");
 
-    Promise.all([pendingBloggerRegistrations]).then(results => {
-      console.log();
-      let firstThreeRegs = results[0].slice(0, 3);
-      let requestedOn = firstThreeRegs.map(reg =>
-        moment(reg.created_at)
-          .toString()
-          .slice(0, 16)
-      );
-      res.render("admin-home", {
-        admin: req.session.admin,
-        firstThreeRegs: firstThreeRegs,
-        requestedOn: requestedOn
-      });
-    });
+    Promise.all([pendingBloggerRegistrations, pendingBlogPosts]).then(
+      results => {
+        console.log(results[1]);
+        let firstThreeRegs = results[0].slice(0, 3);
+        let requestedOn = firstThreeRegs.map(reg =>
+          moment(reg.created_at)
+            .toString()
+            .slice(0, 16)
+        );
+        let firstThreeBlogs = results[1].slice(0, 3);
+        let blogCreatedOn = firstThreeBlogs.map(blog =>
+          moment(blog.created_at)
+            .toString()
+            .slice(0, 16)
+        );
+        res.render("admin-home", {
+          admin: req.session.admin,
+          firstThreeRegs: firstThreeRegs,
+          requestedOn: requestedOn,
+          firstThreeBlogs: firstThreeBlogs,
+          blogCreatedOn: blogCreatedOn
+        });
+      }
+    );
   }
 };
