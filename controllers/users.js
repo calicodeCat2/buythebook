@@ -111,7 +111,6 @@ module.exports = {
       .update({
         banned: true,
         "ban-requested": false
->>>>>>> 4b6a22b24cc785f2eca2919b13459136b56d5d83
       })
       .then(() => {
         res.redirect("/admin/home");
