@@ -3,7 +3,7 @@ const moment = require("moment");
 
 module.exports = {
   // CHANGE ME TO AN ACTUAL FUNCTION
-  index: function (req, res) {
+  index: function(req, res) {
     res.send("Hello");
   },
   //THIS RENDERS THE BLOGGER LOGIN PAGE
