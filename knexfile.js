@@ -3,7 +3,7 @@ module.exports = {
     client: "pg",
     connection: {
       database: "buybookdata",
-      host: "127.0.0.1",
+      host: "127.0.0.1"
     },
     migrations: {
       directory: __dirname + "/db/migrations"

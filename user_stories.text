@@ -1,0 +1,9 @@
+#1 As a user, when I go to the splash page I can choose to login/register
+#2 As a user, when I click on the login/register I am redirected to a login page
+#3 As a user, when I click complete the registration, I am redirected back to login
+#4 As a user, when I log in I am redirected to the main blogs page where there are digests of the available blogs.
+#5 As a user, when I click on the logout nav, I am logged out and returned to the home page.
+#5 As a user, when I click on a blog link, I am taken to a page with the complete blog and comments.
+#6 As a user, when I add a comment and click, the comment is populated.
+#7 As a user, when I click on up/down, the count adds 1 for that item.
+#8 As a user, when I click the blog nav, I am redirected to the main blogs page.
