@@ -5,9 +5,11 @@ const blogs = require("../controllers/blogs");
 module.exports = app => {
   app.get("/", users.index);
   app.get("", blogs.index);
+
   app.get("/user/login", users.userLogin)
   //User Login Only
   app.post('/users/main', users.main)
+
   //Blogger Login Only
   app.get("/blogger/login", bloggers.bloggerLogin);
 
@@ -25,11 +27,26 @@ module.exports = app => {
     bloggers.adminApprove
   );
   //ROUTE FOR VIEWING INDIVIDUAL BLOGGER FOR ADMIN
-  // app.get(
-  //   "/admin/view/blogger/:blogger_id",
-  //   adminAuthMiddleware,
-  //   bloggers.adminBloggerView
-  // );
+  app.get(
+    "/admin/view/blogger/:blogger_id",
+    adminAuthMiddleware,
+    bloggers.adminBloggerView
+  );
+  app.get(
+    "/admin/reject/blogger/:blogger_id",
+    adminAuthMiddleware,
+    bloggers.adminRejectBlogger
+  );
+  app.get(
+    "/admin/pending-regs",
+    adminAuthMiddleware,
+    bloggers.adminPendingRegs
+  );
+  app.get(
+    "/admin/view/blogger/:blogger_id",
+    adminAuthMiddleware,
+    bloggers.adminBloggerView
+  );
 };
 function adminAuthMiddleware(req, res, next) {
   if (!req.session.admin || req.session.admin.role !== "admin") {

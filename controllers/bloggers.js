@@ -35,7 +35,6 @@ module.exports = {
           req.session.admin = admin;
           res.redirect("/admin/home");
         } else {
-          console.log(req.body);
           req.flash("info", "Invalid password");
           res.redirect("/admin/login");
         }
@@ -47,7 +46,8 @@ module.exports = {
     let pendingBloggerRegistrations = knex("bloggers")
       .where("bloggers.approved", "=", "false")
       .orderBy("created_at")
-      .whereNot("role", "=", "admin");
+      .whereNot("role", "=", "admin")
+      .andWhereNot("rejected", "=", "true");
 
     let pendingBlogPosts = knex("blogs")
       .select("blogs.*", "bloggers.blogger_name")
@@ -121,6 +121,47 @@ module.exports = {
       })
       .then(() => {
         res.redirect("/admin/home");
+      });
+  },
+  adminBloggerView: (req, res) => {
+    knex("bloggers")
+      .where("bloggers.id", "=", req.params.blogger_id)
+      .then(result => {
+        let appSubmittedOn = moment(result[0].created_at)
+          .toString()
+          .slice(0, 16);
+        res.render("admin-blogger-view", {
+          blogger: result[0],
+          appSubmittedOn: appSubmittedOn
+        });
+      });
+  },
+  adminRejectBlogger: (req, res) => {
+    knex("bloggers")
+      .where("bloggers.id", "=", req.params.blogger_id)
+      .update({
+        rejected: true
+      })
+      .then(() => {
+        res.redirect("/admin/home");
+      });
+  },
+  adminPendingRegs: (req, res) => {
+    knex("bloggers")
+      .where("bloggers.approved", "=", "false")
+      .orderBy("created_at")
+      .whereNot("role", "=", "admin")
+      .andWhereNot("rejected", "=", "true")
+      .then(results => {
+        let requestedOn = results.map(reg =>
+          moment(reg.created_at)
+            .toString()
+            .slice(0, 16)
+        );
+        res.render("admin-pending-regs", {
+          pendingBloggerRegistrations: results,
+          requestedOn: requestedOn
+        });
       });
   }
 };
