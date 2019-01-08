@@ -83,6 +83,19 @@ module.exports = {
       })
       .then(() => {
         res.redirect("/admin/home");
-      });
+      })
+      .catch(err => console.log(err));
+  },
+  adminRejectBan: (req, res) => {
+    knex("users")
+      .where("users.id", req.params.user_id)
+      .update({
+        banned: false,
+        "ban-requested": false
+      })
+      .then(() => {
+        res.redirect("/admin/home");
+      })
+      .catch(err => console.log(err));
   }
 };

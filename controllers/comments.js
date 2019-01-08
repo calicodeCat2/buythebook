@@ -8,6 +8,7 @@ module.exports = {
       .del()
       .then(results => {
         res.redirect(`/admin/view/approved-blog/${req.params.blog_id}`);
-      });
+      })
+      .catch(err => console.log(err));
   }
 };
