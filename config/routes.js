@@ -6,13 +6,20 @@ module.exports = app => {
   app.get("/", users.index);
   app.get("", blogs.index);
 
-  app.get("/user/login", users.userLogin);
-  //User Login Only
-  app.post("/users/main", users.main);
+//User Login Only
+  app.get("/user/login", users.userLogin)
+  app.post('/users/main', users.main)
+  app.get('/users/main', userMiddleware, users.show)
+  app.get('/profile/:id', userMiddleware, users.profile)
 
+
+  // Greg's Routes (mainly)
   //Blogger Login Only
-  app.get("/blogger/login", bloggers.bloggerLogin);
+  app.get("/blogger/login", bloggers.bloggerLoginPage);
 
+  app.post("/blogger/login", bloggers.bloggerLogin)
+
+  app.get("/blogger/home", bloggers.bloggerHome)
   //Mandy's routes
   //Admin routes
   app.get("/admin/login", bloggers.adminLoginPage);
