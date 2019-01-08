@@ -10,9 +10,13 @@ module.exports = app => {
   //User Login Only
   app.post('/users/main', users.main)
 
+  // Greg's Routes (mainly)
   //Blogger Login Only
-  app.get("/blogger/login", bloggers.bloggerLogin);
+  app.get("/blogger/login", bloggers.bloggerLoginPage);
 
+  app.post("/blogger/login", bloggers.bloggerLogin)
+
+  app.get("/blogger/home", bloggers.bloggerHome)
   //Mandy's routes
   //Admin routes
   app.get("/admin/login", bloggers.adminLoginPage);

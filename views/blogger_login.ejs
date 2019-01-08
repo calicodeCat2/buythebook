@@ -5,6 +5,10 @@
     <title>Blogger Login</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <style media="screen">
+      body {
+        text-align: center;
+        overflow: scroll;
+      }
       .column {
         width: 400px;
         float: left;
@@ -23,7 +27,10 @@
     <row class="warning">
     <h3>**WARNING** 
     </h3>
-    <p>This page is for Bloggers only. If you have not been approved for a Blogger account by and Admin, please visit the user login page.</p>
+    <p>This page is for Bloggers only. If you have not been approved for a Blogger account by and Admin, please visit the user login page. 
+    </p>
+    <p>If you are trying register for a Blogger account, an admin must first approve your request before you can begin using that account. Happy Blogging!
+    </p>
     <div class="container">
   <div class="row">
     </row>
@@ -43,12 +50,15 @@
         <input type="text" name="confirm_password" placeholder="Confirm Password">
       </form>
     </div>
+
     <div class="col">
       <form class="" action="/blogger/register" method="post">
         <input type="date" name="DOB" placeholder="Date of Birth">
         <label for="select">Years Blogging</label>
-        <select class="" name="years_blogging">z
+        <select class="" name="years_blogging">
           <option value="">Not long</option>
+          <option value="">2 years</option>
+          <option value="">3 years</option>
         </select>
         <input type="text" name="link" placeholder="Personal Link">
         <input type="text" name="sample" placeholder="Writing Sample">
@@ -57,5 +67,6 @@
     </div>
   </div>
   </div>
+  <footer>Copyright 2019 BuyTheBook Blog sight all rights reserved.</footer>
   </body>
 </html>
