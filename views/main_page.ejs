@@ -1,11 +1,58 @@
 <!DOCTYPE html>
+
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
     <title>Main Page</title>
+    <style media="screen">
+      .writerBloc {
+        float: left;
+        width: 250px;
+        height: 250px;
+        border: solid 1px black;
+        padding: 5px;
+        margin: 10px;
+      }
+      contentBloc {
+        float: left;
+        width: 200px;
+        height: 200px;
+        border: solid 1px black;
+        padding: 5px;
+        margin: 10px;
+      }
+    </style>
   </head>
   <body>
-    <h1>I AM HERE! Three Cheers and a Tiger for me! I have won!</h1>
+    <nav>
+      <a href="#">Home</a>
+      <select class="" name="Options">
+        <option value="logout">Logout</option>
+        <option value="logout">Edit Profile</option>
+        <option value="logout">Your Comments</option>
+      </select>
+    </nav>
+    <h1>Welcome Gentle Readers</h1>
+    <h2>Our Writers</h2>
+    <div class="row">
+    <% for (let i = 0; i < bloggers.length; i++) { %>
+    <div class="column writerBloc">
+      <h3><%= bloggers[i].blogger_name %></h3>
+      <img src="<%= bloggers[i].image_url %>" height="125px" alt="Writer Picture">
+      <article><%= bloggers[i].genre %></article>
+      <a href="/profile/<%= bloggers.id %>">Profile</a>
+      </div>
+      <% } %>
+      <h2>Our Articles</h2>
+      <div class="row">
+      <% for (i = 0; i < bloggers.length; i++) { %>
+      <div class="column contentBloc">
+        <h5><%= bloggers[i].blogger_name %></h5>
+        <h5><%= blogs[i].blog_title %></h5>
+        <article><%= blogs[i].blog_content.slice(0, 140) %></article>
+        </div>
+        <% } %>
 
+      </div>
   </body>
 </html>

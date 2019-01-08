@@ -5,10 +5,12 @@ const blogs = require("../controllers/blogs");
 module.exports = app => {
   app.get("/", users.index);
   app.get("", blogs.index);
-
+//User Login Only
   app.get("/user/login", users.userLogin)
-  //User Login Only
   app.post('/users/main', users.main)
+  app.get('/users/main', userMiddleware, users.show)
+  app.get('/profile/:id', userMiddleware, users.profile)
+
 
   //Blogger Login Only
   app.get("/blogger/login", bloggers.bloggerLogin);

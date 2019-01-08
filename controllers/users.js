@@ -23,19 +23,45 @@ module.exports = {
       .where('user_email', req.body.user_email)
       .then((results) => {
         let user = results[0]
-        console.log('user', results[0]);
         if (!user) {
           res.redirect('user/login')
         } else if (user.user_password === req.body.user_password) {
           req.session.user = user;
-          console.log('session',req.session.user);
           req.session.blogger = null;
           req.session.admin = null;
-          res.render('main_page', {user:results[0]})
+          res.redirect('/users/main')
         } else {
           res.redirect('user/login')
         }
 
+      })
+  },
+
+  show: (req, res) => {
+    knex('bloggers')
+      .select('bloggers.id', 'bloggers.image_url',
+        'bloggers.blogger_name', 'bloggers.genre',
+        'blogs.id', 'blogs.blog_title', 'blogs.blog_content')
+      .join('blogs', 'blogger_id', '=', 'bloggers.id')
+      .orderBy('blogs.blog_title', 'asc')
+      .then((results) => {
+        res.render('main_page', {
+          bloggers: results,
+          blogs: results
+        })
+      })
+  },
+
+  profile: (req, res) => {
+    knex('bloggers')
+      .select('bloggers.id', 'bloggers.image_url',
+        'bloggers.blogger_name', 'bloggers.genre',
+        'blogs.id', 'blogs.blog_title', 'blogs.blog_content')
+      .join('blogs', 'blogger_id', '=', 'bloggers.id')
+      .then((results) => {
+          let blogger = results[0]
+
+          res.render('blogger_profile', {bloggers:results[0], blogs:results})
       })
   }
 };
