@@ -50,6 +50,11 @@ module.exports = {
       .where("bloggers.approved", "=", "false")
       .orderBy("created_at")
       .whereNot("role", "=", "admin");
+
+    let pendingBlogPosts = knex("blogs")
+      .where("blogs.approved", "=", "false")
+      .orderBy("created_at");
+
     Promise.all([pendingBloggerRegistrations]).then(results => {
       console.log();
       let firstThreeRegs = results[0].slice(0, 3);

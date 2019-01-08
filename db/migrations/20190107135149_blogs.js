@@ -10,6 +10,7 @@ exports.up = function(knex, Promise) {
       .inTable("bloggers")
       .onDelete("CASCADE")
       .index();
+    table.boolean("approved").defaultTo(false);
     table.timestamps(true, true);
   });
 };
