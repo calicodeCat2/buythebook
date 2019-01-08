@@ -8,8 +8,8 @@ module.exports = {
   },
   //THIS RENDERS THE BLOGGER LOGIN PAGE
 
-  bloggerLoginPage: function(req, res) {
-    res.render("blogger_login");
+  bloggerLoginPage: function (req, res) {
+    res.render('blogger_login');
   },
 
   //This logs in the bloggers then redirects them to their home page
@@ -18,31 +18,30 @@ module.exports = {
       .andWhere("role", "blogger")
       .andWhere("approved", true)
       .where("blogger_email", req.body.blogger_email)
-      .then(results => {
-        let blogger = results[0];
-        console.log(blogger);
-        if (!blogger) {
-          req.flash("Info", "Not a valid Blogger email.");
-          res.redirect("/blogger/login");
+      .then((results) => {
+        let blogger = results[0]
+        console.log(blogger)
+        if(!blogger) {
+          req.flash("Info", 'Not a valid Blogger email.')
+          res.redirect('/blogger/login')
         } else if (
-          req.body.blogger_password &&
-          blogger.blogger_password === req.body.password
-        ) {
-          req.session.user = null;
-          req.session.admin = null;
-          res.session.blogger = blogger;
-          res.redirect("/blogger/home");
+          req.body.blogger_password && blogger.blogger_password === req.body.password) 
+          {
+          req.session.user = null
+          req.session.admin = null
+          res.session.blogger = blogger
+          res.redirect("/blogger/home")
         } else {
-          req.flash("Info", "Invalid Password");
-          res.redirect("/blogger/login");
+          req.flash("Info", "Invalid Password")
+          res.redirect("/blogger/login")
         }
-      });
+      })
   },
 
-  bloggerHome: function(req, res) {
-    knex("blogs").then(results => {
-      res.render("blogger_home", { blogs: results });
-    });
+  bloggerHome: function(req, res){
+    knex('blogs').then((results) => {
+      res.render('blogger_home', {blogs : results})
+    })
   },
 
   //this renders the adminstrator login page
