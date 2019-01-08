@@ -4,12 +4,8 @@ module.exports = {
     connection: {
       database: "buybookdata",
       host: "127.0.0.1",
-<<<<<<< HEAD
       //user: "postgres",
       //password: "**********"
-=======
-
->>>>>>> f3c089f96e09ae2fefaa165ed0d8d98621748b52
     },
     migrations: {
       directory: __dirname + "/db/migrations"

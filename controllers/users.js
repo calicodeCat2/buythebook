@@ -83,11 +83,12 @@ module.exports = {
         res.render("main_page", {
           bloggers: results,
           blogs: results
+        }
         });
       });
   },
 
-  profile: (req, res) => {
+  profile : (req, res) => {
     knex("bloggers")
       .select(
         "bloggers.id",
