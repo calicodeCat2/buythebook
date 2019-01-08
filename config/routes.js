@@ -58,6 +58,7 @@ module.exports = app => {
     adminAuthMiddleware,
     blogs.adminReject
   );
+  app.get("/admin/pending-blogs", adminAuthMiddleware, blogs.adminPendingBlogs);
 };
 function adminAuthMiddleware(req, res, next) {
   if (!req.session.admin || req.session.admin.role !== "admin") {

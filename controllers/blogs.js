@@ -42,5 +42,26 @@ module.exports = {
       .then(() => {
         res.redirect("/admin/home");
       });
+  },
+  adminPendingBlogs: (req, res) => {
+    knex("blogs")
+      .select("blogs.*", "bloggers.blogger_name")
+      .where("blogs.approved", "=", "false")
+      .orderBy("created_at")
+      .whereNot("role", "=", "admin")
+      .andWhereNot("blogs.rejected", "=", "true")
+      .innerJoin("bloggers", "blogs.blogger_id", "=", "bloggers.id")
+
+      .then(results => {
+        let requestedOn = results.map(reg =>
+          moment(reg.created_at)
+            .toString()
+            .slice(0, 16)
+        );
+        res.render("admin-pending-blogs", {
+          pendingBlogPosts: results,
+          requestedOn: requestedOn
+        });
+      });
   }
 };
