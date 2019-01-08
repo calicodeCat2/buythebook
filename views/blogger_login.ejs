@@ -19,21 +19,30 @@
     <h1>Login or Register</h1>
     <div class="container">
   <div class="row">
-    <div class="col">
       <h3>Active Bloggers: Login</h3>
       <form class="" action="/blogs/" method="post">
         <input type="text" name="email" placeholder="Email">
-        <input type="text" name="user_password" placeholder="Password">
+        <input type="text" name="blogger_password" placeholder="Password">
       </form>
-    </div>
     <div class="col"><h3>New Bloggers: Register</h3>
-      <form class="" action="/user/login" method="post">
+      <form class="" action="/blogger/register" method="post">
         <input type="text" name="name" placeholder="Name">
-        <input type="text" name="screen_name" placeholder="Screen Name">
         <input type="text" name="email" placeholder="Email">
-        <input type="text" name="user_password" placeholder="Password">
+        <input type="text" name="blogger_password" placeholder="Password">
         <input type="text" name="confirm_password" placeholder="Confirm Password">
       </form>
+    </div>
+    <div class="col">
+      <form class="" action="/blogger/register" method="post">
+        <input type="date" name="DOB" placeholder="Date of Birth">
+        <label for="select">Years Blogging</label>
+        <select class="" name="years_blogging">z
+          <option value="">Not long</option>
+        </select>
+        <input type="text" name="link" placeholder="Personal Link">
+        <input type="text" name="sample" placeholder="Writing Sample">
+      </form>
+
     </div>
   </div>
   </div>

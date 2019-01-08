@@ -6,8 +6,8 @@ module.exports = app => {
   app.get("/", users.index);
   app.get("", blogs.index);
   app.get("/user/login", users.userLogin)
-
-
+  //User Login Only
+  app.post('/users/main', users.main)
   //Blogger Login Only
   app.get("/blogger/login", bloggers.bloggerLogin);
 
