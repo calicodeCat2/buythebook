@@ -5,6 +5,7 @@ const blogs = require("../controllers/blogs");
 module.exports = app => {
   app.get("/", users.index);
   app.get("", blogs.index);
+  app.get("/user/login", users.userLogin);
 
   //Blogger Login Only
   app.get("/blogger/login", bloggers.bloggerLogin);
@@ -37,6 +38,11 @@ module.exports = app => {
     "/admin/pending-regs",
     adminAuthMiddleware,
     bloggers.adminPendingRegs
+  );
+  app.get(
+    "/admin/view/blogger/:blogger_id",
+    adminAuthMiddleware,
+    bloggers.adminBloggerView
   );
 };
 function adminAuthMiddleware(req, res, next) {

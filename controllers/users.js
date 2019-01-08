@@ -7,7 +7,11 @@ module.exports = {
       .then((results) => {
 
           res.render('splash', {blogs:results, bloggers:results})
-  console.log(results);
+
       })
+  },
+
+  userLogin: (req, res) => {
+    res.render('user-login')
   }
 };

@@ -9,9 +9,7 @@ module.exports = {
   //THIS RENDERS THE ADMIN LOGIN PAGE
 
   bloggerLogin: function(req, res) {
-    knex("buybookdata").then(results => {
-      res.render("blogger_loggin");
-    });
+      res.render("blogger_login");
   },
 
   //this renders the adminstrator login page
