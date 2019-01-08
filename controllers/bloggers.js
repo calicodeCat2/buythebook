@@ -148,5 +148,22 @@ module.exports = {
         res.redirect("/admin/home");
       });
   },
-  adminPendingRegs: (req, res) => {}
+  adminPendingRegs: (req, res) => {
+    knex("bloggers")
+      .where("bloggers.approved", "=", "false")
+      .orderBy("created_at")
+      .whereNot("role", "=", "admin")
+      .andWhereNot("rejected", "=", "true")
+      .then(results => {
+        let requestedOn = results.map(reg =>
+          moment(reg.created_at)
+            .toString()
+            .slice(0, 16)
+        );
+        res.render("admin-pending-regs", {
+          pendingBloggerRegistrations: results,
+          requestedOn: requestedOn
+        });
+      });
+  }
 };
