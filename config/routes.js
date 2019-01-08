@@ -25,11 +25,11 @@ module.exports = app => {
     bloggers.adminApprove
   );
   //ROUTE FOR VIEWING INDIVIDUAL BLOGGER FOR ADMIN
-  // app.get(
-  //   "/admin/view/blogger/:blogger_id",
-  //   adminAuthMiddleware,
-  //   bloggers.adminBloggerView
-  // );
+  app.get(
+    "/admin/view/blogger/:blogger_id",
+    adminAuthMiddleware,
+    bloggers.adminBloggerView
+  );
 };
 function adminAuthMiddleware(req, res, next) {
   if (!req.session.admin || req.session.admin.role !== "admin") {
