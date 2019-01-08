@@ -10,7 +10,7 @@ module.exports = {
     knex("blogs")
       .where("blogs.id", "=", req.params.blog_id)
       .update({
-        approved: false
+        approved: true
       })
       .then(result => {
         res.redirect("/admin/home");
@@ -31,6 +31,16 @@ module.exports = {
           blog: result[0],
           writtenOn: writtenOn
         });
+      });
+  },
+  adminReject: (req, res) => {
+    knex("blogs")
+      .where("blogs.id", "=", req.params.blog_id)
+      .update({
+        rejected: true
+      })
+      .then(() => {
+        res.redirect("/admin/home");
       });
   }
 };

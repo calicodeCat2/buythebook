@@ -11,6 +11,7 @@ exports.up = function(knex, Promise) {
       .onDelete("CASCADE")
       .index();
     table.boolean("approved").defaultTo(false);
+    table.boolean("rejected").defaultTo(false);
     table.timestamps(true, true);
   });
 };
