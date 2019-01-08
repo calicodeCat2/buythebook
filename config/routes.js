@@ -19,6 +19,7 @@ module.exports = app => {
   app.post("/admin/login", bloggers.adminLogin);
 
   //PAGES ONLY AVAILABLE TO LOGGED IN ADMINS
+  app.get("/admin/logout", adminAuthMiddleware, bloggers.adminLogout);
   app.get("/admin/home", adminAuthMiddleware, bloggers.adminHome);
   //ROUTE TO APPROVE BLOGGER
   app.get(

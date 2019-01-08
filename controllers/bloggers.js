@@ -41,6 +41,12 @@ module.exports = {
       })
       .catch(err => console.log(err));
   },
+  adminLogout: (req, res) => {
+    req.session.user = null;
+    req.session.blogger = null;
+    req.session.admin = null;
+    res.redirect("/admin/home");
+  },
   //THIS RENDERS THE ADMIN HOME PAGE
   adminHome: (req, res) => {
     let pendingBloggerRegistrations = knex("bloggers")
