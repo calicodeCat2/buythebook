@@ -97,5 +97,15 @@ module.exports = {
         res.redirect("/admin/home");
       })
       .catch(err => console.log(err));
+  },
+  banReqViewAll: (req, res) => {
+    knex("users")
+      .where("users.ban-requested", "=", "true")
+      .andWhereNot("users.banned", "true")
+      .orderBy("users.created_at")
+      .then(results => {
+        console.log(results);
+        res.render("admin-userbans-view", { users: results });
+      });
   }
 };

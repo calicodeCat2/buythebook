@@ -9,32 +9,32 @@ module.exports = {
   //THIS RENDERS THE BLOGGER LOGIN PAGE
 
   bloggerLoginPage: function(req, res) {
-    res.render('blogger_login')
+    res.render("blogger_login");
   },
 
   bloggerLogin: function(req, res) {
-    knex('bloggers')
-      .where('blogger_email', req.body.blogger_email)
-      .then((results) => {
-        let blogger = results[0]
-        console.log(results[0])
-        if(!blogger){
-          res.redirect('blogger_login')
-        } else if(bloggers.blogger_password === req.body.password){
-          res.session.blogger = blogger
+    knex("bloggers")
+      .where("blogger_email", req.body.blogger_email)
+      .then(results => {
+        let blogger = results[0];
+        console.log(results[0]);
+        if (!blogger) {
+          res.redirect("blogger_login");
+        } else if (bloggers.blogger_password === req.body.password) {
+          res.session.blogger = blogger;
 
-          req.session.user = null
-          req.session.admin = null
-          res.render("blogger_home", {blogger:results[0]})
-        } else{
-          res.redirect("blogger_login")
+          req.session.user = null;
+          req.session.admin = null;
+          res.render("blogger_home", { blogger: results[0] });
+        } else {
+          res.redirect("blogger_login");
         }
-      })
+      });
   },
 
-  bloggerHome: function(req, res){
-    if(bloggerLogin === true){
-      res.render("blogger_home")
+  bloggerHome: function(req, res) {
+    if (bloggerLogin === true) {
+      res.render("blogger_home");
     }
     res.render("blogger_login");
   },
@@ -91,6 +91,7 @@ module.exports = {
 
     let pendingBanRequests = knex("users")
       .where("users.ban-requested", "=", "true")
+      .andWhereNot("users.banned", "true")
       .orderBy("users.created_at");
 
     let approvedBlogs = knex("blogs")

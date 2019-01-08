@@ -87,6 +87,7 @@ module.exports = app => {
     adminAuthMiddleware,
     users.adminRejectBan
   );
+  app.get("/admin/user-bans", adminAuthMiddleware, users.banReqViewAll);
 };
 function adminAuthMiddleware(req, res, next) {
   if (!req.session.admin || req.session.admin.role !== "admin") {
