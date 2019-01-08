@@ -92,19 +92,27 @@ module.exports = {
       .where("blogs.id", "=", req.params.blog_id)
       .innerJoin("bloggers", "blogs.blogger_id", "bloggers.id");
     let comments = knex("comments")
-      .select("comments.*", "blogs.blog_title")
-      .innerJoin("blogs", "comments.blog_id", "blogs.id");
+      .where("comments.blog_id", "=", req.params.blog_id)
+      .select("comments.*", "users.screen_name")
+      .innerJoin("users", "comments.user_id", "users.id");
     Promise.all([blog, comments])
       .then(results => {
         let blog = results[0][0];
         let comments = results[1];
+        console.log(comments);
+        let commentMadeOn = comments.map(comment =>
+          moment(comment.created_at)
+            .toString()
+            .slice(0, 16)
+        );
         let writtenOn = moment(blog.created_on)
           .toString()
           .slice(0, 16);
         res.render("admin-approved-blog-view", {
           blog: blog,
           comments: comments,
-          writtenOn: writtenOn
+          writtenOn: writtenOn,
+          commentMadeOn: commentMadeOn
         });
       })
       .catch(err => console.log(err));

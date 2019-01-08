@@ -15,7 +15,19 @@
         <div class="content"><%= blog.blog_content %></div>
         <a href="/admin/reject/blog/<%= blog.id %>">Revoke Blog Approval</a>
       </section>
-      <section class="comments"><h1>Comments</h1></section>
+      <section class="comments">
+        <h1>Comments</h1>
+        <div class="comments-container">
+          <% for (let i = 0; i < comments.length; i++) { %>
+          <div class="comment-box">
+            <h4><%= comments[i].screen_name %></h4>
+            <h6>Date: <%= commentMadeOn[i] %></h6>
+            <p><%= comments[i].content %></p>
+            <a href="admin/comments/delete">Delete Comment</a>
+          </div>
+          <% } %>
+        </div>
+      </section>
     </main>
   </body>
 </html>
