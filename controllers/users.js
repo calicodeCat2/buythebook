@@ -36,55 +36,23 @@ module.exports = {
   },
 
   show: (req, res) => {
-
-    let bloggers =
-    knex('bloggers')
-      .select('bloggers.id', 'bloggers.image_url',
-        'bloggers.blogger_name', 'bloggers.genre',)
-    let blogs =
-      knex('blogs')
-      .select('blogs.*', 'bloggers.blogger_name')
-      .join('bloggers', 'bloggers.id', 'blogs.blogger_id')
-      Promise.all([bloggers, blogs])
-      .then((results) => {
-        console.log('bloggers', results[0])
-      console.log('blogs', results[1])
-        res.render('main_page', {
-          bloggers: results[0],
-          blogs: results[1]
-        })
-      })
-  },
-
-  profile: (req, res) => {
-    console.log("Napoleon, I am here");
-    knex('bloggers').where('bloggers.id', req.params.id)
-      .select('bloggers.id', 'bloggers.image_url',
-        'bloggers.blogger_name', 'bloggers.genre',
-        'blogs.id', 'blogs.blog_title', 'blogs.blog_content')
-      .join('blogs', 'blogger_id', '=', 'bloggers.id')
-      .then((results) => {
-          let blogger = results[0]
-          res.render('blogger_profile', {blogger:results[0], blogs:results})
-
-    knex("bloggers")
-      .select(
-        "bloggers.id",
-        "bloggers.image_url",
-        "bloggers.blogger_name",
-        "bloggers.genre",
-        "blogs.id",
-        "blogs.blog_title",
-        "blogs.blog_content"
-      )
-      .join("blogs", "blogger_id", "=", "bloggers.id")
-      .orderBy("blogs.blog_title", "asc")
-      .then(results => {
-        res.render("main_page", {
-          bloggers: results,
-          blogs: results
-        });
+    let bloggers = knex("bloggers").select(
+      "bloggers.id",
+      "bloggers.image_url",
+      "bloggers.blogger_name",
+      "bloggers.genre"
+    );
+    let blogs = knex("blogs")
+      .select("blogs.*", "bloggers.blogger_name")
+      .join("bloggers", "bloggers.id", "blogs.blogger_id");
+    Promise.all([bloggers, blogs]).then(results => {
+      console.log("bloggers", results[0]);
+      console.log("blogs", results[1]);
+      res.render("main_page", {
+        bloggers: results[0],
+        blogs: results[1]
       });
+    });
   },
 
   profile: (req, res) => {
@@ -105,6 +73,7 @@ module.exports = {
         res.render("blogger_profile", { bloggers: results[0], blogs: results });
       });
   },
+
   adminBan: (req, res) => {
     knex("users")
       .where("users.id", req.params.user_id)
@@ -129,7 +98,7 @@ module.exports = {
       })
       .catch(err => console.log(err));
   },
-  banReqViewAll: (req, res) => {
+  adminBanReqViewAll: (req, res) => {
     let users = knex("users")
       .where("users.ban-requested", "=", "true")
       .andWhereNot("users.banned", "true")

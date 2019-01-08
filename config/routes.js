@@ -89,7 +89,7 @@ module.exports = app => {
     adminAuthMiddleware,
     users.adminRejectBan
   );
-  app.get("/admin/user-bans", adminAuthMiddleware, users.banReqViewAll);
+  app.get("/admin/user-bans", adminAuthMiddleware, users.adminBanReqViewAll);
   app.get(
     "/admin/users/view/:user_id",
     adminAuthMiddleware,
