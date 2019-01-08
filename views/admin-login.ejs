@@ -15,7 +15,13 @@
 
     <!-- LOGIN FORM -->
     <div class="login">
-      <div class="login-fail"><p><%= message %></p></div>
+      <div class="login-fail">
+        <% if(message === "Invalid password") { %>
+        <p><%= message %></p>
+        <% } else if (message === "Could not locate a user with that email") {%>
+        <p><%= message %></p>
+        <% } %>
+      </div>
       <form action="/admin/login" method="POST">
         <input type="email" placeholder="email" name="admin_email" />
         <input type="password" placeholder="password" name="admin_password" />

@@ -7,6 +7,7 @@
     <title>Document</title>
   </head>
   <body>
+    <a href="/admin/logout">Logout</a>
     <h1>Welcome, <%= admin.blogger_name %></h1>
 
     <section class="pending-bloggers">
@@ -93,7 +94,8 @@
             Preview: <%= firstThreeApprovedBlogs[i].blog_content.slice(0, 140) +
             "..." %>
           </p>
-          <a href="/admin/approved/blog/<%= firstThreeApprovedBlogs[i].id %>"
+          <a
+            href="/admin/view/approved-blog/<%= firstThreeApprovedBlogs[i].id %>"
             >View Blog</a
           >
           <hr />
@@ -126,6 +128,7 @@
           >
         </li>
         <% } %>
+        <a href="/admin/user-bans">View All</a>
       </ul>
     </section>
   </body>

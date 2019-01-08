@@ -1,14 +1,16 @@
 const bloggers = require("../controllers/bloggers");
 const users = require("../controllers/users");
 const blogs = require("../controllers/blogs");
-
+const comments = require("../controllers/comments");
 module.exports = app => {
   app.get("/", users.index);
   app.get("", blogs.index);
 
-  app.get("/user/login", users.userLogin);
   //User Login Only
+  app.get("/user/login", users.userLogin);
   app.post("/users/main", users.main);
+  app.get("/users/main", userMiddleware, users.show);
+  app.get("/profile/:id", userMiddleware, users.profile);
 
   // Greg's Routes (mainly)
   //Blogger Login
@@ -16,15 +18,20 @@ module.exports = app => {
 
   app.post("/blogger/login", bloggers.bloggerLogin);
 
+<<<<<<< HEAD
   //Redirect Blogger to home/main profile page
   app.get("/blogger/home", bloggerAuthMiddleware, bloggers.bloggerHome);
   
+=======
+  app.get("/blogger/home", bloggers.bloggerHome);
+>>>>>>> f3c089f96e09ae2fefaa165ed0d8d98621748b52
   //Mandy's routes
   //Admin routes
   app.get("/admin/login", bloggers.adminLoginPage);
   app.post("/admin/login", bloggers.adminLogin);
 
   //PAGES ONLY AVAILABLE TO LOGGED IN ADMINS
+  app.get("/admin/logout", adminAuthMiddleware, bloggers.adminLogout);
   app.get("/admin/home", adminAuthMiddleware, bloggers.adminHome);
   //ROUTE TO APPROVE BLOGGER
   app.get(
@@ -65,6 +72,28 @@ module.exports = app => {
     blogs.adminReject
   );
   app.get("/admin/pending-blogs", adminAuthMiddleware, blogs.adminPendingBlogs);
+  app.get(
+    "/admin/view/approved-blog/:blog_id",
+    adminAuthMiddleware,
+    blogs.adminApprovedView
+  );
+  app.get(
+    "/admin/approved-blogs",
+    adminAuthMiddleware,
+    blogs.adminApprovedBlogs
+  );
+  app.get(
+    "/admin/comments/delete/:comment_id/:blog_id",
+    adminAuthMiddleware,
+    comments.adminDelete
+  );
+  app.get("/admin/users/ban/:user_id", adminAuthMiddleware, users.adminBan);
+  app.get(
+    "/admin/users/unban/:user_id",
+    adminAuthMiddleware,
+    users.adminRejectBan
+  );
+  app.get("/admin/user-bans", adminAuthMiddleware, users.banReqViewAll);
 };
 function adminAuthMiddleware(req, res, next) {
   if (!req.session.admin || req.session.admin.role !== "admin") {
