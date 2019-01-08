@@ -1,0 +1,10 @@
+#1 As an admin, when I go to the admin login page, I only see a form to log in.
+#2 As an admin, when I log in, if I input the incorrect credentials, I'm redirected to the admin/login page
+#3 As an admin, when I enter the correct credentials, I'm redirected to the main page for the admin.
+
+#4 As an admin, on the main page, I should see multiple website management options. 
+
+    #5 I should see a list of pending blogger applications. 
+    #6 I should see a list of pending blog posts. 
+    #7 I should see a list of pending ban requests. 
+    #8

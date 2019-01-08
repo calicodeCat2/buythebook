@@ -3,9 +3,8 @@ const users = require("../controllers/users");
 const blogs = require("../controllers/blogs");
 
 module.exports = app => {
-  app.get("/", users.index)
+  app.get("/", users.index);
   app.get("", blogs.index);
-  
 
   //Blogger Login Only
   app.get("/blogger/login", bloggers.bloggerLogin);
@@ -24,20 +23,20 @@ function adminAuthMiddleware(req, res, next) {
   } else {
     next();
   }
+}
 
-  function bloggerAuthMiddleware(req, res, next) {
-    if (!req.session.blogger || req.session.blogger.role !== "blogger") {
-      res.redirect("blogger/login");
-    } else {
-      next();
-    }
+function bloggerAuthMiddleware(req, res, next) {
+  if (!req.session.blogger || req.session.blogger.role !== "blogger") {
+    res.redirect("blogger/login");
+  } else {
+    next();
   }
-  
+}
 
-   function userMiddleware(req, res, next) {
-       if (!req.session.user) {
-           res.redirect("/");
-       } else {
-           next();
-       }
+function userMiddleware(req, res, next) {
+  if (!req.session.user) {
+    res.redirect("/");
+  } else {
+    next();
+  }
 }
