@@ -2,10 +2,6 @@ const knex = require("../db/knex.js");
 const moment = require("moment");
 
 module.exports = {
-  // CHANGE ME TO AN ACTUAL FUNCTION
-  index: function(req, res) {
-    res.send("Hello");
-  },
   adminApprove: (req, res) => {
     knex("blogs")
       .where("blogs.id", "=", req.params.blog_id)
