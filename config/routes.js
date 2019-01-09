@@ -26,6 +26,7 @@ module.exports = app => {
   //Redirect Blogger to home/main profile page
   app.get("/blogger/home", bloggerAuthMiddleware, bloggers.bloggerHome);
 
+
   //Mandy's routes
   //Admin routes
   app.get("/admin/login", bloggers.adminLoginPage);
