@@ -14,8 +14,10 @@ module.exports = app => {
   app.get("/users/main", userMiddleware, users.show);
   app.get("/profile/:id", userMiddleware, users.profile);
   app.get("/user/logout", userMiddleware, users.logout);
-  // app.get("/article/:id", userMiddleware, users.profileArticle);
+  app.get("/upvote/:id", userMiddleware, users.upPlus);
+  app.get("/downvote/:id", userMiddleware, users.downMinus);
   app.get("/article/:id", userMiddleware, users.mainArticle);
+
 
   // Greg's Routes (mainly)
   //Blogger Login

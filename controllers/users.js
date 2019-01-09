@@ -60,8 +60,6 @@ module.exports = {
       .select("blogs.*", "bloggers.blogger_name")
       .join("bloggers", "bloggers.id", "blogs.blogger_id");
     Promise.all([bloggers, blogs]).then(results => {
-      console.log("bloggers", results[0]);
-      console.log("blogs", results[1]);
       res.render("main_page", {
         bloggers: results[0],
         blogs: results[1],
@@ -110,7 +108,9 @@ module.exports = {
         "bloggers.genre",
         "blogs.id",
         "blogs.blog_title",
-        "blogs.blog_content"
+        "blogs.blog_content",
+        "blogs.upvote",
+        "blogs.downvote"
       )
       .join("bloggers", "blogger_id", "=", "bloggers.id");
     let comments = knex("comments")
@@ -118,7 +118,6 @@ module.exports = {
       .select("comments.*", "users.id", "users.screen_name")
       .join("users", "users.id", "=", "comments.user_id");
     Promise.all([blog, comments]).then(results => {
-      console.log("what's up?", results);
       res.render("blogger_article", {
         blog: results[0][0],
         comments: results[1]
@@ -142,6 +141,29 @@ module.exports = {
   userEdit: (req, res) => {
     // Work in Progress
   },
+
+  upPlus: (req, res) => {
+    knex('blogs')
+      .where('blogs.id', '=', req.params.id)
+      .increment('upvote', 1)
+      .then(() => {
+
+        res.redirect(`/article/${req.params.id}`)
+      })
+  },
+
+  downMinus: (req, res) => {
+    knex('blogs')
+    .where('blogs.id', '=', req.params.id)
+    .increment('downvote', 1)
+    .then(() => {
+
+      res.redirect(`/article/${req.params.id}`)
+    })
+
+
+  },
+
 
   // Admin below this line, Users above
 

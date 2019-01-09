@@ -5,21 +5,18 @@
     <title>Specific Article</title>
   </head>
   <body>
-    <nav>
-      <a href="#">Back to Writers</a>
-      <select class="" name="Options">
-        <option value="logout">Logout</option>
-        <option value="logout">Edit Profile</option>
-        <option value="logout">Your Comments</option>
-      </select>
-    </nav>
     <div class="container">
       <h2><%= blog.blog_title %></h2>
       <span>By: <%= blog.blogger_name %></span>
       <img src="<%= blog.image_url %>" height="50px" alt="">
       <div class="article">
         <%= blog.blog_content %>
+      <div class="votes">
+        <a href="/upvote/<%= blog.id %>">*uv*</a> | <span><%= blog.upvote %></span>
+        <a href="/downvote/<%= blog.id  %>">*dv*</a> | <span><%= blog.downvote %></span>
       </div>
+    </div>
+
       <div class="comments">
         <% for (let i = 0; i < comments.length; i++) { %>
         <div class="comment">

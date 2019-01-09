@@ -3,6 +3,8 @@ exports.up = function(knex, Promise) {
     table.increments();
     table.string("blog_title");
     table.text("blog_content");
+    table.integer("upvote").defaultTo(0);
+    table.integer("downvote").defaultTo(0);
     table
       .integer("blogger_id")
       .notNullable()
