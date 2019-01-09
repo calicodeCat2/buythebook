@@ -73,7 +73,7 @@ module.exports = {
     });
   },
 
-  profile: (req, res) => {
+  profile : (req, res) => {
     knex("bloggers")
       .select(
         "bloggers.id",
