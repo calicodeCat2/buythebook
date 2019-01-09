@@ -4,13 +4,14 @@ const blogs = require("../controllers/blogs");
 const comments = require("../controllers/comments");
 module.exports = app => {
   app.get("/", users.index);
-  app.get("/blogs", blogs.index);
+  //app.get("/blogs", blogs.index);
 
   //User Login Only
   app.get("/user/login", users.userLogin);
   app.post("/users/main", users.main);
   app.get("/users/main", userMiddleware, users.show);
   app.get("/profile/:id", userMiddleware, users.profile);
+  app.get("/article/:id", userMiddleware, users.profileArticle);
 
   // Greg's Routes (mainly)
   //Blogger Login

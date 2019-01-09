@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Specific Article</title>
+  </head>
+  <body>
+    <nav>
+      <a href="#">Back to Writers</a>
+      <select class="" name="Options">
+        <option value="logout">Logout</option>
+        <option value="logout">Edit Profile</option>
+        <option value="logout">Your Comments</option>
+      </select>
+    </nav>
+    <div class="container">
+      <h2><%= blog.blog_title %></h2>
+      <span>By: <%= blog.blogger_name %></span>
+      <img src="<%= blog.image_url %>" height="50px" alt="">
+      <div class="article">
+        <%= blog.blog_content %>
+      </div>
+    </div>
+
+  </body>
+</html>

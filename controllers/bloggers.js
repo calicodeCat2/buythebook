@@ -28,19 +28,26 @@ module.exports = {
           req.session.blogger = blogger
           res.redirect("/blogger/home")
         } else {
-          req.flash("Info", "Invalid Password")
-          res.redirect("/blogger/login")
+          req.flash("Info", "Invalid Password");
+          res.redirect("/blogger/login");
         }
-      })
+      });
   },
 
   bloggerHome: function(req, res){
-      res.render('blogger_home', {message : req.flash("info") });
+      knex("bloggers")
+      .where("bloggers.id", req.session.blogger.id)
+      .then(results => {
+        console.log(results)
+      res.render("blogger_home", {
+        bloggers : req.session.blogger
+      });
+    })
   },
 
   //this renders the adminstrator login page
   adminLoginPage: (req, res) => {
-    res.render("admin-login", { message: req.flash("info") });
+    res.render("admin-login", { message: req.flash("info")[0] });
   },
   //THIS LOGS THE ADMINISTRATOR IN THEN REDIRECTS THEM TO THEIR HOME PAGE IF CREDENTIALS ARE VALID
   adminLogin: (req, res) => {
@@ -56,6 +63,7 @@ module.exports = {
           req.body.admin_password &&
           admin.blogger_password === req.body.admin_password
         ) {
+          console.log(req.session);
           req.session.user = null;
           req.session.blogger = null;
           req.session.admin = admin;

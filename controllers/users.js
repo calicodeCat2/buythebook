@@ -37,24 +37,23 @@ module.exports = {
   },
 
   show: (req, res) => {
-    let bloggers = knex("bloggers").select(
-      "bloggers.id",
-      "bloggers.image_url",
-      "bloggers.blogger_name",
-      "bloggers.genre"
-    );
-    let blogs = knex("blogs")
-      .select("blogs.*", "bloggers.blogger_name")
-      .join("bloggers", "bloggers.id", "blogs.blogger_id");
-    Promise.all([bloggers, blogs]).then(results => {
-      console.log("bloggers", results[0]);
-      console.log("blogs", results[1]);
-      res.render("main_page", {
-        bloggers: results[0],
-        blogs: results[1]
-      });
-    });
-  },
+
+    let bloggers =
+    knex('bloggers')
+      .select('bloggers.id', 'bloggers.image_url',
+        'bloggers.blogger_name', 'bloggers.genre',)
+    let blogs =
+      knex('blogs')
+      .select('blogs.*', 'bloggers.blogger_name')
+      .join('bloggers', 'bloggers.id', 'blogs.blogger_id')
+      Promise.all([bloggers, blogs])
+      .then((results) => {
+        res.render('main_page', {
+          bloggers: results[0],
+          blogs: results[1]
+        })
+      })
+    },
 
   profile : (req, res) => {
     knex("bloggers")
@@ -68,11 +67,24 @@ module.exports = {
         "blogs.blog_content"
       )
       .join("blogs", "blogger_id", "=", "bloggers.id")
+      .where('bloggers.id', req.params.id)
       .then(results => {
         let blogger = results[0];
-
-        res.render("blogger_profile", { bloggers: results[0], blogs: results });
+        let blogs = results
+        res.render("blogger_profile", { bloggers: results[0], blogs: results});
       });
+  },
+
+  profileArticle: (req, res) => {
+      let blog = knex('bloggers')
+        .select('bloggers.id', 'bloggers.blogger_name', 'bloggers.image_url', 'bloggers.genre',
+          'blogs.id', 'blogs.blog_title', 'blogs.blog_content')
+        .join('blogs', 'blogger_id', '=', 'bloggers.id')
+        .where('blogs.id', req.params.id)
+        .then((results) => {
+          res.render('blogger_article', {blog:results[0], comments:results})
+          console.log(results);
+        })
   },
 
   adminBan: (req, res) => {
@@ -106,7 +118,7 @@ module.exports = {
       .orderBy("users.created_at")
 
       .then(results => {
-        console.log(results);
+
         res.render("admin-userbans-view", { users: results });
       });
   },
