@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>Specific Article</title>
+    <!-- Materialize Link -->
+    <% include materializestyle %>
   </head>
   <body>
     <div class="container">
@@ -17,17 +19,26 @@
       </div>
     </div>
 
+    <!-- Mandy's navbar -->
+    <% include navbar %>
+
+    <div class="container">
+      <h2><%= blog.blog_title %></h2>
+      <span>By: <%= blog.blogger_name %></span>
+      <img src="<%= blog.image_url %>" height="50px" alt="" />
+      <div class="article"><%= blog.blog_content %></div>
       <div class="comments">
         <% for (let i = 0; i < comments.length; i++) { %>
         <div class="comment">
           <h4>Comments</h4>
           <p><%= comments[i].content %></p>
           <em><%= comments[i].screen_name %></em>
-
         </div>
         <% } %>
       </div>
     </div>
 
+    <!-- JavaScript Links -->
+    <% include materializejs %>
   </body>
 </html>

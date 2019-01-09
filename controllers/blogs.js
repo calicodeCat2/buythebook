@@ -26,7 +26,10 @@ module.exports = {
           .slice(0, 16);
         res.render("admin-blog-view", {
           blog: result[0],
-          writtenOn: writtenOn
+          writtenOn: writtenOn,
+          loggedInUser: req.session.user,
+          loggedInBlogger: req.session.blogger,
+          loggedInAdmin: req.session.admin
         });
       })
       .catch(err => console.log(err));
@@ -60,7 +63,10 @@ module.exports = {
         );
         res.render("admin-pending-blogs", {
           pendingBlogPosts: results,
-          requestedOn: requestedOn
+          requestedOn: requestedOn,
+          loggedInUser: req.session.user,
+          loggedInBlogger: req.session.blogger,
+          loggedInAdmin: req.session.admin
         });
       })
       .catch(err => console.log(err));
@@ -80,7 +86,10 @@ module.exports = {
         );
         res.render("admin-approved-blogs", {
           approvedBlogs: results,
-          requestedOn: requestedOn
+          requestedOn: requestedOn,
+          loggedInUser: req.session.user,
+          loggedInBlogger: req.session.blogger,
+          loggedInAdmin: req.session.admin
         });
       })
       .catch(err => console.log(err));
@@ -111,7 +120,10 @@ module.exports = {
           blog: blog,
           comments: comments,
           writtenOn: writtenOn,
-          commentMadeOn: commentMadeOn
+          commentMadeOn: commentMadeOn,
+          loggedInUser: req.session.user,
+          loggedInBlogge: req.session.blogger,
+          loggedInAdmin: req.session.admin
         });
       })
       .catch(err => console.log(err));

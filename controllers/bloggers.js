@@ -8,7 +8,12 @@ module.exports = {
   },
   //THIS RENDERS THE BLOGGER LOGIN PAGE
   bloggerLoginPage: function(req, res) {
-    res.render("blogger_login");
+    res.render("blogger_login", {
+      //NECESSARY VARS FOR NAVBAR OPTIONS
+      loggedInUser: req.session.user,
+      loggedInBlogger: req.session.blogger,
+      loggedInAdmin: req.session.admin
+    });
   },
   // This logs in the bloggers then redirects them to their home page
 
@@ -41,6 +46,7 @@ module.exports = {
     knex("blogs").then(results => {
       res.render("blogger_home", {
         blogs: results,
+        //NECESSARY VARS FOR NAVBAR OPTIONS
         loggedInUser: req.session.user,
         loggedInBlogger: req.session.blogger,
         loggedInAdmin: req.session.admin
@@ -55,7 +61,13 @@ module.exports = {
   },
   //this renders the adminstrator login page
   adminLoginPage: (req, res) => {
-    res.render("admin-login", { message: req.flash("info")[0] });
+    res.render("admin-login", {
+      message: req.flash("info")[0],
+      //NECESSARY VARS FOR NAVBAR OPTIONS
+      loggedInUser: req.session.user,
+      loggedInBlogger: req.session.blogger,
+      loggedInAdmin: req.session.admin
+    });
   },
   //THIS LOGS THE ADMINISTRATOR IN THEN REDIRECTS THEM TO THEIR HOME PAGE IF CREDENTIALS ARE VALID
   adminLogin: (req, res) => {
@@ -186,7 +198,11 @@ module.exports = {
           .slice(0, 16);
         res.render("admin-blogger-view", {
           blogger: result[0],
-          appSubmittedOn: appSubmittedOn
+          appSubmittedOn: appSubmittedOn,
+          //NECESSARY VARS FOR NAVBAR OPTIONS
+          loggedInUser: req.session.user,
+          loggedInBlogger: req.session.blogger,
+          loggedInAdmin: req.session.admin
         });
       });
   },
@@ -214,7 +230,11 @@ module.exports = {
         );
         res.render("admin-pending-regs", {
           pendingBloggerRegistrations: results,
-          requestedOn: requestedOn
+          requestedOn: requestedOn,
+          //NECESSARY VARS FOR NAVBAR OPTIONS
+          loggedInUser: req.session.user,
+          loggedInBlogger: req.session.blogger,
+          loggedInAdmin: req.session.admin
         });
       });
   }

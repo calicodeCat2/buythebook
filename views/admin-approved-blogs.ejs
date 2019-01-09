@@ -5,8 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Pending Blogger Registrations</title>
+    <!-- Materialize Link -->
+    <% include materializestyle %>
   </head>
   <body>
+    <!-- Mandy's navbar -->
+    <% include navbar %>
+
     <section class="pending-bloggers">
       <h1>Approved Blog Posts</h1>
       <% if(!approvedBlogs) { %>
@@ -34,5 +39,8 @@
       </ul>
       <span> | </span> <a href="/admin/home">Return to Home</a>
     </section>
+
+    <!-- JavaScript Links -->
+    <% include materializejs %>
   </body>
 </html>

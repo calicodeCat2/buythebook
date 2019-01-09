@@ -5,10 +5,15 @@ module.exports = {
   // CHANGE ME TO AN ACTUAL FUNCTION
   index: (req, res) => {
     knex("blogs")
-    .where("blogs.approved", 'true')
-      .select('bloggers.id', 'bloggers.blogger_name',
-      'bloggers.image_url', 'blogs.id', 'blogs.blog_title',
-      'blogs.blog_content')
+      .where("blogs.approved", "true")
+      .select(
+        "bloggers.id",
+        "bloggers.blogger_name",
+        "bloggers.image_url",
+        "blogs.id",
+        "blogs.blog_title",
+        "blogs.blog_content"
+      )
       .select(
         "bloggers.id",
         "bloggers.blogger_name",
@@ -21,13 +26,22 @@ module.exports = {
       .then(results => {
         res.render("splash", {
           blogs: results,
-          bloggers: results
+          bloggers: results,
+          //NECESSARY VARS FOR NAVBAR OPTIONS
+          loggedInUser: req.session.user,
+          loggedInBlogger: req.session.blogger,
+          loggedInAdmin: req.session.admin
         });
       });
   },
 
   userLogin: (req, res) => {
-    res.render("user-login");
+    res.render("user-login", {
+      //NECESSARY VARS FOR NAVBAR OPTIONS
+      loggedInUser: req.session.user,
+      loggedInBlogger: req.session.blogger,
+      loggedInAdmin: req.session.admin
+    });
   },
 
   main: (req, res) => {
@@ -56,7 +70,7 @@ module.exports = {
       "bloggers.genre"
     );
     let blogs = knex("blogs")
-      .where("blogs.approved", 'true')
+      .where("blogs.approved", "true")
       .select("blogs.*", "bloggers.blogger_name")
       .join("bloggers", "bloggers.id", "blogs.blogger_id");
     Promise.all([bloggers, blogs]).then(results => {
@@ -71,7 +85,7 @@ module.exports = {
     });
   },
 
-  profile : (req, res) => {
+  profile: (req, res) => {
     knex("bloggers")
       .select(
         "bloggers.id",
@@ -100,7 +114,7 @@ module.exports = {
   mainArticle: (req, res) => {
     let blog = knex("blogs")
       .where("blogs.id", req.params.id)
-      .andWhere("blogs.approved", 'true')
+      .andWhere("blogs.approved", "true")
       .select(
         "bloggers.id",
         "bloggers.blogger_name",
@@ -120,7 +134,11 @@ module.exports = {
     Promise.all([blog, comments]).then(results => {
       res.render("blogger_article", {
         blog: results[0][0],
-        comments: results[1]
+        comments: results[1],
+        //NECESSARY VARS FOR NAVBAR OPTIONS
+        loggedInUser: req.session.user,
+        loggedInBlogger: req.session.blogger,
+        loggedInAdmin: req.session.admin
       });
     });
   },
@@ -198,7 +216,12 @@ module.exports = {
       .orderBy("users.created_at")
 
       .then(results => {
-        res.render("admin-userbans-view", { users: results });
+        res.render("admin-userbans-view", {
+          users: results, //NECESSARY VARS FOR NAVBAR OPTIONS
+          loggedInUser: req.session.user,
+          loggedInBlogger: req.session.blogger,
+          loggedInAdmin: req.session.admin
+        });
       });
   },
   adminViewOne: (req, res) => {
@@ -220,7 +243,11 @@ module.exports = {
       res.render("admin-userban-singleView", {
         user: user,
         comentHistory: comentHistory,
-        commentCreatedOn: commentCreatedOn
+        commentCreatedOn: commentCreatedOn,
+        //NECESSARY VARS FOR NAVBAR OPTIONS
+        loggedInUser: req.session.user,
+        loggedInBlogger: req.session.blogger,
+        loggedInAdmin: req.session.admin
       });
     });
   }
