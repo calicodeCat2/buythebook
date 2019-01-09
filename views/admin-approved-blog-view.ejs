@@ -5,8 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Admin Blog View</title>
+    <!-- Materialize Link -->
+    <% include materializestyle %>
   </head>
   <body>
+    <!-- Mandy's navbar -->
+    <% include navbar %>
+
     <main>
       <section class="blog">
         <h1><%= blog.blog_title %></h1>
@@ -14,7 +19,6 @@
         <h3>Written: <%= writtenOn %></h3>
         <div class="content"><%= blog.blog_content %></div>
         <a href="/admin/reject/blog/<%= blog.id %>">Reject Blog</a>
-        
       </section>
       <section class="comments">
         <h1>Comments</h1>
@@ -35,5 +39,8 @@
         </div>
       </section>
     </main>
+
+    <!-- JavaScript Links -->
+    <% include materializejs %>
   </body>
 </html>
