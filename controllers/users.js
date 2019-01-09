@@ -5,9 +5,11 @@ module.exports = {
   // CHANGE ME TO AN ACTUAL FUNCTION
   index: (req, res) => {
     knex("blogs")
+    .where("blogsapproved", 'true')
       .select('bloggers.id', 'bloggers.blogger_name',
       'bloggers.image_url', 'blogs.id', 'blogs.blog_title',
       'blogs.blog_content')
+      .andWhere("bloggers.role", "blogger")
       .join("bloggers", "bloggers.id", "=", "blogger_id")
       .then(results => {
         res.render("splash", {
@@ -78,18 +80,6 @@ module.exports = {
       });
   },
 
-  // profileArticle: (req, res) => {
-  //     let blog = knex('bloggers')
-  //       .select('bloggers.id', 'bloggers.blogger_name', 'bloggers.image_url', 'bloggers.genre',
-  //         'blogs.id', 'blogs.blog_title', 'blogs.blog_content')
-  //       .join('blogs', 'blogger_id', '=', 'bloggers.id')
-  //       .where('blogs.id', req.params.id)
-  //       .then((results) => {
-  //         res.render('blogger_article', {blog:results[0], comments:results})
-  //
-  //       })
-  // },
-
   mainArticle: (req, res) => {
       let blog = knex('blogs')
       .where('blogs.id', req.params.id)
@@ -102,7 +92,6 @@ module.exports = {
         .join('users', 'users.id', '=', 'comments.user_id')
         Promise.all([blog, comments])
         .then((results) => {
-          console.log("what's up?", results);
           res.render('blogger_article', {blog:results[0][0], comments:results[1]})
         })
   },
