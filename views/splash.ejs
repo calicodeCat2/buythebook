@@ -1,13 +1,28 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>Splash</title>
+
+    <!-- MATERIALIZE LINKS -->
+    <!--Import Google Icon Font-->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+
+    <!-- Compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <style media="screen">
       .welcome {
         float: left;
         margin: 20px;
-
       }
       .blogBlurb {
         float: left;
@@ -22,9 +37,116 @@
     </style>
   </head>
   <body>
-    <nav>
+    <!-- Navbar -->
+    <nav class="light-blue darken-1 nav-extended">
+      <div class="nav-wrapper">
+        <ul class="right hide-on-med-and-down">
+          <li>
+            <a href="/"><i class="material-icons left">home</i>Home</a>
+          </li>
 
+          <!-- Both login options disappear when user/blogger logged in -->
+          <% if(!loggedInUser && !loggedInAdmin && !loggedInBlogger) { %>
+
+          <li>
+            <a href="/blogger/login"
+              ><i class="material-icons left">create</i>Write With Us</a
+            >
+          </li>
+
+          <li>
+            <a href="/user/login"
+              ><i class="material-icons left">account_box</i>Login</a
+            >
+          </li>
+
+          <% } %>
+
+          <!-- USER ONLY LOGIN OPTIONS -->
+          <% if(loggedInUser) { %>
+          <li>
+            <a href="/users/main"
+              ><i class="material-icons left">dashboard</i>Dashboard</a
+            >
+          </li>
+
+          <li>
+            <a href="/user/comments"
+              ><i class="material-icons left">comment</i>My Comments</a
+            >
+          </li>
+
+          <li>
+            <a href="/user/profile"
+              ><i class="material-icons left">person</i>Profile</a
+            >
+          </li>
+
+          <li>
+            <a href="/user/logout"
+              ><i class="material-icons left">exit_to_app</i>Logout</a
+            >
+          </li>
+          <% } %>
+
+          <!-- BLOGGER ONLY OPTIONS -->
+          <% if (loggedInBlogger) { %>
+
+          <li>
+            <a href="/blogger/home"
+              ><i class="material-icons left">dashboard</i>Dashboard</a
+            >
+          </li>
+
+          <li>
+            <a href="/blogger/new"
+              ><i class="material-icons left">create</i>New Blog</a
+            >
+          </li>
+
+          <li>
+            <a href="/blogger/messages"
+              ><i class="material-icons left">message</i>Admin Messages</a
+            >
+          </li>
+
+          <li>
+            <a href="/blogger/logout"
+              ><i class="material-icons left">exit_to_app</i>Logout</a
+            >
+          </li>
+
+          <% } %>
+
+          <!-- ADMIN ONLY OPTIONS -->
+          <% if(loggedInAdmin) { %>
+
+          <li>
+            <a href="/admin/home"
+              ><i class="material-icons left">dashboard</i>Dashboard</a
+            >
+          </li>
+          <li>
+            <a href="/admin/logout"
+              ><i class="material-icons left">exit_to_app</i>Logout</a
+            >
+          </li>
+          <% } %>
+        </ul>
+      </div>
+
+      <% if(loggedInAdmin) { %>
+      <div class="nav-content">
+        <ul class="tabs tabs-transparent">
+          <li><a href="/admin/pending-regs">Pending Bloggers</a></li>
+          <li><a href="/admin/pending-blogs">Pending Blogs</a></li>
+          <li><a href="/admin/approved-blogs">Manage Blogs</a></li>
+          <li><a href="/admin/user-bans">User Ban Requests</a></li>
+        </ul>
+      </div>
+      <% } %>
     </nav>
+    <!-- end of navbar -->
     <div class="welcome">
       <h1>Welcome</h1>
       <p>Please login below to enter buythebook.</p>
@@ -33,7 +155,6 @@
       </div>
       <div class="bloggerLogin">
         <a href="/blogger/login">Blogger Login/Registration</a>
-
       </div>
       <div class="blogger_hometest">
         <a href="/blogger/home">Blogger Home Testn Page</a>
@@ -42,16 +163,13 @@
     <div class="blogBlurb">
       <% for (i = 0; i < blogs.length; i++) { %>
 
-
-        <h3><%= blogs[i].blog_title %></h3>
-        <h5><%= bloggers[i].blogger_name %></h5>
-        <img src="<%= bloggers[i].image_url %>" height="50px"" alt="">
-
-        <% } %>
-
-
+      <h3><%= blogs[i].blog_title %></h3>
+      <h5><%= bloggers[i].blogger_name %></h5>
+      <img src="<%= bloggers[i].image_url %>" height="50px"" alt=""> <% } %>
     </div>
 
-
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="../script.js"></script>
   </body>
 </html>

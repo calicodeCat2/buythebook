@@ -5,10 +5,15 @@ module.exports = {
   // CHANGE ME TO AN ACTUAL FUNCTION
   index: (req, res) => {
     knex("blogs")
-    .where("blogs.approved", 'true')
-      .select('bloggers.id', 'bloggers.blogger_name',
-      'bloggers.image_url', 'blogs.id', 'blogs.blog_title',
-      'blogs.blog_content')
+      .where("blogs.approved", "true")
+      .select(
+        "bloggers.id",
+        "bloggers.blogger_name",
+        "bloggers.image_url",
+        "blogs.id",
+        "blogs.blog_title",
+        "blogs.blog_content"
+      )
       .select(
         "bloggers.id",
         "bloggers.blogger_name",
@@ -21,7 +26,11 @@ module.exports = {
       .then(results => {
         res.render("splash", {
           blogs: results,
-          bloggers: results
+          bloggers: results,
+          //NECESSARY VARS FOR NAVBAR OPTIONS
+          loggedInUser: req.session.user,
+          loggedInBlogger: req.session.blogger,
+          loggedInAdmin: req.session.admin
         });
       });
   },
@@ -56,7 +65,7 @@ module.exports = {
       "bloggers.genre"
     );
     let blogs = knex("blogs")
-      .where("blogs.approved", 'true')
+      .where("blogs.approved", "true")
       .select("blogs.*", "bloggers.blogger_name")
       .join("bloggers", "bloggers.id", "blogs.blogger_id");
     Promise.all([bloggers, blogs]).then(results => {
@@ -73,7 +82,7 @@ module.exports = {
     });
   },
 
-  profile : (req, res) => {
+  profile: (req, res) => {
     knex("bloggers")
       .select(
         "bloggers.id",
@@ -102,7 +111,7 @@ module.exports = {
   mainArticle: (req, res) => {
     let blog = knex("blogs")
       .where("blogs.id", req.params.id)
-      .andWhere("blogs.approved", 'true')
+      .andWhere("blogs.approved", "true")
       .select(
         "bloggers.id",
         "bloggers.blogger_name",
