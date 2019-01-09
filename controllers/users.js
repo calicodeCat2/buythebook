@@ -36,7 +36,12 @@ module.exports = {
   },
 
   userLogin: (req, res) => {
-    res.render("user-login");
+    res.render("user-login", {
+      //NECESSARY VARS FOR NAVBAR OPTIONS
+      loggedInUser: req.session.user,
+      loggedInBlogger: req.session.blogger,
+      loggedInAdmin: req.session.admin
+    });
   },
 
   main: (req, res) => {
@@ -130,7 +135,11 @@ module.exports = {
       console.log("what's up?", results);
       res.render("blogger_article", {
         blog: results[0][0],
-        comments: results[1]
+        comments: results[1],
+        //NECESSARY VARS FOR NAVBAR OPTIONS
+        loggedInUser: req.session.user,
+        loggedInBlogger: req.session.blogger,
+        loggedInAdmin: req.session.admin
       });
     });
   },
@@ -185,7 +194,12 @@ module.exports = {
       .orderBy("users.created_at")
 
       .then(results => {
-        res.render("admin-userbans-view", { users: results });
+        res.render("admin-userbans-view", {
+          users: results, //NECESSARY VARS FOR NAVBAR OPTIONS
+          loggedInUser: req.session.user,
+          loggedInBlogger: req.session.blogger,
+          loggedInAdmin: req.session.admin
+        });
       });
   },
   adminViewOne: (req, res) => {
@@ -207,7 +221,11 @@ module.exports = {
       res.render("admin-userban-singleView", {
         user: user,
         comentHistory: comentHistory,
-        commentCreatedOn: commentCreatedOn
+        commentCreatedOn: commentCreatedOn,
+        //NECESSARY VARS FOR NAVBAR OPTIONS
+        loggedInUser: req.session.user,
+        loggedInBlogger: req.session.blogger,
+        loggedInAdmin: req.session.admin
       });
     });
   }

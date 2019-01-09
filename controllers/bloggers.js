@@ -186,7 +186,11 @@ module.exports = {
           .slice(0, 16);
         res.render("admin-blogger-view", {
           blogger: result[0],
-          appSubmittedOn: appSubmittedOn
+          appSubmittedOn: appSubmittedOn,
+          //NECESSARY VARS FOR NAVBAR OPTIONS
+          loggedInUser: req.session.user,
+          loggedInBlogger: req.session.blogger,
+          loggedInAdmin: req.session.admin
         });
       });
   },
@@ -214,7 +218,11 @@ module.exports = {
         );
         res.render("admin-pending-regs", {
           pendingBloggerRegistrations: results,
-          requestedOn: requestedOn
+          requestedOn: requestedOn,
+          //NECESSARY VARS FOR NAVBAR OPTIONS
+          loggedInUser: req.session.user,
+          loggedInBlogger: req.session.blogger,
+          loggedInAdmin: req.session.admin
         });
       });
   }
