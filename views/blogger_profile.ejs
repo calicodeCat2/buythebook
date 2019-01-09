@@ -40,7 +40,7 @@
     <div class="row">
     <% for (let i = 0; i < blogs.length; i++) { %>
     <div class="contentBloc">
-      <h3><a href="/<%= blogs[i].id %>"><%= blogs[i].blog_title %></a></h3>
+      <h3><a href="/article/<%= blogs[i].id %>"><%= blogs[i].blog_title %></a></h3>
       <article><%= blogs[i].genre %></article>
       </div>
       <% } %>
