@@ -55,7 +55,13 @@ module.exports = {
   },
   //this renders the adminstrator login page
   adminLoginPage: (req, res) => {
-    res.render("admin-login", { message: req.flash("info")[0] });
+    res.render("admin-login", {
+      message: req.flash("info")[0],
+      //NECESSARY VARS FOR NAVBAR OPTIONS
+      loggedInUser: req.session.user,
+      loggedInBlogger: req.session.blogger,
+      loggedInAdmin: req.session.admin
+    });
   },
   //THIS LOGS THE ADMINISTRATOR IN THEN REDIRECTS THEM TO THEIR HOME PAGE IF CREDENTIALS ARE VALID
   adminLogin: (req, res) => {
