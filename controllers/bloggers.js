@@ -8,7 +8,12 @@ module.exports = {
   },
   //THIS RENDERS THE BLOGGER LOGIN PAGE
   bloggerLoginPage: function(req, res) {
-    res.render("blogger_login");
+    res.render("blogger_login", {
+      //NECESSARY VARS FOR NAVBAR OPTIONS
+      loggedInUser: req.session.user,
+      loggedInBlogger: req.session.blogger,
+      loggedInAdmin: req.session.admin
+    });
   },
   // This logs in the bloggers then redirects them to their home page
 
@@ -41,6 +46,7 @@ module.exports = {
     knex("blogs").then(results => {
       res.render("blogger_home", {
         blogs: results,
+        //NECESSARY VARS FOR NAVBAR OPTIONS
         loggedInUser: req.session.user,
         loggedInBlogger: req.session.blogger,
         loggedInAdmin: req.session.admin
