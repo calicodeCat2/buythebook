@@ -28,8 +28,10 @@
       <a href="#">Home</a>
       <select class="" name="Options">
         <option value="logout">Logout</option>
-        <option value="logout">Edit Profile</option>
-        <option value="logout">Your Comments</option>
+        <option value="editProfile"><a href="/user/profile/">Edit Profile</a></option>
+        <option value="comments">Your Comments</option>
+
+
       </select>
     </nav>
     <h1>Welcome Gentle Readers</h1>
@@ -48,8 +50,8 @@
       <% for (i = 0; i < blogs.length; i++) { %>
       <div class="column contentBloc">
         <h5><%= blogs[i].blogger_name %></h5>
-        <h5><%= blogs[i].blog_title %></h5>
-        <article><%= blogs[i].blog_content %></article>
+        <h5><a href="/article/<%= blogs[i].id %>"><%= blogs[i].blog_title %></a></h5>
+        <article><%= blogs[i].blog_content.slice(0,100) %></article>
         </div>
         <% } %>
 
