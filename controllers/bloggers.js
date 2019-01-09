@@ -20,7 +20,7 @@ module.exports = {
       .where("blogger_email", req.body.blogger_email)
       .then(results => {
         let blogger = results[0];
-        console.log(blogger);
+
         if (!blogger) {
           req.flash("Info", "Not a valid Blogger email.");
           res.redirect("/blogger/login");
@@ -33,6 +33,7 @@ module.exports = {
           req.session.blogger = blogger;
           res.redirect("/blogger/home");
         } else {
+          console.log("Wrong Pass");
           req.flash("Info", "Invalid Password");
           res.redirect("/blogger/login");
         }
@@ -41,7 +42,12 @@ module.exports = {
 
   bloggerHome: function(req, res) {
     knex("blogs").then(results => {
-      res.render("blogger_home", { blogs: results });
+      res.render("blogger_home", {
+        blogs: results,
+        loggedInUser: req.session.user,
+        loggedInBlogger: req.session.blogger,
+        loggedInAdmin: req.session.admin
+      });
     });
   },
 
