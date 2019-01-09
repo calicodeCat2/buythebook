@@ -20,6 +20,16 @@
       <div class="article">
         <%= blog.blog_content %>
       </div>
+      <div class="comments">
+        <% for (let i = 0; i < comments.length; i++) { %>
+        <div class="comment">
+          <h4>Comments</h4>
+          <p><%= comments[i].content %></p>
+          <em><%= comments[i].screen_name %></em>
+
+        </div>
+        <% } %>
+      </div>
     </div>
 
   </body>

@@ -15,7 +15,6 @@ module.exports = {
   bloggerLogin: (req, res) => {
     knex("bloggers")
       .andWhere("role", "blogger")
-      .andWhere("approved", true)
       .where("blogger_email", req.body.blogger_email)
       .then((results) => {
         let blogger = results[0]
@@ -150,7 +149,11 @@ module.exports = {
           firstThreeBanReqs: firstThreeBanReqs,
           banRequestedOn: banRequestedOn,
           firstThreeApprovedBlogs: firstThreeApprovedBlogs,
-          approvedBlogCreatedOn: approvedBlogCreatedOn
+          approvedBlogCreatedOn: approvedBlogCreatedOn,
+          //NECESSARY VARS FOR NAVBAR OPTIONS
+          loggedInUser: req.session.user,
+          loggedInBlogger: req.session.blogger,
+          loggedInAdmin: req.session.admin
         });
       })
       .catch(err => console.log(err));
