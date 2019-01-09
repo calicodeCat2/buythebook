@@ -7,14 +7,9 @@ module.exports = {
     res.send("Hello");
   },
   //THIS RENDERS THE BLOGGER LOGIN PAGE
-
-
   bloggerLoginPage: function (req, res) {
     res.render('blogger_login');
   },
-
-
-
   // This logs in the bloggers then redirects them to their home page
 
   bloggerLogin: (req, res) => {
@@ -24,16 +19,13 @@ module.exports = {
       .where("blogger_email", req.body.blogger_email)
       .then((results) => {
         let blogger = results[0]
-        console.log(blogger)
         if(!blogger) {
           req.flash("Info", 'Not a valid Blogger email.')
           res.redirect('/blogger/login')
-        } else if (
-          req.body.blogger_password && blogger.blogger_password === req.body.password)
-          {
+        } else if (req.body.blogger_password && blogger.blogger_password === req.body.blogger_password){
           req.session.user = null
           req.session.admin = null
-          res.session.blogger = blogger
+          req.session.blogger = blogger
           res.redirect("/blogger/home")
         } else {
           req.flash("Info", "Invalid Password")
@@ -43,10 +35,7 @@ module.exports = {
   },
 
   bloggerHome: function(req, res){
-    knex('blogs').then((results) => {
-      res.render('blogger_home', {blogs : results})
-    })
-
+      res.render('blogger_home', {message : req.flash("info") });
   },
 
   //this renders the adminstrator login page

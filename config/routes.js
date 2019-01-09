@@ -4,7 +4,7 @@ const blogs = require("../controllers/blogs");
 const comments = require("../controllers/comments");
 module.exports = app => {
   app.get("/", users.index);
-  app.get("", blogs.index);
+  app.get("/blogs", blogs.index);
 
   //User Login Only
   app.get("/user/login", users.userLogin);
