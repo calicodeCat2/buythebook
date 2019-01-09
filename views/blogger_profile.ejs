@@ -4,34 +4,14 @@
   <head>
     <meta charset="utf-8">
     <title>Main Page</title>
-    <style media="screen">
-      .writerBloc {
-        float: left;
-        width: 250px;
-        height: 250px;
-        border: solid 1px black;
-        padding: 5px;
-        margin: 10px;
-      }
-      contentBloc {
-        float: left;
-        width: 200px;
-        height: 200px;
-        border: solid 1px black;
-        padding: 5px;
-        margin: 10px;
-      }
-    </style>
+    <!-- Materialize Link -->
+    <% include materializestyle %>
+
   </head>
   <body>
-    <nav>
-      <a href="#">Home</a>
-      <select class="" name="Options">
-        <option value="logout">Logout</option>
-        <option value="logout">Edit Profile</option>
-        <option value="logout">Your Comments</option>
-      </select>
-    </nav>
+<!-- Mandy's navbar -->
+<% include navbar %>
+
     <div class= "row" "writerBloc">
       <img src="<%= bloggers.image_url %>" height="250px" alt="Writer Picture">
       <h1><%= bloggers.blogger_name %></h1>
@@ -44,6 +24,9 @@
       <article><%= blogs[i].genre %></article>
       </div>
       <% } %>
+
+      <!-- JavaScript Links -->
+    <% include materializejs %>
 
     </body>
   </html>
