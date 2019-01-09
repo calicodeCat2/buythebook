@@ -7,11 +7,9 @@ module.exports = {
     res.send("Hello");
   },
   //THIS RENDERS THE BLOGGER LOGIN PAGE
-
   bloggerLoginPage: function(req, res) {
     res.render("blogger_login");
   },
-
   // This logs in the bloggers then redirects them to their home page
 
   bloggerLogin: (req, res) => {
@@ -20,7 +18,6 @@ module.exports = {
       .where("blogger_email", req.body.blogger_email)
       .then(results => {
         let blogger = results[0];
-
         if (!blogger) {
           req.flash("Info", "Not a valid Blogger email.");
           res.redirect("/blogger/login");
@@ -50,7 +47,12 @@ module.exports = {
       });
     });
   },
-
+  logout: (req, res) => {
+    req.session.user = null;
+    req.session.blogger = null;
+    req.session.admin = null;
+    res.redirect("/");
+  },
   //this renders the adminstrator login page
   adminLoginPage: (req, res) => {
     res.render("admin-login", { message: req.flash("info")[0] });

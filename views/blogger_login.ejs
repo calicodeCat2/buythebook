@@ -3,56 +3,51 @@
   <head>
     <meta charset="utf-8">
     <title>Blogger Login</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <style media="screen">
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">    
+<style media="screen">
       body {
         text-align: center;
         overflow: scroll;
       }
-      .column {
+      .row {
         width: 400px;
-        float: left;
+        float: center;
       }
       h1 {
         text-align: center;
         margin: 40px;
       }
+      
       .warning {
         text-align: center;
       }
     </style>
   </head>
   <body>
+
     <h1>Login or Register</h1>
-    <row class="warning">
-    <h3>**WARNING** 
-    </h3>
+    <h3>**WARNING** </h3>
     <p>This page is for Bloggers only. If you have not been approved for a Blogger account by and Admin, please visit the user login page. 
     </p>
-    <p>If you are trying register for a Blogger account, an admin must first approve your request before you can begin using that account. Happy Blogging!
-    </p>
-    <div class="container">
-  <div class="row">
-    </row>
+    <p>If you are trying register for a Blogger account, an admin must first approve your request before you can begin using that account. Happy Blogging!</p>
+    
+    <div class="row">
+    <div class="col">
       <h3>Active Bloggers: Login</h3>
-      <div class="col">
       <form class="" action="/blogger/login" method="POST">
         <input type="text" name="blogger_email" placeholder="Email">
         <input type="password" name="blogger_password" placeholder="Password">
         <input type="submit" >
       </form>
       </div>
+
     <div class="col"><h3>New Bloggers: Register</h3>
       <form class="" action="/blogs/register" method="post">
         <input type="text" name="name" placeholder="Name">
         <input type="text" name="email" placeholder="Email">
         <input type="text" name="blogger_password" placeholder="Password">
         <input type="text" name="confirm_password" placeholder="Confirm Password">
-      </form>
-    </div>
-
-    <div class="col">
-      <form class="" action="/blogger/register" method="post">
         <input type="date" name="DOB" placeholder="Date of Birth">
         <label for="select">Years Blogging</label>
         <select class="" name="years_blogging">
@@ -63,10 +58,11 @@
         <input type="text" name="link" placeholder="Personal Link">
         <input type="text" name="sample" placeholder="Writing Sample">
       </form>
-
     </div>
   </div>
-  </div>
+
   <footer>Copyright 2019 BuyTheBook Blog sight all rights reserved.</footer>
+  <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   </body>
 </html>

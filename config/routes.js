@@ -4,6 +4,7 @@ const blogs = require("../controllers/blogs");
 const comments = require("../controllers/comments");
 module.exports = app => {
   app.get("/", users.index);
+  //app.get("/blogs", blogs.index);
 
   //User Login Only
   app.get("/user/login", users.userLogin);
@@ -24,6 +25,7 @@ module.exports = app => {
 
   //Redirect Blogger to home/main profile page
   app.get("/blogger/home", bloggerAuthMiddleware, bloggers.bloggerHome);
+  app.get("/blogger/logout", bloggerAuthMiddleware, bloggers.logout);
 
   //Mandy's routes
   //Admin routes
