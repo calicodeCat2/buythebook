@@ -14,8 +14,9 @@ exports.seed = function(knex, Promise) {
           sample:
             "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
           image_url:
-            "https://flavorwire.files.wordpress.com/2012/03/updike2.jpg",
-          role: "admin"
+            "https://www.biographyonline.net/images/150/Victor_Hugo.jpg",
+          role: "admin",
+          approved: true
         },
         {
           blogger_name: "Marcus",
@@ -27,8 +28,10 @@ exports.seed = function(knex, Promise) {
           sample:
             "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
           image_url:
-            "https://www.biographyonline.net/wp-content/uploads/2014/05/MarkTwain.jpg"
+            "https://www.biographyonline.net/wp-content/uploads/2014/05/MarkTwain.jpg",
+            approved: true
         },
+
         {
           blogger_name: "Billy",
           blogger_email: "billy@gmail.com",
@@ -51,7 +54,8 @@ exports.seed = function(knex, Promise) {
           sample:
             "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
           image_url:
-            "https://www.biographyonline.net/wp-content/uploads/2014/05/Jane_Austen_18703.jpg"
+            "https://www.biographyonline.net/wp-content/uploads/2014/05/Jane_Austen_18703.jpg",
+          approved: true
         }
       ]);
     });

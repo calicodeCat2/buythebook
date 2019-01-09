@@ -1,18 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Blogger Home Page</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">    
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <style media="screen">
+     
+    </style>
 </head>
+
 <body>
-    <h3>Welcome, <%= bloggers.blogger_name%></h3>
+    <!-- Navbar -->
+    <nav class="light-blue darken-1 nav-extended">
+        <div class="nav-wrapper">
+            <ul class="right hide-on-med-and-down">
+                <li>
+                    <a href="/"><i class="material-icons left">home</i>Home</a>
+                </li>
+
+                <!-- Both login options disappear when user/blogger logged in -->
+                <% if(!loggedInUser && !loggedInAdmin && !loggedInBlogger) { %>
+
+                <li>
+                    <a href="/blogger/login"><i class="material-icons left">create</i>Write With Us</a>
+                </li>
+
+                <li>
+                    <a href="/user/login"><i class="material-icons left">account_box</i>Login</a>
+                </li>
+
+                <% } %>
+
+                <!-- USER ONLY LOGIN OPTIONS -->
+                <% if(loggedInUser) { %>
+                <li>
+                    <a href="/users/main"><i class="material-icons left">dashboard</i>Dashboard</a>
+                </li>
+
+                <li>
+                    <a href="/user/comments"><i class="material-icons left">comment</i>My Comments</a>
+                </li>
+
+                <li>
+                    <a href="/user/profile"><i class="material-icons left">person</i>Profile</a>
+                </li>
+
+                <li>
+                    <a href="/user/logout"><i class="material-icons left">exit_to_app</i>Logout</a>
+                </li>
+                <% } %>
+
+                <!-- BLOGGER ONLY OPTIONS -->
+                <% if (loggedInBlogger) { %>
+
+                <li>
+                    <a href="/blogger/home"><i class="material-icons left">dashboard</i>Dashboard</a>
+                </li>
+
+                <li>
+                    <a href="/blogger/new"><i class="material-icons left">create</i>New Blog</a>
+                </li>
+
+                <li>
+                    <a href="/blogger/messages"><i class="material-icons left">message</i>Admin Messages</a>
+                </li>
+
+                <li>
+                    <a href="/blogger/logout"><i class="material-icons left">exit_to_app</i>Logout</a>
+                </li>
+
+                <% } %>
+
+                <!-- ADMIN ONLY OPTIONS -->
+                <% if(loggedInAdmin) { %>
+
+                <li>
+                    <a href="/admin/home"><i class="material-icons left">dashboard</i>Dashboard</a>
+                </li>
+                <li>
+                    <a href="/admin/logout"><i class="material-icons left">exit_to_app</i>Logout</a>
+                </li>
+                <% } %>
+            </ul>
+        </div>
+
+        <% if(loggedInAdmin) { %>
+        <div class="nav-content">
+            <ul class="tabs tabs-transparent">
+                <li><a href="/admin/pending-regs">Pending Bloggers</a></li>
+                <li><a href="/admin/pending-blogs">Pending Blogs</a></li>
+                <li><a href="/admin/approved-blogs">Manage Blogs</a></li>
+                <li><a href="/admin/user-bans">User Ban Requests</a></li>
+            </ul>
+        </div>
+        <% } %>
+    </nav>
+    <!-- end of navbar -->
+    <h1>Blogger Home</h1>
+    <h3>Welcome,
+        <%= loggedInBlogger.blogger_name%>
+    </h3>
     <div class="current_blogs">
-        <h4>Title: <%= </h4>
+        <div class=row>
+            <div class="col">
+                <p>Title:
+                    <%= %>
+                </p>
+            </div>
+            <div class="col">
+                <p>Rating:</p>
+            </div>
+
+        </div>
     </div>
 </body>
- <!-- Compiled and minified JavaScript -->
- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
 </html>
