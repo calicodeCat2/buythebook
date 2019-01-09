@@ -10,6 +10,7 @@ module.exports = app => {
   app.post("/users/main", users.main);
   app.get("/users/main", userMiddleware, users.show);
   app.get("/profile/:id", userMiddleware, users.profile);
+  app.get("/user/logout", userMiddleware, users.logout);
 
   // Greg's Routes (mainly)
   //Blogger Login

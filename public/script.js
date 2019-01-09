@@ -1,3 +1,3 @@
 document.addEventListener("DOMContentLoaded", function() {
-  $(".dropdown-trigger").dropdown();
+  document.querySelector(".dropdown-trigger").dropdown();
 });

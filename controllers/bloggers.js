@@ -17,7 +17,6 @@ module.exports = {
   bloggerLogin: (req, res) => {
     knex("bloggers")
       .andWhere("role", "blogger")
-      .andWhere("approved", true)
       .where("blogger_email", req.body.blogger_email)
       .then(results => {
         let blogger = results[0];
@@ -27,11 +26,11 @@ module.exports = {
           res.redirect("/blogger/login");
         } else if (
           req.body.blogger_password &&
-          blogger.blogger_password === req.body.password
+          blogger.blogger_password === req.body.blogger_password
         ) {
           req.session.user = null;
           req.session.admin = null;
-          res.session.blogger = blogger;
+          req.session.blogger = blogger;
           res.redirect("/blogger/home");
         } else {
           req.flash("Info", "Invalid Password");
@@ -151,7 +150,11 @@ module.exports = {
           firstThreeBanReqs: firstThreeBanReqs,
           banRequestedOn: banRequestedOn,
           firstThreeApprovedBlogs: firstThreeApprovedBlogs,
-          approvedBlogCreatedOn: approvedBlogCreatedOn
+          approvedBlogCreatedOn: approvedBlogCreatedOn,
+          //NECESSARY VARS FOR NAVBAR OPTIONS
+          loggedInUser: req.session.user,
+          loggedInBlogger: req.session.blogger,
+          loggedInAdmin: req.session.admin
         });
       })
       .catch(err => console.log(err));

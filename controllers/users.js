@@ -51,7 +51,11 @@ module.exports = {
       console.log("blogs", results[1]);
       res.render("main_page", {
         bloggers: results[0],
-        blogs: results[1]
+        blogs: results[1],
+        //NECESSARY VARS FOR NAVBAR OPTIONS
+        loggedInUser: req.session.user,
+        loggedInBlogger: req.session.blogger,
+        loggedInAdmin: req.session.admin
       });
     });
   },
@@ -74,7 +78,12 @@ module.exports = {
         res.render("blogger_profile", { bloggers: results[0], blogs: results });
       });
   },
-
+  logout: (req, res) => {
+    req.session.user = null;
+    req.session.blogger = null;
+    req.session.admin = null;
+    res.redirect("/");
+  },
   adminBan: (req, res) => {
     knex("users")
       .where("users.id", req.params.user_id)
