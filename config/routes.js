@@ -8,9 +8,13 @@ module.exports = app => {
   //User Login Only
   app.get("/user/login", users.userLogin);
   app.post("/users/main", users.main);
+  app.post("/user/login", users.register);
+  app.get("/user/profile/:id", users.userEdit);
   app.get("/users/main", userMiddleware, users.show);
   app.get("/profile/:id", userMiddleware, users.profile);
   app.get("/user/logout", userMiddleware, users.logout);
+  // app.get("/article/:id", userMiddleware, users.profileArticle);
+  app.get("/article/:id", userMiddleware, users.mainArticle);
 
   // Greg's Routes (mainly)
   //Blogger Login

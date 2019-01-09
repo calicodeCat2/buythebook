@@ -5,6 +5,14 @@ module.exports = {
   // CHANGE ME TO AN ACTUAL FUNCTION
   index: (req, res) => {
     knex("blogs")
+      .select(
+        "bloggers.id",
+        "bloggers.blogger_name",
+        "bloggers.image_url",
+        "blogs.id",
+        "blogs.blog_title",
+        "blogs.blog_content"
+      )
       .join("bloggers", "bloggers.id", "=", "blogger_id")
       .then(results => {
         res.render("splash", {
@@ -72,9 +80,10 @@ module.exports = {
         "blogs.blog_content"
       )
       .join("blogs", "blogger_id", "=", "bloggers.id")
+      .where("bloggers.id", req.params.id)
       .then(results => {
         let blogger = results[0];
-
+        let blogs = results;
         res.render("blogger_profile", { bloggers: results[0], blogs: results });
       });
   },
@@ -84,6 +93,64 @@ module.exports = {
     req.session.admin = null;
     res.redirect("/");
   },
+
+  // profileArticle: (req, res) => {
+  //     let blog = knex('bloggers')
+  //       .select('bloggers.id', 'bloggers.blogger_name', 'bloggers.image_url', 'bloggers.genre',
+  //         'blogs.id', 'blogs.blog_title', 'blogs.blog_content')
+  //       .join('blogs', 'blogger_id', '=', 'bloggers.id')
+  //       .where('blogs.id', req.params.id)
+  //       .then((results) => {
+  //         res.render('blogger_article', {blog:results[0], comments:results})
+  //
+  //       })
+  // },
+
+  mainArticle: (req, res) => {
+    let blog = knex("blogs")
+      .where("blogs.id", req.params.id)
+      .select(
+        "bloggers.id",
+        "bloggers.blogger_name",
+        "bloggers.image_url",
+        "bloggers.genre",
+        "blogs.id",
+        "blogs.blog_title",
+        "blogs.blog_content"
+      )
+      .join("bloggers", "blogger_id", "=", "bloggers.id");
+    let comments = knex("comments")
+      .where("comments.blog_id", "=", req.params.id)
+      .select("comments.*", "users.id", "users.screen_name")
+      .join("users", "users.id", "=", "comments.user_id");
+    Promise.all([blog, comments]).then(results => {
+      console.log("what's up?", results);
+      res.render("blogger_article", {
+        blog: results[0][0],
+        comments: results[1]
+      });
+    });
+  },
+
+  register: (req, res) => {
+    knex("users")
+      .insert({
+        user_name: req.body.user_name,
+        user_email: req.body.user_email,
+        user_password: req.body.user_password,
+        screen_name: req.body.screen_name
+      })
+      .then(() => {
+        res.redirect("/user/login");
+      });
+  },
+
+  userEdit: (req, res) => {
+    // Work in Progress
+  },
+
+  // Admin below this line, Users above
+
   adminBan: (req, res) => {
     knex("users")
       .where("users.id", req.params.user_id)
@@ -115,7 +182,6 @@ module.exports = {
       .orderBy("users.created_at")
 
       .then(results => {
-        console.log(results);
         res.render("admin-userbans-view", { users: results });
       });
   },
