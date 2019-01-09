@@ -38,15 +38,25 @@ module.exports = {
   },
 
   bloggerHome: function(req, res) {
-    knex("blogs").then(results => {
+
+    let approvedBlogs = knex("blogs")
+      .select("blogs.*", "bloggers.blogger_name")
+      .where("blogs.approved", "=", "true")
+      .orderBy("blogs.created_at")
+      .innerJoin("bloggers", "blogs.blogger_id", "bloggers.id");
+
+      Promise.all([
+        approvedBlogs
+      ]).then(results => {
       res.render("blogger_home", {
         blogs: results,
         loggedInUser: req.session.user,
         loggedInBlogger: req.session.blogger,
         loggedInAdmin: req.session.admin
-      });
-    });
-  },
+      })
+    })
+    },
+
   logout: (req, res) => {
     req.session.user = null;
     req.session.blogger = null;

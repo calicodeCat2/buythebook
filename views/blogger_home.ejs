@@ -1,17 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<<<<<<< HEAD
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-=======
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
->>>>>>> d70e45426bc630baf504ddb18fe6072f4099d0bd
     <title>Blogger Home Page</title>
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
@@ -19,7 +12,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <style media="screen">
-     
+        .under_nav{
+            text-align: center;
+        }
+        .col{
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -110,15 +108,20 @@
         <% } %>
     </nav>
     <!-- end of navbar -->
+
+    <div class="under_nav">
     <h1>Blogger Home</h1>
     <h3>Welcome,
-        <%= loggedInBlogger.blogger_name%>
+        <%= loggedInBlogger.blogger_name %>
     </h3>
+
     <div class="current_blogs">
         <div class=row>
             <div class="col">
                 <p>Title:
-                    <%= %>
+                    <% for(let i = 0 ; i < blogs.length ; i++){ %>
+                        <a href="<% blogs[i].blog_title %>"><%= blogs[i].title %></a>
+                    <% } %>
                 </p>
             </div>
             <div class="col">
@@ -127,8 +130,12 @@
 
         </div>
     </div>
-</body>
+</div>
 
+</body>
+<footer>
+    Copyright 2019 BuyTheBook Blog sight all rights reserved.
+</footer>
 <!-- Compiled and minified JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
