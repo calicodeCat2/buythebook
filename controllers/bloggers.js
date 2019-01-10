@@ -96,7 +96,7 @@ module.exports = {
       });
   },
   viewAdminMessages: (req, res) => {
-    knex("bloggers")
+    let messages = knex("bloggers")
       .where("bloggers.id", req.session.blogger.id)
       .select(
         "bloggers.id",
@@ -111,13 +111,21 @@ module.exports = {
         "admin_messages.blogger_id",
         req.session.blogger.id
       )
+
+    let unReadMessages = knex("admin_messages")
+      .select("id")
+      .where("admin_messages.blogger_id", req.session.blogger.id)
+      .andWhere("unread", true)
+
+    Promise.all([messages, unReadMessages])
       .then(results => {
         res.render("blogger-messages", {
-          messages: results,
+          messages: results[0],
           //NECESSARY VARS FOR NAVBAR OPTIONS
           loggedInUser: req.session.user,
           loggedInBlogger: req.session.blogger,
           loggedInAdmin: req.session.admin,
+          unReadMessages: results[1]
         });
       });
   },
