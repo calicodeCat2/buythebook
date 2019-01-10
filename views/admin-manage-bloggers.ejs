@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Pending Blogger Registrations</title>
+    <!-- Materialize Link -->
+    <% include materializestyle %>
+  </head>
+  <body>
+    <!-- Mandy's navbar -->
+    <% include navbar %>
+
+    <main class="container">
+      <section class="card approved-bloggers">
+        <h1>Manage Bloggers</h1>
+        <% if(!approvedBloggers) { %>
+        <p>You currently have no bloggers to manage.</p>
+        <% } %>
+        <ul>
+          <% for(let i = 0; i < approvedBloggers.length; i++) { %>
+          <li>
+            <h3><%= approvedBloggers[i].blogger_name %></h3>
+            <img src="<%= approvedBloggers[i].image_url %>" alt="" />
+            <p>Requested On: <%= requestedOn[i] %></p>
+            <p>Years Blogging: <%= approvedBloggers[i].years_blogging %></p>
+            <p>
+              Blogger Website:
+              <a href="<%= approvedBloggers[i].link %>">Website</a>
+            </p>
+            <p>Genre: <%= approvedBloggers[i].genre %></p>
+            <p>
+              Writing Snippet: <%= approvedBloggers[i].sample.slice(0, 140) +
+              "..." %>
+            </p>
+            <a href="/admin/view/blogger/<%= approvedBloggers[i].id %>"
+              >View Blogger</a
+            >
+
+            <hr />
+          </li>
+          <% } %>
+        </ul>
+        <span> | </span> <a href="/admin/home">Return to Home</a>
+      </section>
+    </main>
+
+    <!-- JavaScript Links -->
+    <% include materializejs %>
+  </body>
+</html>

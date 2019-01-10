@@ -70,7 +70,6 @@ module.exports = {
     });
   },
   newBlog: (req, res) => {
-    console.log(req.body.blog_title);
     knex("blogs")
       .insert({
         blog_title: req.body.blog_title,
@@ -79,6 +78,32 @@ module.exports = {
       })
       .then(() => {
         res.redirect("/blogger/home");
+      });
+  },
+  viewAdminMessages: (req, res) => {
+    knex("bloggers")
+      .where("bloggers.id", req.session.blogger.id)
+      .select(
+        "bloggers.id",
+        "bloggers.blogger_name",
+        "admin_messages.message_title",
+        "admin_messages.message_content",
+        "admin_messages.unread",
+        "admin_messages.blogger_id"
+      )
+      .innerJoin(
+        "admin_messages",
+        "admin_messages.blogger_id",
+        req.session.blogger.id
+      )
+      .then(results => {
+        res.render("blogger-messages", {
+          messages: results,
+          //NECESSARY VARS FOR NAVBAR OPTIONS
+          loggedInUser: req.session.user,
+          loggedInBlogger: req.session.blogger,
+          loggedInAdmin: req.session.admin
+        });
       });
   },
   //this renders the adminstrator login page
@@ -277,6 +302,28 @@ module.exports = {
         );
         res.render("admin-pending-regs", {
           pendingBloggerRegistrations: results,
+          requestedOn: requestedOn,
+          //NECESSARY VARS FOR NAVBAR OPTIONS
+          loggedInUser: req.session.user,
+          loggedInBlogger: req.session.blogger,
+          loggedInAdmin: req.session.admin
+        });
+      });
+  },
+  adminViewApprovedBloggers: (req, res) => {
+    knex("bloggers")
+      .where("bloggers.approved", "=", "true")
+      .orderBy("created_at")
+      .whereNot("role", "=", "admin")
+      .andWhereNot("rejected", "=", "true")
+      .then(results => {
+        let requestedOn = results.map(reg =>
+          moment(reg.created_at)
+            .toString()
+            .slice(0, 16)
+        );
+        res.render("admin-manage-bloggers", {
+          approvedBloggers: results,
           requestedOn: requestedOn,
           //NECESSARY VARS FOR NAVBAR OPTIONS
           loggedInUser: req.session.user,

@@ -15,8 +15,11 @@
     <main class="container">
       <section>
         <div class="pic"><img src="<%= blogger.image_url %>" alt="" /></div>
+        <% if(!blogger.approved) { %>
         <h1>Applicant: <%= blogger.blogger_name %></h1>
-        <% if(blogger.approved) { %>
+        <% } else { %>
+        <h1>Blogger: <%= blogger.blogger_name %></h1>
+        <% } %> <% if(blogger.approved) { %>
         <div class="card message-form">
           <h4>Message Blogger</h4>
           <form action="/admin/message/blogger/<%= blogger.id %>" method="POST">

@@ -119,6 +119,17 @@ module.exports = app => {
     adminAuthMiddleware,
     messages.adminCreateMessage
   );
+  app.get(
+    "/admin/manage-bloggers",
+    adminAuthMiddleware,
+    bloggers.adminViewApprovedBloggers
+  );
+
+  app.get(
+    "/blogger/messages",
+    bloggerAuthMiddleware,
+    bloggers.viewAdminMessages
+  );
 };
 
 function adminAuthMiddleware(req, res, next) {
