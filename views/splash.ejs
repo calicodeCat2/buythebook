@@ -1,31 +1,30 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8" />
-    <title>Splash</title>
-    <!-- Materialize Link -->
-    <% include materializestyle %>
-  </head>
-  <body>
-    <!-- Mandy's navbar -->
-    <% include navbar %>
 
-    <div class="welcome">
-      <h1>Welcome</h1>
-      <p>Please login below to enter buythebook.</p>
-      <div class="userLogin">
-        <a href="/user/login">User Login/Registration</a>
-      </div>
-      <div class="bloggerLogin">
-        <a href="/blogger/login">Blogger Login/Registration</a>
-      </div>
-      
-    </div>
-    <div class="blogBlurb">
-      <% for (i = 0; i < blogs.length; i++) { %>
-      <h3><%= blogs[i].blog_title %></h3>
-      <h5><%= bloggers[i].blogger_name %></h5>
-      <img src="<%= bloggers[i].image_url %>" height="50px"" alt=""> <% } %>
+<head>
+  <meta charset="utf-8" />
+  <title>Splash</title>
+  <!-- Materialize Link -->
+  <% include materializestyle %>
+</head>
+
+<body>
+  <!-- Mandy's navbar -->
+  <% include navbar %>
+
+  <div class="welcome">
+    <h1>Welcome</h1>
+
+  </div>
+  <div class="blogBlurb">
+    <% for (i = 0; i < blogs.length; i++) { %>
+    <h3>
+      <%= blogs[i].blog_title %>
+    </h3>
+    <h5>
+      <%= bloggers[i].blogger_name %>
+    </h5>
+    <img src="<%= bloggers[i].image_url %>" height="50px"" alt=""> <% } %>
     </div>
 
     <!-- JavaScript Links -->

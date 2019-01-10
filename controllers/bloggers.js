@@ -69,12 +69,20 @@ module.exports = {
   },
 
   newBlogPage: (req, res) => {
-    res.render("blogger-new-blog", {
-      //NECESSARY VARS FOR NAVBAR OPTIONS
-      loggedInUser: req.session.user,
-      loggedInBlogger: req.session.blogger,
-      loggedInAdmin: req.session.admin,
-    });
+    let adminMessages = knex("admin_messages")
+      .select("id")
+      .where("admin_messages.blogger_id", req.session.blogger.id)
+      .andWhere("unread", true)
+      .then(results => {
+        res.render("blogger-new-blog", {
+          //NECESSARY VARS FOR NAVBAR OPTIONS
+          loggedInUser: req.session.user,
+          loggedInBlogger: req.session.blogger,
+          loggedInAdmin: req.session.admin,
+          unReadMessages: results
+        });
+      })
+
   },
   newBlog: (req, res) => {
     knex("blogs")
