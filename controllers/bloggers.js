@@ -60,6 +60,27 @@ module.exports = {
     req.session.admin = null;
     res.redirect("/");
   },
+
+  newBlogPage: (req, res) => {
+    res.render("blogger-new-blog", {
+      //NECESSARY VARS FOR NAVBAR OPTIONS
+      loggedInUser: req.session.user,
+      loggedInBlogger: req.session.blogger,
+      loggedInAdmin: req.session.admin
+    });
+  },
+  newBlog: (req, res) => {
+    console.log(req.body.blog_title);
+    knex("blogs")
+      .insert({
+        blog_title: req.body.blog_title,
+        blog_content: req.body.content,
+        blogger_id: req.session.blogger.id
+      })
+      .then(() => {
+        res.redirect("/blogger/home");
+      });
+  },
   //this renders the adminstrator login page
   adminLoginPage: (req, res) => {
     res.render("admin-login", {
@@ -127,11 +148,28 @@ module.exports = {
       .orderBy("blogs.created_at")
       .innerJoin("bloggers", "blogs.blogger_id", "bloggers.id");
 
+    let approvedBloggers = knex("bloggers")
+      .select(
+        "id",
+        "blogger_name",
+        "years_blogging",
+        "genre",
+        "link",
+        "sample",
+        "created_at",
+        "image_url"
+      )
+      .where("bloggers.approved", "=", "true")
+      .andWhere("bloggers.rejected", "=", "false")
+      .andWhere("bloggers.role", "blogger")
+      .orderBy("created_at");
+
     Promise.all([
       pendingBloggerRegistrations,
       pendingBlogPosts,
       pendingBanRequests,
-      approvedBlogs
+      approvedBlogs,
+      approvedBloggers
     ])
       .then(results => {
         let firstThreeRegs = results[0].slice(0, 3);
@@ -161,6 +199,13 @@ module.exports = {
             .slice(0, 16)
         );
 
+        let firstThreeBloggers = results[4].slice(0, 3);
+        let requestedOnbloggerStarted = firstThreeRegs.map(blogger =>
+          moment(blogger.created_at)
+            .toString()
+            .slice(0, 16)
+        );
+
         res.render("admin-home", {
           admin: req.session.admin,
           firstThreeRegs: firstThreeRegs,
@@ -171,6 +216,8 @@ module.exports = {
           banRequestedOn: banRequestedOn,
           firstThreeApprovedBlogs: firstThreeApprovedBlogs,
           approvedBlogCreatedOn: approvedBlogCreatedOn,
+          firstThreeBloggers: firstThreeBloggers,
+          requestedOnbloggerStarted: requestedOnbloggerStarted,
           //NECESSARY VARS FOR NAVBAR OPTIONS
           loggedInUser: req.session.user,
           loggedInBlogger: req.session.blogger,

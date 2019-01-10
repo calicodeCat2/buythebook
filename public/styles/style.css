@@ -1,0 +1,12 @@
+strong {
+  font-weight: bold;
+}
+
+.tall {
+  height: 400px;
+}
+
+.shopping-cart {
+  height: 200px;
+  width: 250px;
+}

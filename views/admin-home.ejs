@@ -11,129 +11,169 @@
   <body>
     <!-- Mandy's navbar -->
     <% include navbar %>
-    <!-- beginning of main content -->
-    <h1>Welcome, <%= admin.blogger_name %></h1>
 
-    <section class="pending-bloggers">
-      <h2>Pending Blogger Applications</h2>
-      <% if(!firstThreeRegs) { %>
-      <p>You currently have no pending blogger applications.</p>
-      <% } %>
-      <ul>
-        <% for(let i = 0; i < firstThreeRegs.length; i++) { %>
-        <li>
-          <h3><%= firstThreeRegs[i].blogger_name %></h3>
-          <img src="<%= firstThreeRegs[i].image_url %>" alt="" />
-          <p>Requested On: <%= requestedOn[i] %></p>
-          <p>Years Blogging: <%= firstThreeRegs[i].years_blogging %></p>
-          <p>
-            Blogger Website: <a href="<%= firstThreeRegs[i].link %>">Website</a>
-          </p>
-          <p>Genre: <%= firstThreeRegs[i].genre %></p>
-          <p>
-            Writing Snippet: <%= firstThreeRegs[i].sample.slice(0, 140) + "..."
-            %>
-          </p>
-          <a href="/admin/view/blogger/<%= firstThreeRegs[i].id %>"
-            >View Blogger</a
-          >
-          <span> | </span>
-          <a href="/admin/approve/blogger/<%= firstThreeRegs[i].id %>"
-            >Approve Blogger</a
-          >
-          <span> | </span>
-          <a href="/admin/reject/blogger/<%= firstThreeRegs[i].id %>"
-            >Reject Blogger</a
-          >
-          <hr />
-        </li>
-        <% } %>
-        <a href="/admin/pending-regs">View All</a>
-      </ul>
-    </section>
+    <main class="container">
+      <% include admin-card-stats %>
 
-    <section class="pending-blogs">
-      <h2>Pending Blog Posts</h2>
-      <% if(!firstThreeBlogs) { %>
-      <p>You currently have no pending blog posts.</p>
-      <% } %>
-      <ul>
-        <% for (let i = 0; i < firstThreeBlogs.length; i++) { %>
-        <li>
-          <h3><%= firstThreeBlogs[i].blog_title %></h3>
-          <h4>Post Created On: <%= blogCreatedOn[i] %></h4>
-          <h4>By: <%= firstThreeBlogs[i].blogger_name %></h4>
-          <p>
-            Preview: <%= firstThreeBlogs[i].blog_content.slice(0, 140) + "..."
-            %>
-          </p>
-          <a href="/admin/view/blog/<%= firstThreeBlogs[i].id %>">View Blog</a>
-          <span> | </span>
-          <a href="/admin/approve/blog/<%= firstThreeBlogs[i].id %>"
-            >Approve Blog</a
-          >
-          <span> | </span>
-          <a href="/admin/reject/blog/<%= firstThreeBlogs[i].id %>"
-            >Reject Blog</a
-          >
-          <hr />
-        </li>
-        <% } %>
-        <a href="/admin/pending-blogs">View All</a>
-      </ul>
-    </section>
+      <!-- beginning of main content -->
+      <h1>Welcome, <%= admin.blogger_name %></h1>
 
-    <section class="approved-blogs">
-      <h2>Approved Blog Posts</h2>
-      <% if(!firstThreeApprovedBlogs) { %>
-      <p>You currently have no approved blog posts.</p>
-      <% } %>
-      <ul>
-        <% for (let i = 0; i < firstThreeApprovedBlogs.length; i++) { %>
-        <li>
-          <h3><%= firstThreeApprovedBlogs[i].blog_title %></h3>
-          <h4>Post Created On: <%= approvedBlogCreatedOn[i] %></h4>
-          <h4>By: <%= firstThreeApprovedBlogs[i].blogger_name %></h4>
-          <p>
-            Preview: <%= firstThreeApprovedBlogs[i].blog_content.slice(0, 140) +
-            "..." %>
-          </p>
-          <a
-            href="/admin/view/approved-blog/<%= firstThreeApprovedBlogs[i].id %>"
-            >View Blog</a
-          >
-          <hr />
-        </li>
+      <section class="col card s-4 pending-bloggers">
+        <h2>Pending Blogger Applications</h2>
+        <% if(!firstThreeRegs) { %>
+        <p>You currently have no pending blogger applications.</p>
         <% } %>
-        <a href="/admin/approved-blogs">View All</a>
-      </ul>
-    </section>
+        <ul>
+          <% for(let i = 0; i < firstThreeRegs.length; i++) { %>
+          <li>
+            <h3><%= firstThreeRegs[i].blogger_name %></h3>
+            <img src="<%= firstThreeRegs[i].image_url %>" alt="" />
+            <p>Requested On: <%= requestedOn[i] %></p>
+            <p>Years Blogging: <%= firstThreeRegs[i].years_blogging %></p>
+            <p>
+              Blogger Website:
+              <a href="<%= firstThreeRegs[i].link %>">Website</a>
+            </p>
+            <p>Genre: <%= firstThreeRegs[i].genre %></p>
+            <p>
+              Writing Snippet: <%= firstThreeRegs[i].sample.slice(0, 140) +
+              "..." %>
+            </p>
+            <a href="/admin/view/blogger/<%= firstThreeRegs[i].id %>"
+              >View Blogger</a
+            >
+            <span> | </span>
+            <a href="/admin/approve/blogger/<%= firstThreeRegs[i].id %>"
+              >Approve Blogger</a
+            >
+            <span> | </span>
+            <a href="/admin/reject/blogger/<%= firstThreeRegs[i].id %>"
+              >Reject Blogger</a
+            >
+            <hr />
+          </li>
+          <% } %>
+          <a href="/admin/pending-regs">View All</a>
+        </ul>
+      </section>
 
-    <section class="pending-ban-requests">
-      <h2>Pending User Ban Requests</h2>
-      <% if(!firstThreeBanReqs) { %>
-      <p>You currently have no pending ban requests.</p>
-      <% } %>
-      <ul>
-        <% for(let i = 0; i < firstThreeBanReqs.length; i++) { %>
-        <li>
-          <h4>Screen Name: <%= firstThreeBanReqs[i].screen_name %></h4>
-          <a href="/admin/users/ban/<%= firstThreeBanReqs[i].id %>"
-            >Approve Ban</a
-          >
-          <span> | </span>
-          <a href="/admin/users/view/<%= firstThreeBanReqs[i].id %>"
-            >View User</a
-          >
-          <span> | </span>
-          <a href="/admin/users/unban/<%= firstThreeBanReqs[i].id %>"
-            >Reject Ban</a
-          >
-        </li>
+      <section class="col card s4 manage-bloggers">
+        <h2>Manage Bloggers</h2>
+        <% if(!firstThreeBloggers) { %>
+        <p>You currently have no pending blogger applications.</p>
         <% } %>
-        <a href="/admin/user-bans">View All</a>
-      </ul>
-    </section>
+        <ul>
+          <% for(let i = 0; i < firstThreeBloggers.length; i++) { %>
+          <li>
+            <h3><%= firstThreeBloggers[i].blogger_name %></h3>
+            <img src="<%= firstThreeBloggers[i].image_url %>" alt="" />
+            <p>Started On: <%= requestedOnbloggerStarted[i] %></p>
+            <p>Years Blogging: <%= firstThreeBloggers[i].years_blogging %></p>
+            <p>
+              Blogger Website:
+              <a href="<%= firstThreeBloggers[i].link %>">Website</a>
+            </p>
+            <p>Genre: <%= firstThreeBloggers[i].genre %></p>
+            <p>
+              Writing Snippet: <%= firstThreeBloggers[i].sample.slice(0, 140) +
+              "..." %>
+            </p>
+            <a href="/admin/view/blogger/<%= firstThreeBloggers[i].id %>"
+              >View Blogger</a
+            >
+
+            <hr />
+          </li>
+          <% } %>
+          <a href="/admin/manage-bloggers">View All</a>
+        </ul>
+      </section>
+
+      <section class="pending-blogs">
+        <h2>Pending Blog Posts</h2>
+        <% if(!firstThreeBlogs) { %>
+        <p>You currently have no pending blog posts.</p>
+        <% } %>
+        <ul>
+          <% for (let i = 0; i < firstThreeBlogs.length; i++) { %>
+          <li>
+            <h3><%= firstThreeBlogs[i].blog_title %></h3>
+            <h4>Post Created On: <%= blogCreatedOn[i] %></h4>
+            <h4>By: <%= firstThreeBlogs[i].blogger_name %></h4>
+            <p>
+              Preview: <%= firstThreeBlogs[i].blog_content.slice(0, 140) + "..."
+              %>
+            </p>
+            <a href="/admin/view/blog/<%= firstThreeBlogs[i].id %>"
+              >View Blog</a
+            >
+            <span> | </span>
+            <a href="/admin/approve/blog/<%= firstThreeBlogs[i].id %>"
+              >Approve Blog</a
+            >
+            <span> | </span>
+            <a href="/admin/reject/blog/<%= firstThreeBlogs[i].id %>"
+              >Reject Blog</a
+            >
+            <hr />
+          </li>
+          <% } %>
+          <a href="/admin/pending-blogs">View All</a>
+        </ul>
+      </section>
+
+      <section class="approved-blogs">
+        <h2>Approved Blog Posts</h2>
+        <% if(!firstThreeApprovedBlogs) { %>
+        <p>You currently have no approved blog posts.</p>
+        <% } %>
+        <ul>
+          <% for (let i = 0; i < firstThreeApprovedBlogs.length; i++) { %>
+          <li>
+            <h3><%= firstThreeApprovedBlogs[i].blog_title %></h3>
+            <h4>Post Created On: <%= approvedBlogCreatedOn[i] %></h4>
+            <h4>By: <%= firstThreeApprovedBlogs[i].blogger_name %></h4>
+            <p>
+              Preview: <%= firstThreeApprovedBlogs[i].blog_content.slice(0, 140)
+              + "..." %>
+            </p>
+            <a
+              href="/admin/view/approved-blog/<%= firstThreeApprovedBlogs[i].id %>"
+              >View Blog</a
+            >
+            <hr />
+          </li>
+          <% } %>
+          <a href="/admin/approved-blogs">View All</a>
+        </ul>
+      </section>
+
+      <section class="pending-ban-requests">
+        <h2>Pending User Ban Requests</h2>
+        <% if(!firstThreeBanReqs) { %>
+        <p>You currently have no pending ban requests.</p>
+        <% } %>
+        <ul>
+          <% for(let i = 0; i < firstThreeBanReqs.length; i++) { %>
+          <li>
+            <h4>Screen Name: <%= firstThreeBanReqs[i].screen_name %></h4>
+            <a href="/admin/users/ban/<%= firstThreeBanReqs[i].id %>"
+              >Approve Ban</a
+            >
+            <span> | </span>
+            <a href="/admin/users/view/<%= firstThreeBanReqs[i].id %>"
+              >View User</a
+            >
+            <span> | </span>
+            <a href="/admin/users/unban/<%= firstThreeBanReqs[i].id %>"
+              >Reject Ban</a
+            >
+          </li>
+          <% } %>
+          <a href="/admin/user-bans">View All</a>
+        </ul>
+      </section>
+    </main>
 
     <!-- JavaScript Links -->
     <% include materializejs %>

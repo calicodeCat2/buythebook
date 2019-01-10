@@ -13,7 +13,7 @@
     <!-- Mandy's navbar -->
     <% include navbar %>
 
-    <h1>Welcome Gentle Readers</h1>
+    <h1>Welcome <%= user.user_name %></h1>
     <h2>Our Writers</h2>
     <div class="row">
     <% for (let i = 0; i < bloggers.length; i++) { %>

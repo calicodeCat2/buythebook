@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Main Page</title>
+    <!-- Materialize Link -->
+    <% include materializestyle %>
+
+
+  </head>
+  <body>
+    <!-- Mandy's navbar -->
+    <% include navbar %>
+
+    <h1>Welcome <%= users.user_name %></h1>
+      <% for (let i = 0; i < blogs.length; i++) { %>
+      <div class="">
+        <p><%= blogs[i].blog_title %></p>
+        <p><%= blogs[i].blogger_name %></p>
+
+
+      </div>
+
+      <% } %>
+
+
+
+      <!-- JavaScript Links -->
+    <% include materializejs %>
+
+  </body>
+</html>

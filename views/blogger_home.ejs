@@ -7,7 +7,7 @@
     <title>Blogger Home Page</title>
   <!-- Materialize Link -->
   <% include materializestyle %>
-
+  <!-- Include Quill -->
      <style media="">
          .current_blogs{
              text-align: center;
@@ -37,13 +37,18 @@
 
     <div class="current_blogs">
         <h5>All Blogs:</h5>
-        <ul>
+        
             <% for(let i = 0 ; i < blogs.length ; i++){ %>
-            <li><h4><a href=""><%= blogs[i].blog_title%></a></h4></li>
-            <li><p><%= blogs[i].blog_content%></p></li>
+            <h4><a href=""><%= blogs[i].blog_title%></a></h4>
+            <div class="blog_content"><%- blogs[i].blog_content%></div>
             <button type="button" action="" method="GET">Edit this Blog</button>
-            <% } %>
-        </ul>
+            <% if(blogs[i].approved === true){%>
+             <% let status = "Approved!" %>
+             <h6>Status: <%=status%></h6>
+            <% }else{ let status = "Not Approved."%>
+            <h6>Status: <%=status%></h6>
+            <%}%>
+            <%}%>
     </div>
 
 <!-- JavaScript Links -->

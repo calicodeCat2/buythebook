@@ -13,8 +13,16 @@
     <div class="container">
       <h2><%= blog.blog_title %></h2>
       <span>By: <%= blog.blogger_name %></span>
-      <img src="<%= blog.image_url %>" height="50px" alt="" />
-      <div class="article"><%= blog.blog_content %></div>
+      <img src="<%= blog.image_url %>" height="50px" alt="">
+      <div class="article">
+        <%= blog.blog_content %>
+      <div class="votes">
+        <a href="/upvote/<%= blog.id %>"><img src="https://img.icons8.com/dusk/64/000000/facebook-like.png" height='25px'></a> | <span><%= blog.upvote %></span>
+        <a href="/downvote/<%= blog.id  %>"><img src="https://img.icons8.com/dusk/24/000000/middle-finger.png"></a> | <span><%= blog.downvote %></span>
+      </div>
+    </div>
+
+    <div class="container">
       <div class="comments">
         <% for (let i = 0; i < comments.length; i++) { %>
         <div class="comment">

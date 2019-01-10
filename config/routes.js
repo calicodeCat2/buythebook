@@ -2,6 +2,7 @@ const bloggers = require("../controllers/bloggers");
 const users = require("../controllers/users");
 const blogs = require("../controllers/blogs");
 const comments = require("../controllers/comments");
+const messages = require("../controllers/admin_messages");
 module.exports = app => {
   app.get("/", users.index);
   //app.get("/blogs", blogs.index);
@@ -10,11 +11,14 @@ module.exports = app => {
   app.get("/user/login", users.userLogin);
   app.post("/users/main", users.main);
   app.post("/user/login", users.register);
-  app.get("/user/profile/:id", users.userEdit);
+  app.get("/user/profile", users.userEdit);
+  app.post("/user/profile", users.editProfile);
+  app.get("/user/comments", userMiddleware, users.showUserComments);
   app.get("/users/main", userMiddleware, users.show);
   app.get("/profile/:id", userMiddleware, users.profile);
   app.get("/user/logout", userMiddleware, users.logout);
-  // app.get("/article/:id", userMiddleware, users.profileArticle);
+  app.get("/upvote/:id", userMiddleware, users.upPlus);
+  app.get("/downvote/:id", userMiddleware, users.downMinus);
   app.get("/article/:id", userMiddleware, users.mainArticle);
 
   // Greg's Routes (mainly)
@@ -27,7 +31,9 @@ module.exports = app => {
   app.get("/blogger/home", bloggerAuthMiddleware, bloggers.bloggerHome);
   app.get("/blogger/logout", bloggerAuthMiddleware, bloggers.logout);
 
-  app.get("/blogger/newblog", bloggers.create)
+  app.get("/blogger/new", bloggerAuthMiddleware, bloggers.newBlogPage);
+  app.post("/blogger/new", bloggerAuthMiddleware, bloggers.newBlog);
+
   //Mandy's routes
   //Admin routes
   app.get("/admin/login", bloggers.adminLoginPage);
@@ -106,6 +112,12 @@ module.exports = app => {
     "/admin/users/view/:user_id",
     adminAuthMiddleware,
     users.adminViewOne
+  );
+
+  app.post(
+    "/admin/message/blogger/:blogger_id",
+    adminAuthMiddleware,
+    messages.adminCreateMessage
   );
 };
 
