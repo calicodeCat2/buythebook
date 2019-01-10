@@ -10,15 +10,11 @@
       <% if(!loggedInUser && !loggedInAdmin && !loggedInBlogger) { %>
 
       <li>
-        <a href="/blogger/login"
-          ><i class="material-icons left">create</i>Write With Us</a
-        >
+        <a href="/blogger/login"><i class="material-icons left">create</i>Write With Us</a>
       </li>
 
       <li>
-        <a href="/user/login"
-          ><i class="material-icons left">account_box</i>Login</a
-        >
+        <a href="/user/login"><i class="material-icons left">account_box</i>Login</a>
       </li>
 
       <% } %>
@@ -26,27 +22,19 @@
       <!-- USER ONLY LOGIN OPTIONS -->
       <% if(loggedInUser) { %>
       <li>
-        <a href="/users/main"
-          ><i class="material-icons left">dashboard</i>Dashboard</a
-        >
+        <a href="/users/main"><i class="material-icons left">dashboard</i>Dashboard</a>
       </li>
 
       <li>
-        <a href="/user/comments"
-          ><i class="material-icons left">comment</i>My Comments</a
-        >
+        <a href="/user/comments"><i class="material-icons left">comment</i>My Comments</a>
       </li>
 
       <li>
-        <a href="/user/profile"
-          ><i class="material-icons left">person</i>Profile</a
-        >
+        <a href="/user/profile"><i class="material-icons left">person</i>Profile</a>
       </li>
 
       <li>
-        <a href="/user/logout"
-          ><i class="material-icons left">exit_to_app</i>Logout</a
-        >
+        <a href="/user/logout"><i class="material-icons left">exit_to_app</i>Logout</a>
       </li>
       <% } %>
 
@@ -54,27 +42,24 @@
       <% if (loggedInBlogger) { %>
 
       <li>
-        <a href="/blogger/home"
-          ><i class="material-icons left">dashboard</i>Dashboard</a
-        >
+        <a href="/blogger/home"><i class="material-icons left">dashboard</i>Dashboard</a>
       </li>
 
       <li>
-        <a href="/blogger/new"
-          ><i class="material-icons left">create</i>New Blog</a
-        >
+        <a href="/blogger/new"><i class="material-icons left">create</i>New Blog</a>
       </li>
 
       <li>
-        <a href="/blogger/messages"
-          ><i class="material-icons left">message</i>Admin Messages</a
-        >
+        <a href="/blogger/messages"><i class="material-icons left">message</i>Admin Messages
+          <% if(unReadMessages && unReadMessages.length) { %>
+          <span class="new badge pink">
+            <%= unReadMessages.length %></span>
+          <% } %>
+        </a>
       </li>
 
       <li>
-        <a href="/blogger/logout"
-          ><i class="material-icons left">exit_to_app</i>Logout</a
-        >
+        <a href="/blogger/logout"><i class="material-icons left">exit_to_app</i>Logout</a>
       </li>
 
       <% } %>
@@ -83,14 +68,10 @@
       <% if(loggedInAdmin) { %>
 
       <li>
-        <a href="/admin/home"
-          ><i class="material-icons left">dashboard</i>Dashboard</a
-        >
+        <a href="/admin/home"><i class="material-icons left">dashboard</i>Dashboard</a>
       </li>
       <li>
-        <a href="/admin/logout"
-          ><i class="material-icons left">exit_to_app</i>Logout</a
-        >
+        <a href="/admin/logout"><i class="material-icons left">exit_to_app</i>Logout</a>
       </li>
       <% } %>
     </ul>
