@@ -24,7 +24,8 @@
           <h4>Post Created On: <%= requestedOn[i] %></h4>
           <h4>By: <%= approvedBlogs[i].blogger_name %></h4>
           <p>
-            Preview: <%= approvedBlogs[i].blog_content.slice(0, 140) + "..." %>
+            Preview: <%- approvedBlogs[i].blog_content.slice(0,
+            approvedBlogs[i].blog_content.indexOf("<br />")) + "..." %>
           </p>
           <a href="/admin/view/approved-blog/<%= approvedBlogs[i].id %>"
             >View Blog</a

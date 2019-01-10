@@ -2,6 +2,7 @@ const bloggers = require("../controllers/bloggers");
 const users = require("../controllers/users");
 const blogs = require("../controllers/blogs");
 const comments = require("../controllers/comments");
+const messages = require("../controllers/admin_messages");
 module.exports = app => {
   app.get("/", users.index);
   //app.get("/blogs", blogs.index);
@@ -111,6 +112,23 @@ module.exports = app => {
     "/admin/users/view/:user_id",
     adminAuthMiddleware,
     users.adminViewOne
+  );
+
+  app.post(
+    "/admin/message/blogger/:blogger_id",
+    adminAuthMiddleware,
+    messages.adminCreateMessage
+  );
+  app.get(
+    "/admin/manage-bloggers",
+    adminAuthMiddleware,
+    bloggers.adminViewApprovedBloggers
+  );
+
+  app.get(
+    "/blogger/messages",
+    bloggerAuthMiddleware,
+    bloggers.viewAdminMessages
   );
 };
 

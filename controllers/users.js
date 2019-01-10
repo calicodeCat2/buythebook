@@ -1,10 +1,26 @@
 const knex = require("../db/knex.js");
 const moment = require("moment");
 
+const getUnreadMessages = (bloggerID) => new Promise((resolve, reject) => {
+  return knex("admin_messages")
+    .select("id")
+    .where("admin_messages.blogger_id", bloggerID)
+    .andWhere("unread", true)
+    .then(results => {
+      resolve(results)
+    })
+    .catch(err => {
+      console.log(err)
+      return false
+    })
+})
+
+
+
 module.exports = {
   // CHANGE ME TO AN ACTUAL FUNCTION
   index: (req, res) => {
-    knex("blogs")
+    let blogsAndBloggers = knex("blogs")
       .where("blogs.approved", "true")
       .select(
         "bloggers.id",
@@ -23,15 +39,28 @@ module.exports = {
         "blogs.blog_content"
       )
       .join("bloggers", "bloggers.id", "=", "blogger_id")
+
+      // if (req.session.blogger) {
+      //   let unReadMessages = getUnreadMessages(req.session.blogger.id)
+      // } else {
+      //   let unReadMessages = getUnreadMessages(-1)
+      // }
+
+      // Promise.all(blogsAndBloggers, unReadMessages)
       .then(results => {
+        // console.log(results[1])
+
         res.render("splash", {
           blogs: results,
           bloggers: results,
           //NECESSARY VARS FOR NAVBAR OPTIONS
           loggedInUser: req.session.user,
           loggedInBlogger: req.session.blogger,
-          loggedInAdmin: req.session.admin
+          loggedInAdmin: req.session.admin,
+          unReadMessages: false
         });
+
+
       });
   },
 
@@ -192,7 +221,7 @@ module.exports = {
             .update({
               user_name: req.body.user_name,
               screen_name: req.body.screen_name,
-              
+
             })
             res.redirect('/user/login')
           } else {
@@ -240,8 +269,6 @@ module.exports = {
       });
     });
   },
-
-
 
   upPlus: (req, res) => {
     knex("blogs")

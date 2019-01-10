@@ -4,13 +4,26 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
+    <title>Messages From Admin</title>
+
     <!-- Materialize Link -->
     <% include materializestyle %>
   </head>
   <body>
     <!-- Mandy's navbar -->
     <% include navbar %>
+
+    <main class="container">
+      <h1>Messages from Your Boss</h1>
+      <section class="messages">
+        <% for(let i = 0; i < messages.length; i++) { %>
+        <div class="card message">
+          <h4><%= messages[i].message_title %></h4>
+          <div class="content"><%= messages[i].message_content %></div>
+        </div>
+        <% } %>
+      </section>
+    </main>
 
     <!-- JavaScript Links -->
     <% include materializejs %>
