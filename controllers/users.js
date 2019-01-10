@@ -188,7 +188,9 @@ module.exports = {
       let users = knex('users')
         .where('users.id', '=', req.session.user.id)
         .select(
-            'users.*',
+            'users.id',
+            'users.user_name',
+            'users.screen_name',
             'comments.id',
             'comments.user_id',
             'comments.content',
@@ -199,6 +201,7 @@ module.exports = {
           .join('bloggers', 'bloggers.id', '=', 'blogger_id')
         Promise.all([users, blogs])
           .then((results) => {
+            console.log(results[0][0]);
             res.render('user_comments', {
             users: results[0][0],
             blogs: results[1],
