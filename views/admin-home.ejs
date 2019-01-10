@@ -18,7 +18,7 @@
       <!-- beginning of main content -->
       <h1>Welcome, <%= admin.blogger_name %></h1>
 
-      <section class="pending-bloggers">
+      <section class="col card s-4 pending-bloggers">
         <h2>Pending Blogger Applications</h2>
         <% if(!firstThreeRegs) { %>
         <p>You currently have no pending blogger applications.</p>
@@ -54,6 +54,38 @@
           </li>
           <% } %>
           <a href="/admin/pending-regs">View All</a>
+        </ul>
+      </section>
+
+      <section class="col card s4 manage-bloggers">
+        <h2>Manage Bloggers</h2>
+        <% if(!firstThreeBloggers) { %>
+        <p>You currently have no pending blogger applications.</p>
+        <% } %>
+        <ul>
+          <% for(let i = 0; i < firstThreeBloggers.length; i++) { %>
+          <li>
+            <h3><%= firstThreeBloggers[i].blogger_name %></h3>
+            <img src="<%= firstThreeBloggers[i].image_url %>" alt="" />
+            <p>Started On: <%= requestedOnbloggerStarted[i] %></p>
+            <p>Years Blogging: <%= firstThreeBloggers[i].years_blogging %></p>
+            <p>
+              Blogger Website:
+              <a href="<%= firstThreeBloggers[i].link %>">Website</a>
+            </p>
+            <p>Genre: <%= firstThreeBloggers[i].genre %></p>
+            <p>
+              Writing Snippet: <%= firstThreeBloggers[i].sample.slice(0, 140) +
+              "..." %>
+            </p>
+            <a href="/admin/view/blogger/<%= firstThreeBloggers[i].id %>"
+              >View Blogger</a
+            >
+
+            <hr />
+          </li>
+          <% } %>
+          <a href="/admin/manage-bloggers">View All</a>
         </ul>
       </section>
 

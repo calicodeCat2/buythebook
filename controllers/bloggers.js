@@ -148,11 +148,28 @@ module.exports = {
       .orderBy("blogs.created_at")
       .innerJoin("bloggers", "blogs.blogger_id", "bloggers.id");
 
+    let approvedBloggers = knex("bloggers")
+      .select(
+        "id",
+        "blogger_name",
+        "years_blogging",
+        "genre",
+        "link",
+        "sample",
+        "created_at",
+        "image_url"
+      )
+      .where("bloggers.approved", "=", "true")
+      .andWhere("bloggers.rejected", "=", "false")
+      .andWhere("bloggers.role", "blogger")
+      .orderBy("created_at");
+
     Promise.all([
       pendingBloggerRegistrations,
       pendingBlogPosts,
       pendingBanRequests,
-      approvedBlogs
+      approvedBlogs,
+      approvedBloggers
     ])
       .then(results => {
         let firstThreeRegs = results[0].slice(0, 3);
@@ -182,6 +199,13 @@ module.exports = {
             .slice(0, 16)
         );
 
+        let firstThreeBloggers = results[4].slice(0, 3);
+        let requestedOnbloggerStarted = firstThreeRegs.map(blogger =>
+          moment(blogger.created_at)
+            .toString()
+            .slice(0, 16)
+        );
+
         res.render("admin-home", {
           admin: req.session.admin,
           firstThreeRegs: firstThreeRegs,
@@ -192,6 +216,8 @@ module.exports = {
           banRequestedOn: banRequestedOn,
           firstThreeApprovedBlogs: firstThreeApprovedBlogs,
           approvedBlogCreatedOn: approvedBlogCreatedOn,
+          firstThreeBloggers: firstThreeBloggers,
+          requestedOnbloggerStarted: requestedOnbloggerStarted,
           //NECESSARY VARS FOR NAVBAR OPTIONS
           loggedInUser: req.session.user,
           loggedInBlogger: req.session.blogger,

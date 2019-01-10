@@ -12,20 +12,33 @@
     <!-- Mandy's navbar -->
     <% include navbar %>
 
-    <main>
+    <main class="container">
       <section>
         <div class="pic"><img src="<%= blogger.image_url %>" alt="" /></div>
         <h1>Applicant: <%= blogger.blogger_name %></h1>
-        <h3>Application Submitted: <%= appSubmittedOn %></h3>
+        <% if(blogger.approved) { %>
+        <div class="card message-form">
+          <h4>Message Blogger</h4>
+          <form action="/admin/message/blogger/<%= blogger.id %>" method="POST">
+            <input type="text" name="message_title" placeholder="Title" />
+            <textarea
+              name="message_content"
+              placeholder="Message Content"
+            ></textarea>
+            <input class="btn" type="submit" value="Send" />
+          </form>
+        </div>
+
+        <a href="/admin/home"></a> <% } %>
         <h4>Genre: <%= blogger.genre %></h4>
         <h4>Website: <a href="<%= blogger.link %>">Website</a></h4>
         <h4>Sample:</h4>
-        <p><%= blogger.sample %></p>
-
+        <p><%- blogger.sample %></p>
+        <% if(!blogger.approved) { %>
         <a href="/admin/approve/blogger/<%= blogger.id %>">Approve Blogger</a>
         <span> | </span>
-        <a href="/admin/reject/blogger/<%= blogger.id %>">Reject Blogger</a>
-        <span> | </span> <a href="/admin/home">Return to Home</a>
+        <a href="/admin/reject/blogger/<%= blogger.id %>">Reject Blogger</a> <%
+        } %> <span> | </span> <a href="/admin/home">Return to Home</a>
       </section>
     </main>
     <!-- JavaScript Links -->
