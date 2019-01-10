@@ -284,5 +284,27 @@ module.exports = {
           loggedInAdmin: req.session.admin
         });
       });
+  },
+  adminViewApprovedBloggers: (req, res) => {
+    knex("bloggers")
+      .where("bloggers.approved", "=", "true")
+      .orderBy("created_at")
+      .whereNot("role", "=", "admin")
+      .andWhereNot("rejected", "=", "true")
+      .then(results => {
+        let requestedOn = results.map(reg =>
+          moment(reg.created_at)
+            .toString()
+            .slice(0, 16)
+        );
+        res.render("admin-manage-bloggers", {
+          approvedBloggers: results,
+          requestedOn: requestedOn,
+          //NECESSARY VARS FOR NAVBAR OPTIONS
+          loggedInUser: req.session.user,
+          loggedInBlogger: req.session.blogger,
+          loggedInAdmin: req.session.admin
+        });
+      });
   }
 };
