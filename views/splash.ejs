@@ -1,30 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>Splash</title>
-    <style media="screen">
-      .welcome {
-        float: left;
-        margin: 20px;
-
-      }
-      .blogBlurb {
-        float: left;
-        margin: 20px 0 0 100px;
-      }
-      .userLogin {
-        float: left;
-      }
-      .bloggerLogin {
-        float: left;
-      }
-    </style>
+    <!-- Materialize Link -->
+    <% include materializestyle %>
   </head>
   <body>
-    <nav>
+    <!-- Mandy's navbar -->
+    <% include navbar %>
 
-    </nav>
     <div class="welcome">
       <h1>Welcome</h1>
       <p>Please login below to enter buythebook.</p>
@@ -33,23 +18,18 @@
       </div>
       <div class="bloggerLogin">
         <a href="/blogger/login">Blogger Login/Registration</a>
-
       </div>
       
     </div>
     <div class="blogBlurb">
       <% for (i = 0; i < blogs.length; i++) { %>
 
-
-        <h3><%= blogs[i].blog_title %></h3>
-        <h5><%= bloggers[i].blogger_name %></h5>
-        <img src="<%= bloggers[i].image_url %>" height="50px"" alt="">
-
-        <% } %>
-
-
+      <h3><%= blogs[i].blog_title %></h3>
+      <h5><%= bloggers[i].blogger_name %></h5>
+      <img src="<%= bloggers[i].image_url %>" height="50px"" alt=""> <% } %>
     </div>
 
-
+    <!-- JavaScript Links -->
+    <% include materializejs %>
   </body>
 </html>

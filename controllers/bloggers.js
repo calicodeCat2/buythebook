@@ -8,7 +8,12 @@ module.exports = {
   },
   //THIS RENDERS THE BLOGGER LOGIN PAGE
   bloggerLoginPage: function(req, res) {
-    res.render("blogger_login");
+    res.render("blogger_login", {
+      //NECESSARY VARS FOR NAVBAR OPTIONS
+      loggedInUser: req.session.user,
+      loggedInBlogger: req.session.blogger,
+      loggedInAdmin: req.session.admin
+    });
   },
   // This logs in the bloggers then redirects them to their home page
 
@@ -28,6 +33,7 @@ module.exports = {
           req.session.user = null;
           req.session.admin = null;
           req.session.blogger = blogger;
+          
           res.redirect("/blogger/home");
         } else {
           console.log("Wrong Pass");
@@ -38,25 +44,16 @@ module.exports = {
   },
 
   bloggerHome: function(req, res) {
-
-    let approvedBlogs = knex("blogs")
-      .select("blogs.*", "bloggers.blogger_name")
-      .where("blogs.approved", "=", "true")
-      .orderBy("blogs.created_at")
-      .innerJoin("bloggers", "blogs.blogger_id", "bloggers.id");
-
-      Promise.all([
-        approvedBlogs
-      ]).then(results => {
-      res.render("blogger_home", {
-        blogs: results,
-        loggedInUser: req.session.user,
-        loggedInBlogger: req.session.blogger,
-        loggedInAdmin: req.session.admin
+    let accessBlogs = knex("blogs")
+      .where("blogs.blogger_id", req.session.blogger.id)
+      .then(results => {
+        let blogs = results
+        res.render("blogger_home", {blogs : results, loggedInUser : req.session.user, loggedInAdmin : req.session.admin, loggedInBlogger : req.session.blogger})
       })
-    })
     },
-
+  create: function(req, res) {
+    
+    },
   logout: (req, res) => {
     req.session.user = null;
     req.session.blogger = null;
@@ -65,7 +62,13 @@ module.exports = {
   },
   //this renders the adminstrator login page
   adminLoginPage: (req, res) => {
-    res.render("admin-login", { message: req.flash("info")[0] });
+    res.render("admin-login", {
+      message: req.flash("info")[0],
+      //NECESSARY VARS FOR NAVBAR OPTIONS
+      loggedInUser: req.session.user,
+      loggedInBlogger: req.session.blogger,
+      loggedInAdmin: req.session.admin
+    });
   },
   //THIS LOGS THE ADMINISTRATOR IN THEN REDIRECTS THEM TO THEIR HOME PAGE IF CREDENTIALS ARE VALID
   adminLogin: (req, res) => {
@@ -106,7 +109,6 @@ module.exports = {
       .orderBy("created_at")
       .whereNot("role", "=", "admin")
       .andWhereNot("rejected", "=", "true");
-
     let pendingBlogPosts = knex("blogs")
       .select("blogs.*", "bloggers.blogger_name")
       .where("blogs.approved", "=", "false")
@@ -196,7 +198,11 @@ module.exports = {
           .slice(0, 16);
         res.render("admin-blogger-view", {
           blogger: result[0],
-          appSubmittedOn: appSubmittedOn
+          appSubmittedOn: appSubmittedOn,
+          //NECESSARY VARS FOR NAVBAR OPTIONS
+          loggedInUser: req.session.user,
+          loggedInBlogger: req.session.blogger,
+          loggedInAdmin: req.session.admin
         });
       });
   },
@@ -224,7 +230,11 @@ module.exports = {
         );
         res.render("admin-pending-regs", {
           pendingBloggerRegistrations: results,
-          requestedOn: requestedOn
+          requestedOn: requestedOn,
+          //NECESSARY VARS FOR NAVBAR OPTIONS
+          loggedInUser: req.session.user,
+          loggedInBlogger: req.session.blogger,
+          loggedInAdmin: req.session.admin
         });
       });
   }

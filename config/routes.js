@@ -27,7 +27,7 @@ module.exports = app => {
   app.get("/blogger/home", bloggerAuthMiddleware, bloggers.bloggerHome);
   app.get("/blogger/logout", bloggerAuthMiddleware, bloggers.logout);
 
-
+  app.get("/blogger/newblog", bloggers.create)
   //Mandy's routes
   //Admin routes
   app.get("/admin/login", bloggers.adminLoginPage);

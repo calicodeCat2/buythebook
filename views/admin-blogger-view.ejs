@@ -5,8 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Admin Blogger View</title>
+    <!-- Materialize Link -->
+    <% include materializestyle %>
   </head>
   <body>
+    <!-- Mandy's navbar -->
+    <% include navbar %>
+
     <main>
       <section>
         <div class="pic"><img src="<%= blogger.image_url %>" alt="" /></div>
@@ -23,5 +28,7 @@
         <span> | </span> <a href="/admin/home">Return to Home</a>
       </section>
     </main>
+    <!-- JavaScript Links -->
+    <% include materializejs %>
   </body>
 </html>

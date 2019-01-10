@@ -5,8 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Admin Single Requested Ban User View</title>
+    <!-- Materialize Link -->
+    <% include materializestyle %>
   </head>
   <body>
+    <!-- Mandy's navbar -->
+    <% include navbar %>
+
     <h1><%= user.screen_name %></h1>
     <a href="/admin/users/ban/<%= user.id %>">Approve Ban | </a>
     <a href="/admin/users/view/<%= user.id %>">View User | </a>
@@ -27,5 +32,7 @@
         <% } %>
       </ul>
     </section>
+    <!-- JavaScript Links -->
+    <% include materializejs %>
   </body>
 </html>
