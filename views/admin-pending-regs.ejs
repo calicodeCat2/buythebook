@@ -1,60 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Pending Blogger Registrations</title>
-    <!-- Materialize Link -->
-    <% include materializestyle %>
-  </head>
-  <body>
-    <!-- Mandy's navbar -->
-    <% include navbar %>
 
-    <section class="pending-bloggers">
-      <h1>Pending Blogger Registrations</h1>
-      <% if(!pendingBloggerRegistrations) { %>
-      <p>You currently have no pending blogger applications.</p>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Pending Blogger Registrations</title>
+  <!-- Materialize Link -->
+  <% include materializestyle %>
+</head>
+
+<body>
+  <!-- Mandy's navbar -->
+  <% include navbar %>
+
+  <section class="pending-bloggers">
+    <h1>Pending Blogger Registrations</h1>
+    <% if(!pendingBloggerRegistrations) { %>
+    <p>You currently have no pending blogger applications.</p>
+    <% } %>
+    <ul>
+      <% for(let i = 0; i < pendingBloggerRegistrations.length; i++) { %>
+      <li>
+        <h3>
+          <%= pendingBloggerRegistrations[i].blogger_name %>
+        </h3>
+        <img src="<%= pendingBloggerRegistrations[i].image_url %>" alt="" />
+        <p>Requested On:
+          <%= requestedOn[i] %>
+        </p>
+        <p>
+          Years Blogging:
+          <%= pendingBloggerRegistrations[i].years_blogging %>
+        </p>
+        <p>
+          Blogger Website:
+          <a href="<%= pendingBloggerRegistrations[i].link %>">Website</a>
+        </p>
+        <p>Genre:
+          <%= pendingBloggerRegistrations[i].genre %>
+        </p>
+        <p>
+          Writing Snippet:
+          <%= pendingBloggerRegistrations[i].sample.slice(0,
+            pendingBloggerRegistrations[i].sample.indexOf("<br>")) + "..." %>
+        </p>
+        <a href="/admin/view/blogger/<%= pendingBloggerRegistrations[i].id %>">View Blogger</a>
+        <span> | </span>
+        <a href="/admin/approve/blogger/<%= pendingBloggerRegistrations[i].id %>">Approve Blogger</a>
+        <span> | </span>
+        <a href="/admin/reject/blogger/<%= pendingBloggerRegistrations[i].id %>">Reject Blogger</a>
+        <hr />
+      </li>
       <% } %>
-      <ul>
-        <% for(let i = 0; i < pendingBloggerRegistrations.length; i++) { %>
-        <li>
-          <h3><%= pendingBloggerRegistrations[i].blogger_name %></h3>
-          <img src="<%= pendingBloggerRegistrations[i].image_url %>" alt="" />
-          <p>Requested On: <%= requestedOn[i] %></p>
-          <p>
-            Years Blogging: <%= pendingBloggerRegistrations[i].years_blogging %>
-          </p>
-          <p>
-            Blogger Website:
-            <a href="<%= pendingBloggerRegistrations[i].link %>">Website</a>
-          </p>
-          <p>Genre: <%= pendingBloggerRegistrations[i].genre %></p>
-          <p>
-            Writing Snippet: <%= pendingBloggerRegistrations[i].sample.slice(0,
-            140) + "..." %>
-          </p>
-          <a href="/admin/view/blogger/<%= pendingBloggerRegistrations[i].id %>"
-            >View Blogger</a
-          >
-          <span> | </span>
-          <a
-            href="/admin/approve/blogger/<%= pendingBloggerRegistrations[i].id %>"
-            >Approve Blogger</a
-          >
-          <span> | </span>
-          <a
-            href="/admin/reject/blogger/<%= pendingBloggerRegistrations[i].id %>"
-            >Reject Blogger</a
-          >
-          <hr />
-        </li>
-        <% } %>
-      </ul>
-      <span> | </span> <a href="/admin/home">Return to Home</a>
-    </section>
-    <!-- JavaScript Links -->
-    <% include materializejs %>
-  </body>
+    </ul>
+    <span> | </span> <a href="/admin/home">Return to Home</a>
+  </section>
+  <!-- JavaScript Links -->
+  <% include materializejs %>
+</body>
+
 </html>

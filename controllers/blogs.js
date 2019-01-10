@@ -123,7 +123,7 @@ module.exports = {
           writtenOn: writtenOn,
           commentMadeOn: commentMadeOn,
           loggedInUser: req.session.user,
-          loggedInBlogge: req.session.blogger,
+          loggedInBlogger: req.session.blogger,
           loggedInAdmin: req.session.admin
         });
       })
