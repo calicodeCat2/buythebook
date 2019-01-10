@@ -64,6 +64,7 @@ module.exports = {
   },
 
   show: (req, res) => {
+    let user = knex('users').where('users.id', '=', req.session.user.id)
     let bloggers = knex("bloggers").select(
       "bloggers.id",
       "bloggers.image_url",
@@ -74,12 +75,11 @@ module.exports = {
       .where("blogs.approved", "true")
       .select("blogs.*", "bloggers.blogger_name")
       .join("bloggers", "bloggers.id", "blogs.blogger_id");
-    Promise.all([bloggers, blogs]).then(results => {
-      console.log("bloggers", results[0]);
-      console.log("blogs", results[1]);
+    Promise.all([user, bloggers, blogs]).then(results => {
       res.render("main_page", {
-        bloggers: results[0],
-        blogs: results[1],
+        user: results[0],
+        bloggers: results[1],
+        blogs: results[2],
         //NECESSARY VARS FOR NAVBAR OPTIONS
         loggedInUser: req.session.user,
         loggedInBlogger: req.session.blogger,
@@ -104,7 +104,13 @@ module.exports = {
       .then(results => {
         let blogger = results[0];
         let blogs = results;
-        res.render("blogger_profile", { bloggers: results[0], blogs: results });
+        res.render("blogger_profile", {
+          bloggers: results[0],
+          blogs: results,
+          loggedInUser: req.session.user,
+          loggedInBlogger: req.session.blogger,
+          loggedInAdmin: req.session.admin
+        });
       });
   },
   logout: (req, res) => {
@@ -125,7 +131,9 @@ module.exports = {
         "bloggers.genre",
         "blogs.id",
         "blogs.blog_title",
-        "blogs.blog_content"
+        "blogs.blog_content",
+        "blogs.upvote",
+        "blogs.downvote"
       )
       .join("bloggers", "blogger_id", "=", "bloggers.id");
     let comments = knex("comments")
@@ -133,7 +141,6 @@ module.exports = {
       .select("comments.*", "users.id", "users.screen_name")
       .join("users", "users.id", "=", "comments.user_id");
     Promise.all([blog, comments]).then(results => {
-      console.log("what's up?", results);
       res.render("blogger_article", {
         blog: results[0][0],
         comments: results[1],
@@ -159,8 +166,71 @@ module.exports = {
   },
 
   userEdit: (req, res) => {
-    // Work in Progress
+      knex('users')
+      .where('users.id', '=', req.session.user.id)
+      .then((results) => {
+        res.render('user_profile', {
+          loggedInUser: req.session.user,
+          loggedInBlogger: req.session.blogger,
+          loggedInAdmin: req.session.admin
+        })
+      })
+
   },
+
+  editProfile: (req, res) => {
+    knex('users')
+
+
+  },
+
+  showUserComments: (req, res) => {
+      let users = knex('users')
+        .where('users.id', '=', req.session.user.id)
+        .select(
+            'users.*',
+            'comments.id',
+            'comments.user_id',
+            'comments.content',
+            'comments.blog_id')
+          .join('comments', 'comments.user_id', '=', 'users.id')
+        let blogs = knex('blogs')
+          .select('blogs.id', 'blogs.blog_title', 'blogs.blogger_id')
+          .join('bloggers', 'bloggers.id', '=', 'blogger_id')
+        Promise.all([users, blogs])
+          .then((results) => {
+            res.render('user_comments', {
+            users: results[0][0],
+            blogs: results[1],
+            loggedInUser: req.session.user,
+            loggedInBlogger: req.session.blogger,
+            loggedInAdmin: req.session.admin
+          })
+          })
+  },
+
+  upPlus: (req, res) => {
+    knex('blogs')
+      .where('blogs.id', '=', req.params.id)
+      .increment('upvote', 1)
+      .then(() => {
+
+        res.redirect(`/article/${req.params.id}`)
+      })
+  },
+
+  downMinus: (req, res) => {
+    knex('blogs')
+    .where('blogs.id', '=', req.params.id)
+    .increment('downvote', 1)
+    .then(() => {
+
+      res.redirect(`/article/${req.params.id}`)
+    })
+
+
+  },
+
 
   // Admin below this line, Users above
 
