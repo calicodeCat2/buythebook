@@ -12,6 +12,7 @@ exports.up = function(knex, Promise) {
       .index();
     table.boolean("approved").defaultTo(false);
     table.boolean("rejected").defaultTo(false);
+    table.json("json_blog_content");
     table.timestamps(true, true);
   });
 };

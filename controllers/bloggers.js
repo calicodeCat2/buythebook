@@ -59,6 +59,19 @@ module.exports = {
     req.session.admin = null;
     res.redirect("/");
   },
+
+  newBlogPage: (req, res) => {
+    res.render("blogger-new-blog", {
+      //NECESSARY VARS FOR NAVBAR OPTIONS
+      loggedInUser: req.session.user,
+      loggedInBlogger: req.session.blogger,
+      loggedInAdmin: req.session.admin
+    });
+  },
+  newBlog: (req, res) => {
+    //placebolder
+    console.log(req.body);
+  },
   //this renders the adminstrator login page
   adminLoginPage: (req, res) => {
     res.render("admin-login", {
