@@ -7,8 +7,23 @@
     <title>Blogger Home Page</title>
   <!-- Materialize Link -->
   <% include materializestyle %>
-
-     
+  <!-- Include Quill -->
+     <style media="">
+         .current_blogs{
+             text-align: center;
+             margin-right: 300px;
+             margin-left: 300px;
+             padding: 20px;
+             border: 1px steelblue;
+         }
+         .fan_data{
+             text-align: center;
+             margin: 20px;
+             margin-left: 200px;
+         }
+         .col{
+             text-align: center;
+         }
     </style>
 </head>
 
@@ -16,27 +31,27 @@
     <!-- Mandy's navbar -->
     <% include navbar %>
 
-    <h1>Blogger Home</h1>
     <h3>Welcome,
-        <%= loggedInBlogger.blogger_name%>
+        <%= loggedInBlogger.blogger_name %>
     </h3>
-    <div class="current_blogs">
-        <div class=row>
-            <div class="col">
-                <p>Title:
-                    <%= %>
-                </p>
-            </div>
-            <div class="col">
-                <p>Rating:</p>
-            </div>
 
-        </div>
+    <div class="current_blogs">
+        <h5>All Blogs:</h5>
+        
+            <% for(let i = 0 ; i < blogs.length ; i++){ %>
+            <h4><a href=""><%= blogs[i].blog_title%></a></h4>
+            <div class="blog_content"><%- blogs[i].blog_content%></div>
+            <button type="button" action="" method="GET">Edit this Blog</button>
+            <% if(blogs[i].approved === true){%>
+             <% let status = "Approved!" %>
+             <h6>Status: <%=status%></h6>
+            <% }else{ let status = "Not Approved."%>
+            <h6>Status: <%=status%></h6>
+            <%}%>
+            <%}%>
     </div>
-</body>
 
 <!-- JavaScript Links -->
 <% include materializejs %>
-
-
+</body>
 </html>

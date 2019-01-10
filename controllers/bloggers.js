@@ -33,6 +33,7 @@ module.exports = {
           req.session.user = null;
           req.session.admin = null;
           req.session.blogger = blogger;
+          
           res.redirect("/blogger/home");
         } else {
           console.log("Wrong Pass");
@@ -43,16 +44,16 @@ module.exports = {
   },
 
   bloggerHome: function(req, res) {
-    knex("blogs").then(results => {
-      res.render("blogger_home", {
-        blogs: results,
-        //NECESSARY VARS FOR NAVBAR OPTIONS
-        loggedInUser: req.session.user,
-        loggedInBlogger: req.session.blogger,
-        loggedInAdmin: req.session.admin
-      });
-    });
-  },
+    let accessBlogs = knex("blogs")
+      .where("blogs.blogger_id", req.session.blogger.id)
+      .then(results => {
+        let blogs = results
+        res.render("blogger_home", {blogs : results, loggedInUser : req.session.user, loggedInAdmin : req.session.admin, loggedInBlogger : req.session.blogger})
+      })
+    },
+  create: function(req, res) {
+    
+    },
   logout: (req, res) => {
     req.session.user = null;
     req.session.blogger = null;
@@ -154,7 +155,6 @@ module.exports = {
       .orderBy("created_at")
       .whereNot("role", "=", "admin")
       .andWhereNot("rejected", "=", "true");
-
     let pendingBlogPosts = knex("blogs")
       .select("blogs.*", "bloggers.blogger_name")
       .where("blogs.approved", "=", "false")
