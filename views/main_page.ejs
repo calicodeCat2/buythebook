@@ -13,6 +13,7 @@
     <!-- Mandy's navbar -->
     <% include navbar %>
 
+    <main class="container">
     <h1>Welcome <%= user.user_name %></h1>
     <h2>Our Writers</h2>
     <div class="row">
@@ -31,11 +32,12 @@
         <h5><a href="/article/<%= blogs[i].id %>"><%= blogs[i].blog_title %></a></h5>
         <h5><%= blogs[i].blogger_name %></h5>
         <article><%= blogs[i].blog_content %></article>
+        <img src="https://img.icons8.com/dusk/64/000000/facebook-like.png" height='25px'> | <span><%= blogs[i].upvote %></span>
+        <img src="https://img.icons8.com/dusk/24/000000/middle-finger.png"> | <span><%= blogs[i].downvote %></span>
         </div>
         <% } %>
-
       </div>
-
+    </main>
       <!-- JavaScript Links -->
     <% include materializejs %>
 

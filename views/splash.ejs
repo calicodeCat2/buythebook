@@ -9,16 +9,18 @@
   <body>
     <!-- Mandy's navbar -->
     <% include navbar %>
-
+    <main class="container">
     <div class="welcome">
       <h1>Welcome</h1>
     </div>
     <div class="blogBlurb">
       <% for (i = 0; i < blogs.length; i++) { %>
-      <h3><%= blogs[i].blog_title %></h3>
-      <h5><%= bloggers[i].blogger_name %></h5>
-      <img src="<%= bloggers[i].image_url %>" height="50px"" alt=""> <% } %>
+      <h4><%= blogs[i].blog_title %></h4>
+      <span><img src="<%= bloggers[i].image_url %>" height="100px" alt=""></span><h5><%= bloggers[i].blogger_name %></h5>
+
+      <% } %>
     </div>
+  </main>
 
     <!-- JavaScript Links -->
     <% include materializejs %>
