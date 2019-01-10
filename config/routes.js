@@ -124,6 +124,12 @@ module.exports = app => {
     adminAuthMiddleware,
     bloggers.adminViewApprovedBloggers
   );
+
+  app.get(
+    "/blogger/messages",
+    bloggerAuthMiddleware,
+    bloggers.viewAdminMessages
+  );
 };
 
 function adminAuthMiddleware(req, res, next) {
