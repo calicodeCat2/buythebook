@@ -64,7 +64,7 @@ module.exports = {
   },
 
   show: (req, res) => {
-    let user = knex('users').where('users.id', '=', req.session.user.id)
+    let user = knex("users").where("users.id", "=", req.session.user.id);
     let bloggers = knex("bloggers").select(
       "bloggers.id",
       "bloggers.image_url",
@@ -166,22 +166,19 @@ module.exports = {
   },
 
   userEdit: (req, res) => {
-      knex('users')
-      .where('users.id', '=', req.session.user.id)
-      .then((results) => {
-        res.render('user_profile', {
+    knex("users")
+      .where("users.id", "=", req.session.user.id)
+      .then(results => {
+        res.render("user_profile", {
           loggedInUser: req.session.user,
           loggedInBlogger: req.session.blogger,
           loggedInAdmin: req.session.admin
-        })
-      })
-
+        });
+      });
   },
 
   editProfile: (req, res) => {
-    knex('users')
-
-
+    knex("users");
   },
 
   showUserComments: (req, res) => {
@@ -210,30 +207,26 @@ module.exports = {
             loggedInAdmin: req.session.admin
           })
           })
+
   },
 
   upPlus: (req, res) => {
-    knex('blogs')
-      .where('blogs.id', '=', req.params.id)
-      .increment('upvote', 1)
+    knex("blogs")
+      .where("blogs.id", "=", req.params.id)
+      .increment("upvote", 1)
       .then(() => {
-
-        res.redirect(`/article/${req.params.id}`)
-      })
+        res.redirect(`/article/${req.params.id}`);
+      });
   },
 
   downMinus: (req, res) => {
-    knex('blogs')
-    .where('blogs.id', '=', req.params.id)
-    .increment('downvote', 1)
-    .then(() => {
-
-      res.redirect(`/article/${req.params.id}`)
-    })
-
-
+    knex("blogs")
+      .where("blogs.id", "=", req.params.id)
+      .increment("downvote", 1)
+      .then(() => {
+        res.redirect(`/article/${req.params.id}`);
+      });
   },
-
 
   // Admin below this line, Users above
 
@@ -281,12 +274,22 @@ module.exports = {
     let comments = knex("comments")
       .where("comments.user_id", req.params.user_id)
       .orderBy("comments.created_at")
-      .select("comments.*", "users.screen_name")
-      .innerJoin("users", "comments.user_id", "users.id");
+      .select(
+        "comments.*",
+        "users.screen_name",
+        "blogs.id",
+        "blogs.blog_title",
+        "blogs.blogger_id",
+        "bloggers.blogger_name"
+      )
+      .innerJoin("users", "comments.user_id", "users.id")
+      .innerJoin("blogs", "comments.blog_id", "blogs.id")
+      .innerJoin("bloggers", "blogs.blogger_id", "bloggers.id");
 
     Promise.all([user, comments]).then(results => {
       let user = results[0][0];
       let comentHistory = results[1];
+      console.log(comentHistory);
       let commentCreatedOn = comentHistory.map(comment =>
         moment(comment.created_at)
           .toString()

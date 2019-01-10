@@ -20,7 +20,6 @@ module.exports = app => {
   app.get("/downvote/:id", userMiddleware, users.downMinus);
   app.get("/article/:id", userMiddleware, users.mainArticle);
 
-
   // Greg's Routes (mainly)
   //Blogger Login
   app.get("/blogger/login", bloggers.bloggerLoginPage);

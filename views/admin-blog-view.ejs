@@ -12,14 +12,31 @@
     <!-- Mandy's navbar -->
     <% include navbar %>
 
-    <main>
-      <h1><%= blog.blog_title %></h1>
-      <h2>By: <%= blog.blogger_name %></h2>
-      <h3>Written: <%= writtenOn %></h3>
-      <div class="content"><%= blog.blog_content %></div>
-      <a href="/admin/approve/blog/<%= blog.id %>">Approve Blog</a>
-      <span> | </span>
-      <a href="/admin/reject/blog/<%= blog.id %>">Reject Blog</a>
+    <main class="container">
+      <div class=" row blog-wrapper z-depth-2">
+        <div class="the-blog col offset-s1 s11">
+          <h1><%= blog.blog_title %></h1>
+          <h5>By: <%= blog.blogger_name %></h5>
+          <h6><%= writtenOn %></h6>
+          <div
+            id="blog_content"
+            class="content flow-text grey-text text-darken-2"
+          >
+            <%- blog.blog_content %>
+          </div>
+        </div>
+      </div>
+      <div class="row admin-options">
+        <div class="col offset-s3 s9">
+          <a class="btn-large" href="/admin/approve/blog/<%= blog.id %>"
+            >Approve Blog</a
+          >
+          <span> </span>
+          <a class="btn-large" href="/admin/reject/blog/<%= blog.id %>"
+            >Reject Blog</a
+          >
+        </div>
+      </div>
     </main>
     <!-- JavaScript Links -->
     <% include materializejs %>
