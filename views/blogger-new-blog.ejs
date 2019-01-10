@@ -21,36 +21,39 @@
       <!-- my stylesheet -->
       <link rel="stylesheet" href="../styles/style.css" />
     </header>
-    <h1>Create New Blog Post</h1>
-    <main class="container">
-      <div class="blog-entry-form">
-        <div id="form-container" class="container">
-          <form id="blogForm" action="/blogger/new" method="POST">
-            <div class="row">
-              <div class="">
-                <div class="form-group">
-                  <div class="input-field">
-                    <i class="material-icons prefix">title</i>
-                    <input
-                      type="text"
-                      placeholder="Blog Title"
-                      name="blog_title"
-                    />
+
+    <main class="container z-depth-2">
+      <div class="row">
+        <h1>Create New Blog Post</h1>
+        <div class="blog-entry-form">
+          <div id="formContainer" class="container">
+            <form id="blogForm" action="/blogger/new" method="POST">
+              <div class="row">
+                <div class="">
+                  <div class="form-group">
+                    <div class="input-field">
+                      <i class="material-icons prefix">title</i>
+                      <input
+                        type="text"
+                        placeholder="Blog Title"
+                        name="blog_title"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="row form-group">
-              <label for="blog_content">Content</label>
-              <input name="blog_content" type="hidden" />
-              <div class="tall" id="editor-container"></div>
-            </div>
-            <div class="row">
-              <button id="saveDelta" class="btn" type="submit">
-                Submit Blog for Consideration
-              </button>
-            </div>
-          </form>
+              <div class="row form-group">
+                <label for="blog_content">Content</label>
+                <input name="blog_content" type="hidden" />
+                <div class="tall" id="editor-container"></div>
+              </div>
+              <div class="row">
+                <button id="saveDelta" class="btn" type="submit">
+                  Submit Blog for Consideration
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </main>

@@ -77,8 +77,7 @@ module.exports = {
         blogger_id: req.session.blogger.id
       })
       .then(() => {
-        // console.log(req.body);
-        res.send(req.body);
+        res.redirect("/blogger/home");
       });
   },
   //this renders the adminstrator login page

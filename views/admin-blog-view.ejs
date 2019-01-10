@@ -12,21 +12,28 @@
     <!-- Mandy's navbar -->
     <% include navbar %>
 
-    <main>
-      <h1><%= blog.blog_title %></h1>
-      <h2>By: <%= blog.blogger_name %></h2>
-      <h3>Written: <%= writtenOn %></h3>
-      <div id="blog_content" class="content">
-        <%= blog.blog_content.slice(1, blog.blog_content.length - 1) %>
+    <main class="container">
+      <div class=" row blog-wrapper z-depth-2">
+        <div class="the-blog col offset-s1 s11">
+          <h1><%= blog.blog_title %></h1>
+          <h3>By: <%= blog.blogger_name %></h3>
+          <h4>Written: <%= writtenOn %></h4>
+          <div id="blog_content" class="content"><%- blog.blog_content %></div>
+        </div>
       </div>
-      <a href="/admin/approve/blog/<%= blog.id %>">Approve Blog</a>
-      <span> | </span>
-      <a href="/admin/reject/blog/<%= blog.id %>">Reject Blog</a>
+      <div class="row admin-options">
+        <div class="col offset-s3 s9">
+          <a class="btn-large" href="/admin/approve/blog/<%= blog.id %>"
+            >Approve Blog</a
+          >
+          <span> </span>
+          <a class="btn-large" href="/admin/reject/blog/<%= blog.id %>"
+            >Reject Blog</a
+          >
+        </div>
+      </div>
     </main>
     <!-- JavaScript Links -->
     <% include materializejs %>
-    <script>
-      let blog = <%= blog %>
-    </script>
   </body>
 </html>
