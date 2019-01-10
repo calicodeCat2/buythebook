@@ -1,29 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Admin User Ban Requests</title>
-    <!-- Materialize Link -->
-    <% include materializestyle %>
-  </head>
-  <body>
-    <!-- Mandy's navbar -->
-    <% include navbar %>
 
-    <h1>User Ban Requests</h1>
-    <section class="users-container">
-      <ul>
-        <% for (let i = 0; i < users.length; i++) { %>
-        <h2>Screen Name: <%= users[i].screen_name %></h2>
-        <a href="/admin/users/ban/<%= users[i].id %>">Approve Ban | </a>
-        <a href="/admin/users/view/<%= users[i].id %>">View User | </a>
-        <a href="/admin/users/unban/<%= users[i].id %>">Reject Ban</a>
-        <% } %>
-      </ul>
-    </section>
-    <!-- JavaScript Links -->
-    <% include materializejs %>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Admin User Ban Requests</title>
+  <!-- Materialize Link -->
+  <% include materializestyle %>
+</head>
+
+<body>
+  <!-- Mandy's navbar -->
+  <% include navbar %>
+
+  <h1>User Ban Requests</h1>
+  <section class="users-container">
+    <ul>
+      <% for (let i = 0; i < users.length; i++) { %>
+      <h2>Screen Name:
+        <%= users[i].screen_name %>
+      </h2>
+      <a href="/admin/users/ban/<%= users[i].id %>">Approve Ban | </a>
+      <a href="/admin/users/view/<%= users[i].id %>">View User | </a>
+      <a href="/admin/users/unban/<%= users[i].id %>">Reject Ban</a>
+      <% } %>
+    </ul>
+  </section>
+
+  <% include footer %>
+  <!-- JavaScript Links -->
+  <% include materializejs %>
+</body>
+
 </html>

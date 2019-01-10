@@ -1,40 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Administrator Login</title>
-    <!-- Materialize Link -->
-    <% include materializestyle %>
-  </head>
-  <body>
-    <!-- Mandy's navbar -->
-    <% include navbar %>
 
-    <h1>Administrator Login</h1>
-    <p>
-      WARNING: THIS PAGE IS FOR ADMINISTRATORS ONLY. BY LOGGING IN AS AN
-      ADMINISTRATOR YOU ARE AGREEING TO SOME RULES SOMEWHERE
-    </p>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Administrator Login</title>
+  <!-- Materialize Link -->
+  <% include materializestyle %>
+</head>
 
-    <!-- LOGIN FORM -->
-    <div class="login">
-      <div class="login-fail">
-        <% console.log(message) %> <% if(message === "Invalid password") { %>
-        <p><%= message %></p>
-        <% } else if (message === "Could not locate a user with that email") {%>
-        <p><%= message %></p>
-        <% } %>
-      </div>
-      <form action="/admin/login" method="POST">
-        <input type="email" placeholder="email" name="admin_email" />
-        <input type="password" placeholder="password" name="admin_password" />
-        <input type="submit" />
-      </form>
+<body>
+  <!-- Mandy's navbar -->
+  <% include navbar %>
+
+  <h1>Administrator Login</h1>
+  <p>
+    WARNING: THIS PAGE IS FOR ADMINISTRATORS ONLY. BY LOGGING IN AS AN
+    ADMINISTRATOR YOU ARE AGREEING TO SOME RULES SOMEWHERE
+  </p>
+
+  <!-- LOGIN FORM -->
+  <div class="login">
+    <div class="login-fail">
+      <% console.log(message) %>
+      <% if(message === "Invalid password") { %>
+      <p>
+        <%= message %>
+      </p>
+      <% } else if (message === "Could not locate a user with that email") {%>
+      <p>
+        <%= message %>
+      </p>
+      <% } %>
     </div>
+    <form action="/admin/login" method="POST">
+      <input type="email" placeholder="email" name="admin_email" />
+      <input type="password" placeholder="password" name="admin_password" />
+      <input type="submit" />
+    </form>
+  </div>
 
-    <!-- JavaScript Links -->
-    <% include materializejs %>
-  </body>
+  <% include footer %>
+  <!-- JavaScript Links -->
+  <% include materializejs %>
+</body>
+
 </html>

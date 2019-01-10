@@ -1,44 +1,44 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8" />
-    <title>User Login</title>
-    <!-- Materialize Link -->
-    <% include materializestyle %>
-  </head>
-  <body>
-    <!-- Mandy's navbar -->
-    <% include navbar %>
 
-    <h1>Login or Register</h1>
-    <div class="container">
-      <div class="row">
-        <div class="col">
-          <h3>Active Users: Login</h3>
-          <form class="" action="/users/main" method="post">
-            <input type="text" name="user_email" placeholder="Email" />
-            <input type="text" name="user_password" placeholder="Password" />
-            <button type="submit" name="button">Login</button>
-          </form>
-        </div>
-        <div class="col">
-          <h3>New Users: Register</h3>
-          <form class="" action="/user/login" method="post">
-            <input type="text" name="user_name" placeholder="Name" />
-            <input type="text" name="screen_name" placeholder="Screen Name" />
-            <input type="text" name="user_email" placeholder="Email" />
-            <input type="text" name="user_password" placeholder="Password" />
-            <input
-              type="text"
-              name="confirm_password"
-              placeholder="Confirm Password"
-            />
-            <button type="submit" name="button">Register</button>
-          </form>
-        </div>
+<head>
+  <meta charset="utf-8" />
+  <title>User Login</title>
+  <!-- Materialize Link -->
+  <% include materializestyle %>
+</head>
+
+<body>
+  <!-- Mandy's navbar -->
+  <% include navbar %>
+
+  <h1>Login or Register</h1>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h3>Active Users: Login</h3>
+        <form class="" action="/users/main" method="post">
+          <input type="text" name="user_email" placeholder="Email" />
+          <input type="text" name="user_password" placeholder="Password" />
+          <button type="submit" name="button">Login</button>
+        </form>
+      </div>
+      <div class="col">
+        <h3>New Users: Register</h3>
+        <form class="" action="/user/login" method="post">
+          <input type="text" name="user_name" placeholder="Name" />
+          <input type="text" name="screen_name" placeholder="Screen Name" />
+          <input type="text" name="user_email" placeholder="Email" />
+          <input type="text" name="user_password" placeholder="Password" />
+          <input type="text" name="confirm_password" placeholder="Confirm Password" />
+          <button type="submit" name="button">Register</button>
+        </form>
       </div>
     </div>
-    <!-- JavaScript Links -->
-    <% include materializejs %>
-  </body>
+  </div>
+  <% include footer %>
+  <!-- JavaScript Links -->
+  <% include materializejs %>
+</body>
+
 </html>
