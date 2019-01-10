@@ -19,17 +19,30 @@ document.addEventListener("DOMContentLoaded", function() {
   var form = document.querySelector("#blogForm");
   form.onsubmit = function(e) {
     e.preventDefault();
+    console.log();
     // Populate hidden form on submit
-    var content = document.querySelector("input[name=blog_content]");
-    content.value = JSON.stringify(quill.getContents());
-    var blog_title = document.querySelector("input[name=blog_title]");
+    // var content = document.querySelector("input[name=blog_content]");
+    let content = quill.root.innerHTML;
+    var blog_title = document.querySelector("input[name=blog_title]").value;
+
     let data = {};
     data.blog_title = blog_title;
     data.content = content;
+
+    console.log(data);
+    var headers = new Headers();
+    headers.append("Content-Type", "application/json"); // This one sends body
     fetch("/blogger/new", {
-      method: "post",
-      body: JSON.stringify(data)
-    }).then(function(response))
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: headers
+    })
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(data) {
+        console.log(data);
+      });
     // $.ajax({
     //   url: "/blogger/new",
     //   method: "post",
@@ -46,10 +59,8 @@ document.addEventListener("DOMContentLoaded", function() {
     //   }
     // });
 
-    console.log(content.value);
+    // console.log(csontent.value);
 
     // No back end to actually submit to!
-    alert("Open the console to see the ssubmit data!");
-    return false;
   };
 });

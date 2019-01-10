@@ -69,8 +69,17 @@ module.exports = {
     });
   },
   newBlog: (req, res) => {
-    //placebolder
-    console.log(req.body);
+    console.log(req.body.blog_title);
+    knex("blogs")
+      .insert({
+        blog_title: req.body.blog_title,
+        blog_content: req.body.content,
+        blogger_id: req.session.blogger.id
+      })
+      .then(() => {
+        // console.log(req.body);
+        res.send(req.body);
+      });
   },
   //this renders the adminstrator login page
   adminLoginPage: (req, res) => {
