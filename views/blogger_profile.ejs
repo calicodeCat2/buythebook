@@ -1,34 +1,45 @@
 <!DOCTYPE html>
 
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Main Page</title>
-    <!-- Materialize Link -->
-    <% include materializestyle %>
 
-  </head>
-  <body>
-<!-- Mandy's navbar -->
-<% include navbar %>
+<head>
+  <meta charset="utf-8">
+  <title>Main Page</title>
+  <!-- Materialize Link -->
+  <% include materializestyle %>
 
-    <div class= "row" "writerBloc">
-      <img src="<%= bloggers.image_url %>" height="250px" alt="Writer Picture">
-      <h1><%= bloggers.blogger_name %></h1>
-    </div>
+</head>
 
-    <div class="row">
+<body>
+  <!-- Mandy's navbar -->
+  <% include navbar %>
+
+  <div class="row" "writerBloc">
+    <img src="<%= bloggers.image_url %>" height="250px" alt="Writer Picture">
+    <h1>
+      <%= bloggers.blogger_name %>
+    </h1>
+  </div>
+
+  <div class="row">
     <% for (let i = 0; i < blogs.length; i++) { %>
     <div class="contentBloc">
-      <h3><a href="/article/<%= blogs[i].id %>"><%= blogs[i].blog_title %></a></h3>
-      <img src="https://img.icons8.com/dusk/64/000000/facebook-like.png" height='25px'> | <span><%= blogs[i].upvote %></span>
-      <img src="https://img.icons8.com/dusk/24/000000/middle-finger.png"> | <span><%= blogs[i].downvote %></span>
-      <article><%= blogs[i].genre %></article>
-      </div>
-      <% } %>
+      <h3><a href="/article/<%= blogs[i].id %>">
+          <%= blogs[i].blog_title %></a></h3>
+      <img src="https://img.icons8.com/dusk/64/000000/facebook-like.png" height='25px'> | <span>
+        <%= blogs[i].upvote %></span>
+      <img src="https://img.icons8.com/dusk/24/000000/middle-finger.png"> | <span>
+        <%= blogs[i].downvote %></span>
+      <article>
+        <%= blogs[i].genre %>
+      </article>
+    </div>
+    <% } %>
 
-      <!-- JavaScript Links -->
+    <% include footer %>
+    <!-- JavaScript Links -->
     <% include materializejs %>
 
-    </body>
-  </html>
+</body>
+
+</html>

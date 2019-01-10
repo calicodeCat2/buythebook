@@ -1,47 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Pending Blogger Registrations</title>
-    <!-- Materialize Link -->
-    <% include materializestyle %>
-  </head>
-  <body>
-    <!-- Mandy's navbar -->
-    <% include navbar %>
 
-    <section class="pending-bloggers">
-      <h1>Approved Blog Posts</h1>
-      <% if(!approvedBlogs) { %>
-      <p>You currently have no approved blog posts.</p>
-      <% } %>
-      <ul>
-        <% for(let i = 0; i < approvedBlogs.length; i++) { %>
-        <li>
-          <h3><%= approvedBlogs[i].blog_title %></h3>
-          <h4>Post Created On: <%= requestedOn[i] %></h4>
-          <h4>By: <%= approvedBlogs[i].blogger_name %></h4>
-          <p>
-            Preview: <%- approvedBlogs[i].blog_content.slice(0,
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Pending Blogger Registrations</title>
+  <!-- Materialize Link -->
+  <% include materializestyle %>
+</head>
+
+<body>
+  <!-- Mandy's navbar -->
+  <% include navbar %>
+
+  <section class="pending-bloggers">
+    <h1>Approved Blog Posts</h1>
+    <% if(!approvedBlogs) { %>
+    <p>You currently have no approved blog posts.</p>
+    <% } %>
+    <ul>
+      <% for(let i = 0; i < approvedBlogs.length; i++) { %>
+      <li>
+        <h3>
+          <%= approvedBlogs[i].blog_title %>
+        </h3>
+        <h4>Post Created On:
+          <%= requestedOn[i] %>
+        </h4>
+        <h4>By:
+          <%= approvedBlogs[i].blogger_name %>
+        </h4>
+        <p>
+          Preview:
+          <%- approvedBlogs[i].blog_content.slice(0,
             approvedBlogs[i].blog_content.indexOf("<br />")) + "..." %>
-          </p>
-          <a href="/admin/view/approved-blog/<%= approvedBlogs[i].id %>"
-            >View Blog</a
-          >
-          <span> | </span>
-          <a href="/admin/reject/blog/<%= approvedBlogs[i].id %>"
-            >Revoke Approval</a
-          >
-          <hr />
-        </li>
-        <% } %>
-      </ul>
-      <span> | </span> <a href="/admin/home">Return to Home</a>
-    </section>
+        </p>
+        <a href="/admin/view/approved-blog/<%= approvedBlogs[i].id %>">View Blog</a>
+        <span> | </span>
+        <a href="/admin/reject/blog/<%= approvedBlogs[i].id %>">Revoke Approval</a>
+        <hr />
+      </li>
+      <% } %>
+    </ul>
+    <span> | </span> <a href="/admin/home">Return to Home</a>
+  </section>
+  <% include footer %>
+  <!-- JavaScript Links -->
+  <% include materializejs %>
+</body>
 
-    <!-- JavaScript Links -->
-    <% include materializejs %>
-  </body>
 </html>
