@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var quill = new Quill("#editor-container", {
       modules: {
         toolbar: [
-          [{ header: "1" }],
+          [{ header: "2" }],
           [{ align: [] }],
           [{ font: [] }],
           ["bold", "italic", "strike"],

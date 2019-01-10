@@ -16,9 +16,14 @@
       <div class=" row blog-wrapper z-depth-2">
         <div class="the-blog col offset-s1 s11">
           <h1><%= blog.blog_title %></h1>
-          <h3>By: <%= blog.blogger_name %></h3>
-          <h4>Written: <%= writtenOn %></h4>
-          <div id="blog_content" class="content"><%- blog.blog_content %></div>
+          <h5>By: <%= blog.blogger_name %></h5>
+          <h6><%= writtenOn %></h6>
+          <div
+            id="blog_content"
+            class="content flow-text grey-text text-darken-2"
+          >
+            <%- blog.blog_content %>
+          </div>
         </div>
       </div>
       <div class="row admin-options">

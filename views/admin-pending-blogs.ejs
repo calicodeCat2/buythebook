@@ -23,13 +23,13 @@
             <div class="row">
                 <h3><%= pendingBlogPosts[i].blog_title %></h3>
                 <h4>Post Created On: <%= requestedOn[i] %></h4>
-                <h4>By: <%= pendingBlogPosts[i].blogger_name %></h4>
+                <p>By: <%= pendingBlogPosts[i].blogger_name %></p>
             </div>
             <% if(pendingBlogPosts[i].blog_content) { %>
             <div class="row preview">
               <div class="card col s12">
                 <p class="">
-                  Preview: <%- pendingBlogPosts[i].blog_content.slice(0, pendingBlogPosts[i].blog_content.indexOf("<br>")) +
+                  <%- pendingBlogPosts[i].blog_content.slice(0, pendingBlogPosts[i].blog_content.indexOf("<br>")) +
                   "..." %>
                 </p>
               </div>
