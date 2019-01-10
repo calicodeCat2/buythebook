@@ -61,6 +61,7 @@ module.exports = {
             .toString()
             .slice(0, 16)
         );
+        console.log("this is the pending blog knex query result: ", results);
         res.render("admin-pending-blogs", {
           pendingBlogPosts: results,
           requestedOn: requestedOn,
