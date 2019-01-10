@@ -41,14 +41,19 @@ module.exports = {
       .join("bloggers", "bloggers.id", "=", "blogger_id")
 
       // if (req.session.blogger) {
-      //   let unReadMessages = getUnreadMessages(req.session.blogger.id)
+      //   let unReadMessages = knex("admin_messages")
+      //     .select("id")
+      //     .where("admin_messages.blogger_id", req.session.blogger.id)
+      //     .andWhere("unread", true)
       // } else {
-      //   let unReadMessages = getUnreadMessages(-1)
+      //   let unReadMessages = new Promise((resolve, reject) => {
+      //     resolve(undefined)
+      //   })
       // }
 
       // Promise.all(blogsAndBloggers, unReadMessages)
       .then(results => {
-        // console.log(results[1])
+        console.log(results)
 
         res.render("splash", {
           blogs: results,
@@ -57,10 +62,7 @@ module.exports = {
           loggedInUser: req.session.user,
           loggedInBlogger: req.session.blogger,
           loggedInAdmin: req.session.admin,
-          unReadMessages: false
         });
-
-
       });
   },
 
