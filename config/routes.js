@@ -10,7 +10,9 @@ module.exports = app => {
   app.get("/user/login", users.userLogin);
   app.post("/users/main", users.main);
   app.post("/user/login", users.register);
-  app.get("/user/profile/:id", users.userEdit);
+  app.get("/user/profile", users.userEdit);
+  app.post("/user/profile", users.editProfile);
+  app.get("/user/comments", userMiddleware, users.showUserComments);
   app.get("/users/main", userMiddleware, users.show);
   app.get("/profile/:id", userMiddleware, users.profile);
   app.get("/user/logout", userMiddleware, users.logout);

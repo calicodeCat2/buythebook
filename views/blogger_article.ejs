@@ -7,6 +7,9 @@
     <% include materializestyle %>
   </head>
   <body>
+    <!-- Mandy's navbar -->
+    <% include navbar %>
+
     <div class="container">
       <h2><%= blog.blog_title %></h2>
       <span>By: <%= blog.blogger_name %></span>
@@ -19,14 +22,7 @@
       </div>
     </div>
 
-    <!-- Mandy's navbar -->
-    <% include navbar %>
-
     <div class="container">
-      <h2><%= blog.blog_title %></h2>
-      <span>By: <%= blog.blogger_name %></span>
-      <img src="<%= blog.image_url %>" height="50px" alt="" />
-      <div class="article"><%= blog.blog_content %></div>
       <div class="comments">
         <% for (let i = 0; i < comments.length; i++) { %>
         <div class="comment">
