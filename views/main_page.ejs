@@ -36,20 +36,17 @@
     <div class="row">
       <% for (i = 0; i < blogs.length; i++) { %>
       <div class="column contentBloc">
-        <h5><a href="/article/<%= blogs[i].id %>">
-            <%= blogs[i].blog_title %></a></h5>
-        <h5>
-          <%= blogs[i].blogger_name %>
-        </h5>
-        <article>
-          <%- blogs[i].blog_content %>
-        </article>
+        <h5><a href="/article/<%= blogs[i].id %>"><%= blogs[i].blog_title %></a></h5>
+        <h5><%= blogs[i].blogger_name %></h5>
+        <article><%= blogs[i].blog_content %></article>
+        <img src="https://img.icons8.com/dusk/64/000000/facebook-like.png" height='25px'> | <span><%= blogs[i].upvote %></span>
+        <img src="https://img.icons8.com/dusk/24/000000/middle-finger.png"> | <span><%= blogs[i].downvote %></span>
+        </div>
+        <% } %>
       </div>
-      <% } %>
+    </main>
+      <!-- JavaScript Links -->
 
-    </div>
-
-    <!-- JavaScript Links -->
     <% include materializejs %>
 
 </body>

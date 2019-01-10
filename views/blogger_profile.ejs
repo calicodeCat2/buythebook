@@ -21,6 +21,8 @@
     <% for (let i = 0; i < blogs.length; i++) { %>
     <div class="contentBloc">
       <h3><a href="/article/<%= blogs[i].id %>"><%= blogs[i].blog_title %></a></h3>
+      <img src="https://img.icons8.com/dusk/64/000000/facebook-like.png" height='25px'> | <span><%= blogs[i].upvote %></span>
+      <img src="https://img.icons8.com/dusk/24/000000/middle-finger.png"> | <span><%= blogs[i].downvote %></span>
       <article><%= blogs[i].genre %></article>
       </div>
       <% } %>
