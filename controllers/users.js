@@ -47,17 +47,18 @@ module.exports = {
   main: (req, res) => {
     knex("users")
       .where("user_email", req.body.user_email)
+      .andWhere("banned", "=", "false")
       .then(results => {
         let user = results[0];
         if (!user) {
-          res.redirect("user/login");
+          res.redirect("/user/login");
         } else if (user.user_password === req.body.user_password) {
           req.session.user = user;
           req.session.blogger = null;
           req.session.admin = null;
           res.redirect("/users/main");
         } else {
-          res.redirect("user/login");
+          res.redirect("/user/login");
         }
       });
   },
