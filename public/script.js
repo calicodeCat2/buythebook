@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
   if (document.querySelector("#editor-container")) {
     var quill = new Quill("#editor-container", {
       modules: {
@@ -19,8 +19,10 @@ document.addEventListener("DOMContentLoaded", function() {
     // var options =
     var form = document.querySelector("#blogForm");
     if (form) {
-      form.onsubmit = function(e) {
+      form.onsubmit = function (e) {
         e.preventDefault();
+        let blogformAction = document.getElementById("blogForm").action
+        console.log(blogformAction)
         let content = quill.root.innerHTML;
         var blog_title = document.querySelector("input[name=blog_title]").value;
         let data = {};
@@ -35,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function() {
           headers: headers,
           redirect: "follow"
         })
-          .then(function(response) {
+          .then(function (response) {
             return response;
           })
           .then(data => {

@@ -133,6 +133,9 @@ module.exports = app => {
 
   app.get("/admin/add-admin", adminAuthMiddleware, bloggers.addNewAdmin)
   app.get("/admin/promote/blogger/:blogger_id", adminAuthMiddleware, bloggers.promoteToAdmin)
+
+  app.get("/admin/blog/new", adminAuthMiddleware, bloggers.adminNewBlogPage)
+  app.post("/admin/blogger/new", adminAuthMiddleware, bloggers.adminNewBlog)
 };
 
 function adminAuthMiddleware(req, res, next) {
