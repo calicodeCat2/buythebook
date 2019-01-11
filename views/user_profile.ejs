@@ -13,36 +13,54 @@
   <% include navbar %>
 
   <main class="container">
-    <h2>Edit Profile</h2>
-    <h3>Welcome
-      <%= user.user_name%>
-    </h3>
-    <p>After updating your profile, you will need to login again.</p>
-    <img src="https://via.placeholder.com/150">
+    <div class="row">
+    <div class="col s12 m12  z-depth-1">
+      <div class="card light-blue darken-1">
+        <div class="card-content white-text">
+          <div>
+          <span class="card-title">
+            <span>
+              <img src="https://via.placeholder.com/175" style="float:right; vertical-align:middle;">
+            </span>
+            <h2>Edit Profile</h2>
+              <h3>Welcome <%= user.user_name%></h3>
+          </span>
+          </div>
 
-
-    <div class="">
-      <form class="" action="/user/login" method="post">
-        <label for="name">Name:</label><br>
-        <input type="text" name="user_name" value="<%= user.user_name%>" />
-        <label for="screen_name">Screen Name:</label><br>
-        <input type="text" name="screen_name" value="<%= user.screen_name%>" />
-        <label for="image">Add/Change Picture:</label><br>
-        <input type="text" name="user_img_url" placeholder="Image Url" />
-        <label for="password">Password</label>
-        <input type="text" name="password" placeholder="Enter Current Password" />
-        <hr>
-        <label for="email">Email:</label><br>
-        <input type="text" name="change_email" placeholder="Change Email" />
-        <hr>
-        <label for="password">Password:</label><br>
-        <input type="text" name="new_user_password" placeholder="Change Password" />
-        <label for="confirm_password">Confirm Password:</label><br>
-        <input type="text" name="confirm_password" placeholder="Reconfirm New Password" />
-        <input type="submit" />
-      </form>
+        </div>
+      </div>
     </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col s10 offset-s1 z-depth-1">
+    <p>After updating your profile, you will need to login again.</p>
+    <form class="" action="/user/login" method="post">
+      <label for="name">Name:</label><br>
+      <input type="text" name="user_name" value="<%= user.user_name%>" />
+      <label for="screen_name">Screen Name:</label><br>
+      <input type="text" name="screen_name" value="<%= user.screen_name%>" />
+      <label for="image">Add/Change Picture:</label><br>
+      <input type="text" name="user_img_url" placeholder="Image Url" />
+      <label for="password">Password</label>
+      <input type="text" name="password" placeholder="Enter Current Password" />
+      <label for="email">Email:</label><br>
+      <input type="text" name="change_email" placeholder="Change Email" />
+      <label for="password">Password:</label><br>
+      <input type="text" name="new_user_password" placeholder="Change Password" />
+      <label for="confirm_password">Confirm Password:</label><br>
+      <input type="text" name="confirm_password" placeholder="Reconfirm New Password" />
+      <button class="btn-large" type="submit" name="button">Submit</button>
+    </form>
+    </div>
+  </div>
+
+
   </main>
+
+
+
   <% include footer %>
   <!-- JavaScript Links -->
   <% include materializejs %>
