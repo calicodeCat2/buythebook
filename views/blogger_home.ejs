@@ -15,6 +15,7 @@
 <body>
     <!-- Mandy's navbar -->
     <% include navbar %>
+    <div class="row"></div>
     <main class="container">
         <div class="row">
             <div class="col s12 m12  z-depth-1">
@@ -24,7 +25,7 @@
                             <div class="row">
                                 <h1>Welcome</h1>
                                 <h1>
-                                    <%= loggedInBlogger.blogger_name %>>
+                                    <%= loggedInBlogger.blogger_name %>
                                 </h1>
                             </div>
                         </span>
@@ -33,35 +34,22 @@
             </div>
         </div>
 
-        <main class="container">
-
-        </main>
-
-
-
-        <div class="current_blogs">
-            <h5>All Blogs:</h5>
-
+    <div class="current_blogs">
+        <h5>All Blogs:</h5>
             <% for(let i = 0 ; i < blogs.length ; i++){ %>
-            <h4><a href="">
-                    <%= blogs[i].blog_title%></a></h4>
-            <div class="blog_content">
-                <%- blogs[i].blog_content%>
-            </div>
-            <button class="btn" type="button" action="" method="GET">Edit this Blog</button>
+        <div class="each_blog">
+            <h4><%= blogs[i].blog_title%></h4>
+            <div class="blog_content"><%- blogs[i].blog_content%></div>
             <% if(blogs[i].approved === true){%>
-            <% let status = "Approved!" %>
-            <h6>Status:
-                <%=status%>
-            </h6>
+             <% let status = "Approved!" %>
+             <h6>Status: <%=status%></h6>
             <% }else{ let status = "Not Approved."%>
-            <h6>Status:
-                <%=status%>
-            </h6>
-            <%}%>
+            <h6>Status: <%=status%></h6>
             <%}%>
         </div>
-
+            <%}%>
+    </div>
+</main>
         <% include footer %>
         <!-- JavaScript Links -->
         <% include materializejs %>

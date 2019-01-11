@@ -56,10 +56,8 @@ module.exports = {
         let blogs = results[1]
         res.render("blogger_home", { blogs: blogs, unReadMessages: unReadMessages, loggedInUser: req.session.user, loggedInAdmin: req.session.admin, loggedInBlogger: req.session.blogger })
       })
-  },
-  create: function (req, res) {
-
-  },
+    },
+  
   logout: (req, res) => {
     req.session.user = null;
     req.session.blogger = null;
@@ -83,6 +81,7 @@ module.exports = {
       })
 
   },
+
   newBlog: (req, res) => {
     knex("blogs")
       .insert({
@@ -94,6 +93,14 @@ module.exports = {
         res.redirect("/blogger/home");
       });
   },
+
+  editBlog : (req, res) => {
+    knex("blogs").then(results => {
+      let blogs = results
+      res.render("blogs")
+    })
+  },
+
   viewAdminMessages: (req, res) => {
     let messages = knex("bloggers")
       .where("bloggers.id", req.session.blogger.id)

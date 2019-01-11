@@ -12,14 +12,17 @@
   <!-- Mandy's navbar -->
   <% include navbar %>
 
+  <div class="row">
+    
+  </div>
   <main class="container">
     <div class="row z-depth-3">
       <div class="col s5 offset-s1 login">
         <h3>Active Users: Login</h3>
         <form class="" action="/users/main" method="post">
           <input type="text" name="user_email" placeholder="Email" />
-          <input type="text" name="user_password" placeholder="Password" />
-          <button class="btn-large" type="submit" name="button">Login</button>
+          <input type="password" name="user_password" placeholder="Password" />
+          <button type="submit" class="btn-large" name="button">Login</button>
         </form>
       </div>
       <div class="row">
