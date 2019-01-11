@@ -220,6 +220,7 @@ module.exports = {
       approvedBloggers
     ])
       .then(results => {
+        let pendingRegs = results[0].length
         let firstThreeRegs = results[0].slice(0, 3);
         let requestedOn = firstThreeRegs.map(reg =>
           moment(reg.created_at)
@@ -227,6 +228,7 @@ module.exports = {
             .slice(0, 16)
         );
         let firstThreeBlogs = results[1].slice(0, 3);
+        let pendingBlogPosts = results[1].length
         let blogCreatedOn = firstThreeBlogs.map(blog =>
           moment(blog.created_at)
             .toString()
@@ -234,6 +236,7 @@ module.exports = {
         );
 
         let firstThreeBanReqs = results[2].slice(0, 3);
+        let userBanRequests = results[2].length
         let banRequestedOn = firstThreeBanReqs.map(blog =>
           moment(req.created_at)
             .toString()
@@ -248,6 +251,7 @@ module.exports = {
         );
 
         let firstThreeBloggers = results[4].slice(0, 3);
+        let approvedBloggers = results[4].length
         let requestedOnbloggerStarted = firstThreeRegs.map(blogger =>
           moment(blogger.created_at)
             .toString()
@@ -255,7 +259,11 @@ module.exports = {
         );
 
         res.render("admin-home", {
+          userBanRequests: userBanRequests,
+          approvedBloggers: approvedBloggers,
           admin: req.session.admin,
+          pendingRegs: pendingRegs,
+          pendingBlogPosts: pendingBlogPosts,
           firstThreeRegs: firstThreeRegs,
           requestedOn: requestedOn,
           firstThreeBlogs: firstThreeBlogs,

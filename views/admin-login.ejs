@@ -10,36 +10,49 @@
   <% include materializestyle %>
 </head>
 
-<body>
+<body class="grey lighten-5">
   <!-- Mandy's navbar -->
   <% include navbar %>
 
-  <h1>Administrator Login</h1>
-  <p>
-    WARNING: THIS PAGE IS FOR ADMINISTRATORS ONLY. BY LOGGING IN AS AN
-    ADMINISTRATOR YOU ARE AGREEING TO SOME RULES SOMEWHERE
-  </p>
+  <main class="container">
+    <div class="row z-depth-3">
 
-  <!-- LOGIN FORM -->
-  <div class="login">
-    <div class="login-fail">
-      <% console.log(message) %>
-      <% if(message === "Invalid password") { %>
-      <p>
-        <%= message %>
-      </p>
-      <% } else if (message === "Could not locate a user with that email") {%>
-      <p>
-        <%= message %>
-      </p>
-      <% } %>
+      <div class="col s-10 offset-s2">
+        <h1>Administrator Login</h1>
+
+        <!-- LOGIN FORM -->
+        <div class="login">
+          <div class="login-fail">
+            <% console.log(message) %>
+            <% if(message === "Invalid password") { %>
+            <p>
+              <%= message %>
+            </p>
+            <% } else if (message === "Could not locate a user with that email") {%>
+            <p>
+              <%= message %>
+            </p>
+            <% } %>
+          </div>
+          <form action="/admin/login" method="POST">
+            <input type="email" placeholder="email" name="admin_email" />
+            <input type="password" placeholder="password" name="admin_password" />
+            <input class="btn-large" type="submit" />
+          </form>
+        </div>
+        <div class="row"></div>
+        <div class="row"></div>
+      </div>
+
     </div>
-    <form action="/admin/login" method="POST">
-      <input type="email" placeholder="email" name="admin_email" />
-      <input type="password" placeholder="password" name="admin_password" />
-      <input type="submit" />
-    </form>
-  </div>
+
+
+
+
+  </main>
+
+
+
 
   <% include footer %>
   <!-- JavaScript Links -->
