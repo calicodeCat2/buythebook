@@ -403,5 +403,24 @@ module.exports = {
         res.redirect("/admin/add-admin")
       })
       .catch(err => console.log(err));
+  },
+  adminNewBlogPage: (req, res) => {
+    res.render("blogger-new-blog", {
+      //NECESSARY VARS FOR NAVBAR OPTIONS
+      loggedInUser: req.session.user,
+      loggedInBlogger: req.session.blogger,
+      loggedInAdmin: req.session.admin,
+    });
+  },
+  adminNewBlog: (req, res) => {
+    knex("blogs")
+      .insert({
+        blog_title: req.body.blog_title,
+        blog_content: req.body.content,
+        blogger_id: req.session.blogger.id
+      })
+      .then(() => {
+        res.redirect("/admin/home");
+      });
   }
 };

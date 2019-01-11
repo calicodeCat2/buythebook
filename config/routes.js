@@ -13,6 +13,7 @@ module.exports = app => {
   app.post("/user/login", users.register);
   app.get("/user/profile", users.userEdit);
   app.post("/user/login", users.editProfile);
+  app.post("/new/comment/:id", userMiddleware, users.addComment)
   app.get("/user/comments", userMiddleware, users.showUserComments);
   app.get("/users/main", userMiddleware, users.show);
   app.get("/profile/:id", userMiddleware, users.profile);
@@ -136,6 +137,9 @@ module.exports = app => {
 
   app.get("/admin/add-admin", adminAuthMiddleware, bloggers.addNewAdmin)
   app.get("/admin/promote/blogger/:blogger_id", adminAuthMiddleware, bloggers.promoteToAdmin)
+
+  app.get("/admin/blog/new", adminAuthMiddleware, bloggers.adminNewBlogPage)
+  app.post("/admin/blogger/new", adminAuthMiddleware, bloggers.adminNewBlog)
 };
 
 function adminAuthMiddleware(req, res, next) {

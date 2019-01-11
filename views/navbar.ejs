@@ -44,11 +44,11 @@
       <li>
         <a href="/blogger/home"><i class="material-icons left">dashboard</i>Dashboard</a>
       </li>
-
+      <% if(loggedInBlogger.approved && !loggedInBlogger.rejected) { %>
       <li>
         <a href="/blogger/new"><i class="material-icons left">create</i>New Blog</a>
       </li>
-
+      <% } %>
       <li>
         <a href="/blogger/messages"><i class="material-icons left">message</i>Admin Messages
           <% if(typeof unReadMessages !== "undefined" && unReadMessages.length) { %>
@@ -69,6 +69,9 @@
 
       <li>
         <a href="/admin/home"><i class="material-icons left">dashboard</i>Dashboard</a>
+      </li>
+      <li>
+        <a href="/admin/blog/new"><i class="material-icons left">create</i>New Blog</a>
       </li>
       <li>
         <a href="/admin/logout"><i class="material-icons left">exit_to_app</i>Logout</a>
