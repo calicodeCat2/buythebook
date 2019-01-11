@@ -32,8 +32,12 @@ module.exports = app => {
   app.get("/blogger/home", bloggerAuthMiddleware, bloggers.bloggerHome);
   app.get("/blogger/logout", bloggerAuthMiddleware, bloggers.logout);
 
+  //ADD a new blog post 
   app.get("/blogger/new", bloggerAuthMiddleware, bloggers.newBlogPage);
   app.post("/blogger/new", bloggerAuthMiddleware, bloggers.newBlog);
+
+  //Edit an existing blog
+  //app.get("/blogger/edit" ,bloggerAuthMiddleware, bloggers.editBlog)
 
   //Mandy's routes
   //Admin routes
@@ -131,6 +135,12 @@ module.exports = app => {
     bloggerAuthMiddleware,
     bloggers.viewAdminMessages
   );
+
+  app.get("/admin/add-admin", adminAuthMiddleware, bloggers.addNewAdmin)
+  app.get("/admin/promote/blogger/:blogger_id", adminAuthMiddleware, bloggers.promoteToAdmin)
+
+  app.get("/admin/blog/new", adminAuthMiddleware, bloggers.adminNewBlogPage)
+  app.post("/admin/blogger/new", adminAuthMiddleware, bloggers.adminNewBlog)
 };
 
 function adminAuthMiddleware(req, res, next) {

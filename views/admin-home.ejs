@@ -17,59 +17,7 @@
   <!-- Page Layout here -->
   <div class="row">
 
-    <div class="col s12 m3 l2 grey darken-3" id="side-nav">
-      <!-- Note that "m4 l3" was added -->
-      <!-- Grey navigation panel
-
-            This content will be:
-        3-columns-wide on large screens,
-        4-columns-wide on medium screens,
-        12-columns-wide on small screens  -->
-      <div class="nav white-text">
-        <div class="row"></div>
-
-        <div class="col card-content">
-          <div class="row">
-            <a class="active white-text" href="/admin/pending-regs">Pending Blogger Applications</a>
-
-          </div>
-
-          <div class="row">
-            <a class="white-text" href="/admin/manage-bloggers">Manage Bloggers</a>
-          </div>
-          <div class="row">
-            <a class="white-text" href="/admin/pending-blogs">Pending Blogs</a>
-
-          </div>
-
-          <div class="row">
-            <a class="white-text" href="/admin/approved-blogs">Manage Blogs</a>
-
-          </div>
-
-          <div class="row">
-            <a class="white-text" href="/admin/user-bans">User Ban Requests</a>
-
-          </div>
-        </div>
-      </div>
-
-
-
-      <div class="row"></div>
-      <div class="row"></div>
-      <div class="row"></div>
-      <div class="row"></div>
-      <div class="row"></div>
-      <div class="row"></div>
-      <div class="row"></div>
-      <div class="row"></div>
-      <div class="row"></div>
-      <div class="row"></div>
-
-
-
-    </div>
+    <% include side-nav %>
 
 
 
@@ -87,209 +35,259 @@
       <div class="row">
 
       </div>
+      <h1>Welcome,
+        <%= admin.blogger_name %>
+      </h1>
+
 
       <% include admin-stat-cards %>
 
       <div class="divider"></div>
+      <div class="row"></div>
       <main>
 
         <!-- beginning of main content -->
-        <h1>Welcome,
-          <%= admin.blogger_name %>
-        </h1>
 
         <div class="main row">
-          <section class="col z-depth-3 s4 m4 l4 x4 pending-bloggers light-blue lighten-2 white-text">
-            <h2>Pending Blogger Applications</h2>
-            <% if(!firstThreeRegs) { %>
-            <p>You currently have no pending blogger applications.</p>
-            <% } %>
-            <ul>
-              <% for(let i = 0; i < firstThreeRegs.length; i++) { %>
-              <li>
-                <h3>
-                  <%= firstThreeRegs[i].blogger_name %>
-                </h3>
-                <img src="<%= firstThreeRegs[i].image_url %>" alt="" />
-                <p>Requested On:
-                  <%= requestedOn[i] %>
-                </p>
-                <p>Years Blogging:
-                  <%= firstThreeRegs[i].years_blogging %>
-                </p>
-                <p>
-                  Blogger Website:
-                  <a href="<%= firstThreeRegs[i].link %>">Website</a>
-                </p>
-                <p>Genre:
-                  <%= firstThreeRegs[i].genre %>
-                </p>
-                <p class="white-text">
-                  Writing Snippet:
-                  <%- firstThreeRegs[i].sample.slice(0, 140) +
-                      "..." %>
-                </p>
-                <div class="row options flow-text">
-                  <a class="grey-text text-lighten-5" href="/admin/view/blogger/<%= firstThreeRegs[i].id %>">View
-                    Blogger</a>
-                  <span> | </span>
-                  <a class="grey-text text-lighten-5" href="/admin/approve/blogger/<%= firstThreeRegs[i].id %>">Approve
-                    Blogger</a>
-                  <span> | </span>
-                  <a class="grey-text text-lighten-5" href="/admin/reject/blogger/<%= firstThreeRegs[i].id %>">Reject
-                    Blogger</a>
-                  <hr />
-                </div>
+          <section class="col s12 m6 l6 x12 pending-bloggers ">
+            <div class="card z-depth-3">
+              <div class="card-content light-blue lighten-2 white-text">
+                <h2>Pending Blogger Applications</h2>
+                <% if(!firstThreeRegs) { %>
+                <p>You currently have no pending blogger applications.</p>
+                <% } %>
+                <ul>
+                  <% for(let i = 0; i < firstThreeRegs.length; i++) { %>
+                  <li>
+                    <h3>
+                      <%= firstThreeRegs[i].blogger_name %>
+                    </h3>
+                    <img src="<%= firstThreeRegs[i].image_url %>" alt="" />
+                    <p>Requested On:
+                      <%= requestedOn[i] %>
+                    </p>
+                    <p>Years Blogging:
+                      <%= firstThreeRegs[i].years_blogging %>
+                    </p>
+                    <p>
+                      Blogger Website:
+                      <a href="<%= firstThreeRegs[i].link %>">Website</a>
+                    </p>
+                    <p>Genre:
+                      <%= firstThreeRegs[i].genre %>
+                    </p>
+                    <p class="white-text">
+                      Writing Snippet:
+                      <%- firstThreeRegs[i].sample.slice(0, 140) +
+                            "..." %>
+                    </p>
+                    <div class="row options flow-text">
+                      <a class="grey-text text-lighten-5" href="/admin/view/blogger/<%= firstThreeRegs[i].id %>">View
+                        Blogger</a>
+                      <span> | </span>
+                      <a class="grey-text text-lighten-5" href="/admin/approve/blogger/<%= firstThreeRegs[i].id %>">Approve
+                        Blogger</a>
+                      <span> | </span>
+                      <a class="grey-text text-lighten-5" href="/admin/reject/blogger/<%= firstThreeRegs[i].id %>">Reject
+                        Blogger</a>
+                      <hr />
+                    </div>
 
-              </li>
-              <% } %>
-              <a class="flow-tex grey-text text-lighten-5" href="/admin/pending-regs">View All</a>
-            </ul>
+                  </li>
+                  <% } %>
+                  <a class="flow-tex grey-text text-lighten-5" href="/admin/pending-regs">View All</a>
+                </ul>
+
+              </div>
+
+            </div>
+
+
           </section>
 
-          <section class="col z-depth-3 s4 m4 l4 x4 cyan lighten-2 manage-bloggers">
-            <h2>Manage Bloggers</h2>
-            <% if(!firstThreeBloggers) { %>
-            <p>You currently have no pending blogger applications.</p>
-            <% } %>
-            <ul>
-              <% for(let i = 0; i < firstThreeBloggers.length; i++) { %>
-              <li>
-                <h3>
-                  <%= firstThreeBloggers[i].blogger_name %>
-                </h3>
-                <img src="<%= firstThreeBloggers[i].image_url %>" alt="" />
-                <p>Started On:
-                  <%= requestedOnbloggerStarted[i] %>
-                </p>
-                <p>Years Blogging:
-                  <%= firstThreeBloggers[i].years_blogging %>
-                </p>
-                <p>
-                  Blogger Website:
-                  <a class="grey-text text-lighten-5" href="<%= firstThreeBloggers[i].link %>">Website</a>
-                </p>
-                <p>Genre:
-                  <%= firstThreeBloggers[i].genre %>
-                </p>
-                <p class="white-text">
-                  Writing Snippet:
-                  <%- firstThreeBloggers[i].sample.slice(0, firstThreeBloggers[i].sample.indexOf("<br>"))
-                      + "..." %>
-                </p>
-                <a class="grey-text text-lighten-5 flow-text" href="/admin/view/blogger/<%= firstThreeBloggers[i].id %>">View
-                  Blogger</a>
+          <section class="col s12 m6 l6 x12 manage-bloggers">
+            <div class="card z-depth-3">
+              <div class="card-content cyan lighten-2 white-text">
+                <h2>Manage Bloggers</h2>
+                <% if(!firstThreeBloggers) { %>
+                <p>You currently have no pending blogger applications.</p>
+                <% } %>
+                <ul>
+                  <% for(let i = 0; i < firstThreeBloggers.length; i++) { %>
+                  <li>
+                    <h3>
+                      <%= firstThreeBloggers[i].blogger_name %>
+                    </h3>
+                    <img src="<%= firstThreeBloggers[i].image_url %>" alt="" />
+                    <p>Started On:
+                      <%= requestedOnbloggerStarted[i] %>
+                    </p>
+                    <p>Years Blogging:
+                      <%= firstThreeBloggers[i].years_blogging %>
+                    </p>
+                    <p>
+                      Blogger Website:
+                      <a class="grey-text text-lighten-5" href="<%= firstThreeBloggers[i].link %>">Website</a>
+                    </p>
+                    <p>Genre:
+                      <%= firstThreeBloggers[i].genre %>
+                    </p>
+                    <p class="white-text">
+                      Writing Snippet:
+                      <%- firstThreeBloggers[i].sample.slice(0, firstThreeBloggers[i].sample.indexOf("<br>"))
+                            + "..." %>
+                    </p>
+                    <a class="grey-text text-lighten-5 flow-text" href="/admin/view/blogger/<%= firstThreeBloggers[i].id %>">View
+                      Blogger</a>
 
-                <hr />
-              </li>
-              <% } %>
-              <a class="grey-text text-lighten-5 flow-text" href="/admin/manage-bloggers">View All</a>
-            </ul>
+                    <hr />
+                  </li>
+                  <% } %>
+                  <a class="grey-text text-lighten-5 flow-text" href="/admin/manage-bloggers">View All</a>
+                </ul>
+
+              </div>
+            </div>
           </section>
 
-          <section class="col z-depth-3 s4 m4 l4 x4 yellow pending-blogs">
-            <h2>Pending Blog Posts</h2>
-            <% if(!firstThreeBlogs) { %>
-            <p>You currently have no pending blog posts.</p>
-            <% } %>
-            <ul>
-              <% for (let i = 0; i < firstThreeBlogs.length; i++) { %>
-              <li>
-                <h3>
-                  <%= firstThreeBlogs[i].blog_title %>
-                </h3>
-                <h4>Post Created On:
-                  <%= blogCreatedOn[i] %>
-                </h4>
-                <h4>By:
-                  <%= firstThreeBlogs[i].blogger_name %>
-                </h4>
-                <p>
-                  Preview:
-                  <%- firstThreeBlogs[i].blog_content.slice(0,
-                      firstThreeBlogs[i].blog_content.indexOf("<br>")) + "..." %>
-                </p>
-                <a href="/admin/view/blog/<%= firstThreeBlogs[i].id %>">View Blog</a>
-                <span> | </span>
-                <a href="/admin/approve/blog/<%= firstThreeBlogs[i].id %>">Approve Blog</a>
-                <span> | </span>
-                <a href="/admin/reject/blog/<%= firstThreeBlogs[i].id %>">Reject Blog</a>
-                <hr />
-              </li>
-              <% } %>
-              <a href="/admin/pending-blogs">View All</a>
-            </ul>
-          </section>
 
-          <section class="col z-depth-3 s4 m4 l4 x4 pending-ban-requests pink accent-2 white-text">
-            <h2>Pending User Ban Requests</h2>
-            <% if(!firstThreeBanReqs) { %>
-            <p>You currently have no pending ban requests.</p>
-            <% } %>
-            <ul>
-              <% for(let i = 0; i < firstThreeBanReqs.length; i++) { %>
-              <li>
-                <h4>Screen Name:
-                  <%= firstThreeBanReqs[i].screen_name %>
-                </h4>
-                <a class="grey-text text-lighten-5 flow-text" href="/admin/users/ban/<%= firstThreeBanReqs[i].id %>">Approve
-                  Ban</a>
-                <span> | </span>
-                <a class="grey-text text-lighten-5 flow-text" href="/admin/users/view/<%= firstThreeBanReqs[i].id %>">View
-                  User</a>
-                <span> | </span>
-                <a class="grey-text text-lighten-5 flow-text" href="/admin/users/unban/<%= firstThreeBanReqs[i].id %>">Reject
-                  Ban</a>
-              </li>
-              <% } %>
-              <hr>
-              <a class="grey-text text-lighten-5 flow-text" href="/admin/user-bans">View All</a>
-            </ul>
-          </section>
+
 
 
         </div>
 
-        <!-- BETWEEN FIRST AND SECOND ROWS -->
+        <!-- END OF FIRST ROW -->
 
         <div class="row">
-          <section class="col card s4 approved-blogs">
-            <h2>Approved Blog Posts</h2>
-            <% if(!firstThreeApprovedBlogs) { %>
-            <p>You currently have no approved blog posts.</p>
-            <% } %>
-            <ul>
-              <% for (let i = 0; i < firstThreeApprovedBlogs.length; i++) { %>
-              <li>
-                <h3>
-                  <%= firstThreeApprovedBlogs[i].blog_title %>
-                </h3>
-                <h4>Post Created On:
-                  <%= approvedBlogCreatedOn[i] %>
-                </h4>
-                <h4>By:
-                  <%= firstThreeApprovedBlogs[i].blogger_name %>
-                </h4>
-                <p>
-                  Preview:
-                  <%- firstThreeApprovedBlogs[i].blog_content.slice(0,
-                        firstThreeApprovedBlogs[i].blog_content.indexOf("<br>")) + "..." %>
-                </p>
-                <a href="/admin/view/approved-blog/<%= firstThreeApprovedBlogs[i].id %>">View Blog</a>
-                <hr />
-              </li>
-              <% } %>
-              <a href="/admin/approved-blogs">View All</a>
-            </ul>
+          <section class="col s12 m6 l6 x12 pending-blogs">
+            <div class="card z-depth-3 wite-text">
+              <div class="card-content yellow">
+                <h2>Pending Blog Posts</h2>
+                <% if(!firstThreeBlogs) { %>
+                <p>You currently have no pending blog posts.</p>
+                <% } %>
+                <ul>
+                  <% for (let i = 0; i < firstThreeBlogs.length; i++) { %>
+                  <li>
+                    <h3>
+                      <%= firstThreeBlogs[i].blog_title %>
+                    </h3>
+                    <h4>Post Created On:
+                      <%= blogCreatedOn[i] %>
+                    </h4>
+                    <h4>By:
+                      <%= firstThreeBlogs[i].blogger_name %>
+                    </h4>
+                    <p>
+                      Preview:
+                      <%- firstThreeBlogs[i].blog_content.slice(0,
+                                  firstThreeBlogs[i].blog_content.indexOf("<br>")) + "..." %>
+                    </p>
+                    <a href="/admin/view/blog/<%= firstThreeBlogs[i].id %>">View Blog</a>
+                    <span> | </span>
+                    <a href="/admin/approve/blog/<%= firstThreeBlogs[i].id %>">Approve Blog</a>
+                    <span> | </span>
+                    <a href="/admin/reject/blog/<%= firstThreeBlogs[i].id %>">Reject Blog</a>
+                    <hr />
+                  </li>
+                  <% } %>
+                  <a href="/admin/pending-blogs">View All</a>
+                </ul>
+
+              </div>
+            </div>
+
           </section>
 
+          <section class="col s12 m6 l6 x12 pending-ban-requests ">
+            <div class="card z-depth-3">
+              <div class="card-content pink accent-2 white-text">
+
+                <h3>Pending User Ban Requests</h3>
+                <% if(!firstThreeBanReqs) { %>
+                <p>You currently have no pending ban requests.</p>
+                <% } %>
+                <ul>
+                  <% for(let i = 0; i < firstThreeBanReqs.length; i++) { %>
+                  <li>
+                    <p class="">Screen Name:
+                      <%= firstThreeBanReqs[i].screen_name %>
+                    </p>
+                    <a class="grey-text text-lighten-5 flow-text" href="/admin/users/ban/<%= firstThreeBanReqs[i].id %>">Approve
+                      Ban</a>
+                    <span> | </span>
+                    <a class="grey-text text-lighten-5 flow-text" href="/admin/users/view/<%= firstThreeBanReqs[i].id %>">View
+                      User</a>
+                    <span> | </span>
+                    <a class="grey-text text-lighten-5 flow-text" href="/admin/users/unban/<%= firstThreeBanReqs[i].id %>">Reject
+                      Ban</a>
+                  </li>
+                  <% } %>
+                  <hr>
+                  <a class="grey-text text-lighten-5 flow-text" href="/admin/user-bans">View All</a>
+                </ul>
+          </section>
+
+        </div>
+
+        <!-- MANAGAE BLOG SECTION -->
+
+        <div class="row">
+          <div class="col">
+            <section class="col  s12 m12 l12 x12 approved-blogs">
+              <div class="card z-depth-3  teal lighten-2">
+                <div class="card-content white-text">
+                  <h2>Manage Blog Posts</h2>
+                  <% if(!firstThreeApprovedBlogs) { %>
+                  <p>You currently have no approved blog posts.</p>
+                  <% } %>
+                  <ul>
+                    <% for (let i = 0; i < firstThreeApprovedBlogs.length; i++) { %>
+                    <li>
+                      <h3>
+                        <%= firstThreeApprovedBlogs[i].blog_title %>
+                      </h3>
+                      <h4>Post Created On:
+                        <%= approvedBlogCreatedOn[i] %>
+                      </h4>
+                      <h4>By:
+                        <%= firstThreeApprovedBlogs[i].blogger_name %>
+                      </h4>
+                      <p>
+                        Preview:
+                        <%- firstThreeApprovedBlogs[i].blog_content.slice(0,
+                                            firstThreeApprovedBlogs[i].blog_content.indexOf("<br>")) + "..." %>
+                      </p>
+                      <a href="/admin/view/approved-blog/<%= firstThreeApprovedBlogs[i].id %>">View Blog</a>
+                    </li>
+                    <% } %>
+                    <a href="/admin/approved-blogs">View All</a>
+                  </ul>
+
+                </div>
+              </div>
+
+            </section>
+
+          </div>
 
         </div>
 
 
-      </main>
-
     </div>
+
+
+
+
+
+
+
+  </div>
+
+
+  </main>
+
+  </div>
 
   </div>
 

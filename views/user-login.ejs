@@ -12,29 +12,32 @@
   <!-- Mandy's navbar -->
   <% include navbar %>
 
+  <div class="row">
+    
+  </div>
   <main class="container">
     <div class="row z-depth-3">
       <div class="col s5 offset-s1 login">
         <h3>Active Users: Login</h3>
         <form class="" action="/users/main" method="post">
           <input type="text" name="user_email" placeholder="Email" />
-          <input type="text" name="user_password" placeholder="Password" />
-          <button class="btn-large" type="submit" name="button">Login</button>
+          <input type="password" name="user_password" placeholder="Password" />
+          <button type="submit" class="btn-large" name="button">Login</button>
         </form>
       </div>
       <div class="row">
 
-      <div class="col s5 registration">
-        <h3>New Users: Register</h3>
-        <form class="" action="/user/login" method="post">
-          <input type="text" name="user_name" placeholder="Name" />
-          <input type="text" name="screen_name" placeholder="Screen Name" />
-          <input type="text" name="user_email" placeholder="Email" />
-          <input type="text" name="user_password" placeholder="Password" />
-          <input type="text" name="confirm_password" placeholder="Confirm Password" />
-          <button class="btn-large" type="submit" name="button">Register</button>
-        </form>
-      </div>
+        <div class="col s5 registration">
+          <h3>New Users: Register</h3>
+          <form class="" action="/user/login" method="post">
+            <input type="text" name="user_name" placeholder="Name" />
+            <input type="text" name="screen_name" placeholder="Screen Name" />
+            <input type="text" name="user_email" placeholder="Email" />
+            <input type="text" name="user_password" placeholder="Password" />
+            <input type="text" name="confirm_password" placeholder="Confirm Password" />
+            <button class="btn-large" type="submit" name="button">Register</button>
+          </form>
+        </div>
       </div>
     </div>
 

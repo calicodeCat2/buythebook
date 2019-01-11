@@ -53,14 +53,11 @@ module.exports = {
     Promise.all([adminMessages, accessBlogs])
       .then(results => {
         let unReadMessages = results[0]
-        console.log(unReadMessages)
         let blogs = results[1]
         res.render("blogger_home", { blogs: blogs, unReadMessages: unReadMessages, loggedInUser: req.session.user, loggedInAdmin: req.session.admin, loggedInBlogger: req.session.blogger })
       })
-  },
-  create: function (req, res) {
-
-  },
+    },
+  
   logout: (req, res) => {
     req.session.user = null;
     req.session.blogger = null;
@@ -84,6 +81,7 @@ module.exports = {
       })
 
   },
+
   newBlog: (req, res) => {
     knex("blogs")
       .insert({
@@ -95,6 +93,14 @@ module.exports = {
         res.redirect("/blogger/home");
       });
   },
+
+  editBlog : (req, res) => {
+    knex("blogs").then(results => {
+      let blogs = results
+      res.render("blogs")
+    })
+  },
+
   viewAdminMessages: (req, res) => {
     let messages = knex("bloggers")
       .where("bloggers.id", req.session.blogger.id)
@@ -111,6 +117,7 @@ module.exports = {
         "admin_messages.blogger_id",
         req.session.blogger.id
       )
+      .orderBy("unread", "desc")
 
     let unReadMessages = knex("admin_messages")
       .select("id")
@@ -153,7 +160,6 @@ module.exports = {
           req.body.admin_password &&
           admin.blogger_password === req.body.admin_password
         ) {
-          console.log(req.session);
           req.session.user = null;
           req.session.blogger = null;
           req.session.admin = admin;
@@ -290,7 +296,8 @@ module.exports = {
       })
       .then(() => {
         res.redirect("/admin/home");
-      });
+      })
+      .catch(err => console.log(err));
   },
   adminBloggerView: (req, res) => {
     knex("bloggers")
@@ -307,7 +314,8 @@ module.exports = {
           loggedInBlogger: req.session.blogger,
           loggedInAdmin: req.session.admin
         });
-      });
+      })
+      .catch(err => console.log(err));
   },
   adminRejectBlogger: (req, res) => {
     knex("bloggers")
@@ -339,7 +347,8 @@ module.exports = {
           loggedInBlogger: req.session.blogger,
           loggedInAdmin: req.session.admin
         });
-      });
+      })
+      .catch(err => console.log(err));
   },
   adminViewApprovedBloggers: (req, res) => {
     knex("bloggers")
@@ -361,6 +370,57 @@ module.exports = {
           loggedInBlogger: req.session.blogger,
           loggedInAdmin: req.session.admin
         });
+      })
+      .catch(err => console.log(err));
+  },
+  addNewAdmin: (req, res) => {
+    knex("bloggers")
+      .where("bloggers.approved", "=", "true")
+      .orderBy("created_at")
+      .whereNot("role", "=", "admin")
+      .andWhereNot("rejected", "=", "true")
+      .then(results => {
+        res.render("promote-to-admin", {
+          potentialAdmins: results,
+          //NECESSARY VARS FOR NAVBAR OPTIONS
+          loggedInUser: req.session.user,
+          loggedInBlogger: req.session.blogger,
+          loggedInAdmin: req.session.admin
+        })
+      }).catch(err => console.log(err));
+
+  },
+  promoteToAdmin: (req, res) => {
+    knex("bloggers")
+      .where("bloggers.approved", "=", "true")
+      .whereNot("role", "=", "admin")
+      .andWhereNot("rejected", "=", "true")
+      .andWhere('bloggers.id', req.params.blogger_id)
+      .update({
+        role: "admin"
+      })
+      .then(() => {
+        res.redirect("/admin/add-admin")
+      })
+      .catch(err => console.log(err));
+  },
+  adminNewBlogPage: (req, res) => {
+    res.render("blogger-new-blog", {
+      //NECESSARY VARS FOR NAVBAR OPTIONS
+      loggedInUser: req.session.user,
+      loggedInBlogger: req.session.blogger,
+      loggedInAdmin: req.session.admin,
+    });
+  },
+  adminNewBlog: (req, res) => {
+    knex("blogs")
+      .insert({
+        blog_title: req.body.blog_title,
+        blog_content: req.body.content,
+        blogger_id: req.session.blogger.id
+      })
+      .then(() => {
+        res.redirect("/admin/home");
       });
   }
 };

@@ -14,19 +14,29 @@
   <!-- Mandy's navbar -->
   <% include navbar %>
 
-  <h1>User Ban Requests</h1>
-  <section class="users-container">
-    <ul>
-      <% for (let i = 0; i < users.length; i++) { %>
-      <h2>Screen Name:
-        <%= users[i].screen_name %>
-      </h2>
-      <a href="/admin/users/ban/<%= users[i].id %>">Approve Ban | </a>
-      <a href="/admin/users/view/<%= users[i].id %>">View User | </a>
-      <a href="/admin/users/unban/<%= users[i].id %>">Reject Ban</a>
-      <% } %>
-    </ul>
-  </section>
+  <div class="row">
+    <% include side-nav %>
+
+    <div class="col s12 m9 l10 container">
+      <h1>User Ban Requests</h1>
+      <section class="users-container">
+        <ul>
+          <% for (let i = 0; i < users.length; i++) { %>
+          <h2>Screen Name:
+            <%= users[i].screen_name %>
+          </h2>
+          <a href="/admin/users/ban/<%= users[i].id %>">Approve Ban | </a>
+          <a href="/admin/users/view/<%= users[i].id %>">View User | </a>
+          <a href="/admin/users/unban/<%= users[i].id %>">Reject Ban</a>
+          <% } %>
+        </ul>
+      </section>
+
+    </div>
+
+  </div>
+
+
 
   <% include footer %>
   <!-- JavaScript Links -->

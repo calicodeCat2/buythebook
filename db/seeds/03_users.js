@@ -1,8 +1,8 @@
-exports.seed = function(knex, Promise) {
+exports.seed = function (knex, Promise) {
   // Deletes ALL existing entries
   return knex("users")
     .del()
-    .then(function() {
+    .then(function () {
       return knex("users").insert([
         {
           user_name: "Marilyn",
@@ -40,7 +40,35 @@ exports.seed = function(knex, Promise) {
           user_email: "email6@email.com",
           user_password: "1234",
           screen_name: "allofus"
-        }
+        },
+        {
+          user_name: "Jared",
+          user_email: "email7email.com",
+          user_password: "1234",
+          screen_name: "personpants",
+          "ban-requested": true
+        },
+        {
+          user_name: "Stacy",
+          user_email: "email8@email.com",
+          user_password: "1234",
+          screen_name: "stacymacy",
+          "ban-requested": true
+        },
+        {
+          user_name: "Felicia",
+          user_email: "email9@email.com",
+          user_password: "1234",
+          screen_name: "tonya",
+          "ban-requested": true
+        },
+        {
+          user_name: "Erin",
+          user_email: "email10@email.com",
+          user_password: "1234",
+          screen_name: "serra",
+          "ban-requested": true
+        },
       ]);
     });
 };
