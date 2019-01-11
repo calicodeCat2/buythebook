@@ -33,7 +33,9 @@
 
     <div class="article">
       <div class="content">
-        <%- blog.blog_content %>
+        <h5>
+          <%- blog.blog_content %>
+        </h5>
       </div>
       <div class="votes">
         <a href="/upvote/<%= blog.id %>"><img src="https://img.icons8.com/dusk/64/000000/facebook-like.png" height='25px'></a>
@@ -45,16 +47,18 @@
       </div>
     </div>
     <div class="container">
-      <h5>Comments</h5>
+
+      <h4>Comments</h4>
       <% for (let i = 0; i < comments.length; i++) { %>
       <div class="comment card">
         <div class="card-content">
-          <p class="light-blue-text">
+          <h5 class="light-blue-text">
             <%= comments[i].screen_name %>
-          </p>
-          <p>
+          </h5>
+          <h5>
+
             <%= comments[i].content %>
-          </p>
+          </h5>
 
         </div>
       </div>
