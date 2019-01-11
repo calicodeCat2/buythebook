@@ -106,7 +106,6 @@ module.exports = {
   },
 
   addComment: (req, res) => {
-
       knex('comments')
         .insert({
           content: req.body.content,
