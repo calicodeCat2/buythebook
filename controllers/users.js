@@ -1,10 +1,26 @@
 const knex = require("../db/knex.js");
 const moment = require("moment");
 
+const getUnreadMessages = (bloggerID) => new Promise((resolve, reject) => {
+  return knex("admin_messages")
+    .select("id")
+    .where("admin_messages.blogger_id", bloggerID)
+    .andWhere("unread", true)
+    .then(results => {
+      resolve(results)
+    })
+    .catch(err => {
+      console.log(err)
+      return false
+    })
+})
+
+
+
 module.exports = {
   // CHANGE ME TO AN ACTUAL FUNCTION
   index: (req, res) => {
-    knex("blogs")
+    let blogsAndBloggers = knex("blogs")
       .where("blogs.approved", "true")
       .select(
         "bloggers.id",
@@ -23,14 +39,29 @@ module.exports = {
         "blogs.blog_content"
       )
       .join("bloggers", "bloggers.id", "=", "blogger_id")
+
+      // if (req.session.blogger) {
+      //   let unReadMessages = knex("admin_messages")
+      //     .select("id")
+      //     .where("admin_messages.blogger_id", req.session.blogger.id)
+      //     .andWhere("unread", true)
+      // } else {
+      //   let unReadMessages = new Promise((resolve, reject) => {
+      //     resolve(undefined)
+      //   })
+      // }
+
+      // Promise.all(blogsAndBloggers, unReadMessages)
       .then(results => {
+        console.log(results)
+
         res.render("splash", {
           blogs: results,
           bloggers: results,
           //NECESSARY VARS FOR NAVBAR OPTIONS
           loggedInUser: req.session.user,
           loggedInBlogger: req.session.blogger,
-          loggedInAdmin: req.session.admin
+          loggedInAdmin: req.session.admin,
         });
       });
   },
@@ -97,7 +128,9 @@ module.exports = {
         "bloggers.genre",
         "blogs.id",
         "blogs.blog_title",
-        "blogs.blog_content"
+        "blogs.blog_content",
+        "blogs.upvote",
+        "blogs.downvote"
       )
       .join("blogs", "blogger_id", "=", "bloggers.id")
       .where("bloggers.id", req.params.id)
@@ -169,7 +202,10 @@ module.exports = {
     knex("users")
       .where("users.id", "=", req.session.user.id)
       .then(results => {
+        let user = results[0];
+
         res.render("user_profile", {
+          user: user,
           loggedInUser: req.session.user,
           loggedInBlogger: req.session.blogger,
           loggedInAdmin: req.session.admin
@@ -178,36 +214,62 @@ module.exports = {
   },
 
   editProfile: (req, res) => {
-    knex("users");
+    knex("users")
+      .where('users.id', '=', req.session.user.id)
+        .then(() => {
+          if (user.user_password === req.body.user_password) {
+            knex('users')
+            .where('users.id', '=', req.session.user.id)
+            .update({
+              user_name: req.body.user_name,
+              screen_name: req.body.screen_name,
+
+            })
+            res.redirect('/user/login')
+          } else {
+            res.redirect('/user/profile')
+          }
+
+        });
   },
 
-  showUserComments: (req, res) => {
-      let users = knex('users')
-        .where('users.id', '=', req.session.user.id)
-        .select(
-            'users.id',
-            'users.user_name',
-            'users.screen_name',
-            'comments.id',
-            'comments.user_id',
-            'comments.content',
-            'comments.blog_id')
-          .join('comments', 'comments.user_id', '=', 'users.id')
-        let blogs = knex('blogs')
-          .select('blogs.id', 'blogs.blog_title', 'blogs.blogger_id')
-          .join('bloggers', 'bloggers.id', '=', 'blogger_id')
-        Promise.all([users, blogs])
-          .then((results) => {
-            console.log(results[0][0]);
-            res.render('user_comments', {
-            users: results[0][0],
-            blogs: results[1],
-            loggedInUser: req.session.user,
-            loggedInBlogger: req.session.blogger,
-            loggedInAdmin: req.session.admin
-          })
-          })
 
+  showUserComments: (req, res) => {
+    let user = knex("users").where("users.id", req.session.user.id);
+    let comments = knex("comments")
+      .where("comments.user_id", req.session.user.id)
+      .orderBy("comments.created_at")
+      .select(
+        "comments.*",
+        "users.screen_name",
+        "blogs.id",
+        "blogs.blog_title",
+        "blogs.blogger_id",
+        "bloggers.blogger_name"
+      )
+      .innerJoin("users", "comments.user_id", "users.id")
+      .innerJoin("blogs", "comments.blog_id", "blogs.id")
+      .innerJoin("bloggers", "blogs.blogger_id", "bloggers.id");
+
+    Promise.all([user, comments]).then(results => {
+      let user = results[0][0];
+
+      let commentHistory = results[1];
+      let commentCreatedOn = commentHistory.map(comment =>
+        moment(comment.created_at)
+          .toString()
+          .slice(0, 16)
+      );
+      res.render("user_comments", {
+        user: user,
+        commentHistory: commentHistory,
+        commentCreatedOn: commentCreatedOn,
+        //NECESSARY VARS FOR NAVBAR OPTIONS
+        loggedInUser: req.session.user,
+        loggedInBlogger: req.session.blogger,
+        loggedInAdmin: req.session.admin
+      });
+    });
   },
 
   upPlus: (req, res) => {

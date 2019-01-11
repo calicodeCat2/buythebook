@@ -3,16 +3,16 @@ const moment = require("moment");
 
 module.exports = {
   // CHANGE ME TO AN ACTUAL FUNCTION
-  index: function(req, res) {
+  index: function (req, res) {
     res.send("Hello");
   },
   //THIS RENDERS THE BLOGGER LOGIN PAGE
-  bloggerLoginPage: function(req, res) {
+  bloggerLoginPage: function (req, res) {
     res.render("blogger_login", {
       //NECESSARY VARS FOR NAVBAR OPTIONS
       loggedInUser: req.session.user,
       loggedInBlogger: req.session.blogger,
-      loggedInAdmin: req.session.admin
+      loggedInAdmin: req.session.admin,
     });
   },
   // This logs in the bloggers then redirects them to their home page
@@ -33,7 +33,7 @@ module.exports = {
           req.session.user = null;
           req.session.admin = null;
           req.session.blogger = blogger;
-          
+
           res.redirect("/blogger/home");
         } else {
           console.log("Wrong Pass");
@@ -43,12 +43,18 @@ module.exports = {
       });
   },
 
-  bloggerHome: function(req, res) {
+  bloggerHome: function (req, res) {
+    let adminMessages = knex("admin_messages")
+      .select("id")
+      .where("admin_messages.blogger_id", req.session.blogger.id)
+      .andWhere("unread", true)
     let accessBlogs = knex("blogs")
       .where("blogs.blogger_id", req.session.blogger.id)
+    Promise.all([adminMessages, accessBlogs])
       .then(results => {
-        let blogs = results
-        res.render("blogger_home", {blogs : results, loggedInUser : req.session.user, loggedInAdmin : req.session.admin, loggedInBlogger : req.session.blogger})
+        let unReadMessages = results[0]
+        let blogs = results[1]
+        res.render("blogger_home", { blogs: blogs, unReadMessages: unReadMessages, loggedInUser: req.session.user, loggedInAdmin: req.session.admin, loggedInBlogger: req.session.blogger })
       })
     },
   
@@ -60,12 +66,20 @@ module.exports = {
   },
 
   newBlogPage: (req, res) => {
-    res.render("blogger-new-blog", {
-      //NECESSARY VARS FOR NAVBAR OPTIONS
-      loggedInUser: req.session.user,
-      loggedInBlogger: req.session.blogger,
-      loggedInAdmin: req.session.admin
-    });
+    let adminMessages = knex("admin_messages")
+      .select("id")
+      .where("admin_messages.blogger_id", req.session.blogger.id)
+      .andWhere("unread", true)
+      .then(results => {
+        res.render("blogger-new-blog", {
+          //NECESSARY VARS FOR NAVBAR OPTIONS
+          loggedInUser: req.session.user,
+          loggedInBlogger: req.session.blogger,
+          loggedInAdmin: req.session.admin,
+          unReadMessages: results
+        });
+      })
+
   },
 
   newBlog: (req, res) => {
@@ -88,7 +102,7 @@ module.exports = {
   },
 
   viewAdminMessages: (req, res) => {
-    knex("bloggers")
+    let messages = knex("bloggers")
       .where("bloggers.id", req.session.blogger.id)
       .select(
         "bloggers.id",
@@ -103,13 +117,21 @@ module.exports = {
         "admin_messages.blogger_id",
         req.session.blogger.id
       )
+
+    let unReadMessages = knex("admin_messages")
+      .select("id")
+      .where("admin_messages.blogger_id", req.session.blogger.id)
+      .andWhere("unread", true)
+
+    Promise.all([messages, unReadMessages])
       .then(results => {
         res.render("blogger-messages", {
-          messages: results,
+          messages: results[0],
           //NECESSARY VARS FOR NAVBAR OPTIONS
           loggedInUser: req.session.user,
           loggedInBlogger: req.session.blogger,
-          loggedInAdmin: req.session.admin
+          loggedInAdmin: req.session.admin,
+          unReadMessages: results[1]
         });
       });
   },

@@ -1,67 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Pending Blogger Registrations</title>
-    <!-- Materialize Link -->
-    <% include materializestyle %>
-  </head>
-  <body>
-    <!-- Mandy's navbar -->
-    <% include navbar %>
-    <main class="container">
-      <section class="pending-blogs">
-        <h1>Pending Blogs</h1>
-        <% if(!pendingBlogPosts) { %>
-        <p>You currently have no pending blog posts.</p>
-        <% } %>
-        <ul>
-          <% for(let i = 0; i < pendingBlogPosts.length; i++) { %>
-          <li class="card cyan lighten-5">
-            <div class="row">
-                <h3><%= pendingBlogPosts[i].blog_title %></h3>
-                <h4>Post Created On: <%= requestedOn[i] %></h4>
-                <p>By: <%= pendingBlogPosts[i].blogger_name %></p>
-            </div>
-            <% if(pendingBlogPosts[i].blog_content) { %>
-            <div class="row preview">
-              <div class="card col s12">
-                <p class="">
-                  <%- pendingBlogPosts[i].blog_content.slice(0, pendingBlogPosts[i].blog_content.indexOf("<br>")) +
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Pending Blogger Registrations</title>
+  <!-- Materialize Link -->
+  <% include materializestyle %>
+</head>
+
+<body>
+  <!-- Mandy's navbar -->
+  <% include navbar %>
+  <main class="container">
+    <section class="pending-blogs">
+      <h1>Pending Blogs</h1>
+      <% if(!pendingBlogPosts) { %>
+      <p>You currently have no pending blog posts.</p>
+      <% } %>
+      <ul>
+        <% for(let i = 0; i < pendingBlogPosts.length; i++) { %>
+        <li class="card cyan lighten-5">
+          <div class="row">
+            <h3>
+              <%= pendingBlogPosts[i].blog_title %>
+            </h3>
+            <h4>Post Created On:
+              <%= requestedOn[i] %>
+            </h4>
+            <p>By:
+              <%= pendingBlogPosts[i].blogger_name %>
+            </p>
+          </div>
+          <% if(pendingBlogPosts[i].blog_content) { %>
+          <div class="row preview">
+            <div class="card col s12">
+              <p class="">
+                <%- pendingBlogPosts[i].blog_content.slice(0, pendingBlogPosts[i].blog_content.indexOf("<br>")) +
                   "..." %>
-                </p>
-              </div>
+              </p>
             </div>
           </div>
-            <% } %>
-            <div class="row admin-options">
-              <a
-                class="btn-large"
-                href="/admin/view/blog/<%= pendingBlogPosts[i].id %>"
-                >View Blog</a
-              >
-              <span> | </span>
-              <a
-                class="btn-large"
-                href="/admin/approve/blog/<%= pendingBlogPosts[i].id %>"
-                >Approve Blog</a
-              >
-              <span> | </span>
-              <a
-                class="btn-large"
-                href="/admin/reject/blog/<%= pendingBlogPosts[i].id %>"
-                >Reject Blog</a
-              >
-            </div>
-          </li>
+          </div>
           <% } %>
-        </ul>
-      </section>
-    </main>
+          <div class="row admin-options">
+            <a class="btn-large" href="/admin/view/blog/<%= pendingBlogPosts[i].id %>">View Blog</a>
+            <span> | </span>
+            <a class="btn-large" href="/admin/approve/blog/<%= pendingBlogPosts[i].id %>">Approve Blog</a>
+            <span> | </span>
+            <a class="btn-large" href="/admin/reject/blog/<%= pendingBlogPosts[i].id %>">Reject Blog</a>
+          </div>
+        </li>
+        <% } %>
+      </ul>
+    </section>
+  </main>
 
-    <!-- JavaScript Links -->
-    <% include materializejs %>
-  </body>
+  <% include footer %>
+  <!-- JavaScript Links -->
+  <% include materializejs %>
+</body>
+
 </html>

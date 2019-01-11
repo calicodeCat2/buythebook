@@ -1,31 +1,51 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8" />
-    <title>User Profile</title>
-    <!-- Materialize Link -->
-    <% include materializestyle %>
-  </head>
-  <body>
-    <!-- Mandy's navbar -->
-    <% include navbar %>
 
+<head>
+  <meta charset="utf-8" />
+  <title>User Profile</title>
+  <!-- Materialize Link -->
+  <% include materializestyle %>
+</head>
+
+<body>
+  <!-- Mandy's navbar -->
+  <% include navbar %>
+
+  <main class="container">
     <h2>Edit Profile</h2>
+    <h3>Welcome
+      <%= user.user_name%>
+    </h3>
+    <p>After updating your profile, you will need to login again.</p>
+    <img src="https://via.placeholder.com/150">
+
+
     <div class="">
-      <form class="" action="/" method="post">
-        <input type="text" name="user_name" placeholder="Name" />
-        <input type="text" name="email" placeholder="Email" />
-        <input type="text" name="screen_name" placeholder="Screen Name" />
-        <input type="text" name="user_password" placeholder="Password" />
-        <input
-          type="text"
-          name="confirm_password"
-          placeholder="Confirm Password"
-        />
+      <form class="" action="/user/login" method="post">
+        <label for="name">Name:</label><br>
+        <input type="text" name="user_name" value="<%= user.user_name%>" />
+        <label for="screen_name">Screen Name:</label><br>
+        <input type="text" name="screen_name" value="<%= user.screen_name%>" />
+        <label for="image">Add/Change Picture:</label><br>
+        <input type="text" name="user_img_url" placeholder="Image Url" />
+        <label for="password">Password</label>
+        <input type="text" name="password" placeholder="Enter Current Password" />
+        <hr>
+        <label for="email">Email:</label><br>
+        <input type="text" name="change_email" placeholder="Change Email" />
+        <hr>
+        <label for="password">Password:</label><br>
+        <input type="text" name="new_user_password" placeholder="Change Password" />
+        <label for="confirm_password">Confirm Password:</label><br>
+        <input type="text" name="confirm_password" placeholder="Reconfirm New Password" />
         <input type="submit" />
       </form>
     </div>
-    <!-- JavaScript Links -->
-    <% include materializejs %>
-  </body>
+  </main>
+  <% include footer %>
+  <!-- JavaScript Links -->
+  <% include materializejs %>
+</body>
+
 </html>

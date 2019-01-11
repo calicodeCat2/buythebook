@@ -1,38 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Admin Single Requested Ban User View</title>
-    <!-- Materialize Link -->
-    <% include materializestyle %>
-  </head>
-  <body>
-    <!-- Mandy's navbar -->
-    <% include navbar %>
 
-    <h1><%= user.screen_name %></h1>
-    <a href="/admin/users/ban/<%= user.id %>">Approve Ban | </a>
-    <a href="/admin/users/view/<%= user.id %>">View User | </a>
-    <a href="/admin/users/unban/<%= user.id %>">Reject Ban</a>
-    <section class="comments">
-      <h2>Comment History</h2>
-      <ul>
-        <% for(let i =0; i < comentHistory.length; i++) { %>
-        <li>
-          <h3><%= comentHistory[i].screen_name %></h3>
-          <h4>On: <%= commentCreatedOn[i] %></h4>
-          <p><%= comentHistory[i].content %></p>
-          <a
-            href="/admin/userban/comments/delete/<%= comentHistory[i].id %>/<%= comentHistory[i].blog_id %>"
-            >Delete Comment</a
-          >
-        </li>
-        <% } %>
-      </ul>
-    </section>
-    <!-- JavaScript Links -->
-    <% include materializejs %>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Admin Single Requested Ban User View</title>
+  <!-- Materialize Link -->
+  <% include materializestyle %>
+</head>
+
+<body>
+  <!-- Mandy's navbar -->
+  <% include navbar %>
+
+  <h1>
+    <%= user.screen_name %>
+  </h1>
+  <a href="/admin/users/ban/<%= user.id %>">Approve Ban | </a>
+  <a href="/admin/users/view/<%= user.id %>">View User | </a>
+  <a href="/admin/users/unban/<%= user.id %>">Reject Ban</a>
+  <section class="comments">
+    <h2>Comment History</h2>
+    <ul>
+      <% for(let i =0; i < comentHistory.length; i++) { %>
+      <li>
+        <h3>
+          <%= comentHistory[i].screen_name %>
+        </h3>
+        <h4>On:
+          <%= commentCreatedOn[i] %>
+        </h4>
+        <p>
+          <%= comentHistory[i].content %>
+        </p>
+        <a href="/admin/userban/comments/delete/<%= comentHistory[i].id %>/<%= comentHistory[i].blog_id %>">Delete
+          Comment</a>
+      </li>
+      <% } %>
+    </ul>
+  </section>
+
+  <% include footer %>
+  <!-- JavaScript Links -->
+  <% include materializejs %>
+</body>
+
 </html>
