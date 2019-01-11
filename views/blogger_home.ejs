@@ -9,7 +9,7 @@
   <% include materializestyle %>
   <!-- Include Quill -->
      <style media="">
-         .current_blogs{
+         /* .current_blogs{
              text-align: center;
              margin-right: 300px;
              margin-left: 300px;
@@ -23,7 +23,11 @@
          }
          .col{
              text-align: center;
+            
          }
+         .each_blog{
+             border-bottom: 1px solid teal;
+         } */
     </style>
 </head>
 
@@ -39,15 +43,16 @@
         <h5>All Blogs:</h5>
         
             <% for(let i = 0 ; i < blogs.length ; i++){ %>
-            <h4><a href=""><%= blogs[i].blog_title%></a></h4>
+        <div class="each_blog">
+            <h4><%= blogs[i].blog_title%></h4>
             <div class="blog_content"><%- blogs[i].blog_content%></div>
-            <button type="button" action="" method="GET">Edit this Blog</button>
             <% if(blogs[i].approved === true){%>
              <% let status = "Approved!" %>
              <h6>Status: <%=status%></h6>
             <% }else{ let status = "Not Approved."%>
             <h6>Status: <%=status%></h6>
             <%}%>
+        </div>
             <%}%>
     </div>
 
