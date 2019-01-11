@@ -15,22 +15,31 @@
   <!-- Mandy's navbar -->
   <% include navbar %>
 
+
+    <div class="row">
+    <div class="col s12 m6">
+      <div class="card light-blue darken-1">
+        <div class="card-content white-text">
+          <span class="card-title">
+            <h2>Welcome <%= user.user_name %></h2> <h4>(aka
+              <%= user.screen_name %>)
+          </h4></span>
+          <div>
+            <span><h4>Your Comments</h4></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <main class="container">
-    <h2>Welcome
-      <%= user.user_name %>
-    </h2>
-    <h4>aka
-      <%= user.screen_name %>
-    </h4>
     <% for (let i = 0; i < commentHistory.length; i++) { %>
     <div class="">
-      <p>
+      <h5>
         <%= commentHistory[i].blog_title %> by:
         <%= commentHistory[i].blogger_name %>
-      </p>
-      <em>--
-        <%= commentHistory[i].content %></em>
-
+      </h5>
+      <em><h4>--
+        <%= commentHistory[i].content %></h4></em>
     </div>
     <% } %>
   </main>
