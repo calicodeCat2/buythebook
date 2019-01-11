@@ -13,6 +13,7 @@ module.exports = app => {
   app.post("/user/login", users.register);
   app.get("/user/profile", users.userEdit);
   app.post("/user/login", users.editProfile);
+  app.post("/new/comment/:id", userMiddleware, users.addComment)
   app.get("/user/comments", userMiddleware, users.showUserComments);
   app.get("/users/main", userMiddleware, users.show);
   app.get("/profile/:id", userMiddleware, users.profile);

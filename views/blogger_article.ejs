@@ -55,7 +55,18 @@
             </div>
         </div>
         <% } %>
+        <div class="row">
+    <form class="col s12" action="/new/comment/<%= blog.id %>" method="post">
+      <div class="row">
+        <div class="input-field col s12">
+          <textarea id="textarea1" class="materialize-textarea"></textarea>
+          <label for="textarea1">Add Your Comment</label>
+          <button class="btn-large" type="submit" name="button">Submit</button>
+        </div>
       </div>
+    </form>
+  </div>
+</div>
     </div>
     </main>
 
