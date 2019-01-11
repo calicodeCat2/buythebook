@@ -14,45 +14,56 @@
   <!-- Mandy's navbar -->
   <% include navbar %>
 
-  <main class="container">
-    <section class="card approved-bloggers">
-      <h1>Manage Bloggers</h1>
-      <% if(!approvedBloggers) { %>
-      <p>You currently have no bloggers to manage.</p>
-      <% } %>
-      <ul>
-        <% for(let i = 0; i < approvedBloggers.length; i++) { %>
-        <li>
-          <h3>
-            <%= approvedBloggers[i].blogger_name %>
-          </h3>
-          <img src="<%= approvedBloggers[i].image_url %>" alt="" />
-          <p>Requested On:
-            <%= requestedOn[i] %>
-          </p>
-          <p>Years Blogging:
-            <%= approvedBloggers[i].years_blogging %>
-          </p>
-          <p>
-            Blogger Website:
-            <a href="<%= approvedBloggers[i].link %>">Website</a>
-          </p>
-          <p>Genre:
-            <%= approvedBloggers[i].genre %>
-          </p>
-          <p>
-            Writing Snippet:
-            <%- approvedBloggers[i].sample.slice(0, approvedBloggers[i].sample.indexOf("<br>")) +
-              "..." %>
-          </p>
-          <a href="/admin/view/blogger/<%= approvedBloggers[i].id %>">View Blogger</a>
+  <div class="row">
+    <% include side-nav %>
 
-          <hr />
-        </li>
-        <% } %>
-      </ul>
-    </section>
-  </main>
+    <div class="col s12 m9 l10 container">
+      <main class="container">
+        <section class="card approved-bloggers">
+          <h1>Manage Bloggers</h1>
+          <% if(!approvedBloggers) { %>
+          <p>You currently have no bloggers to manage.</p>
+          <% } %>
+          <ul>
+            <% for(let i = 0; i < approvedBloggers.length; i++) { %>
+            <li>
+              <h3>
+                <%= approvedBloggers[i].blogger_name %>
+              </h3>
+              <img src="<%= approvedBloggers[i].image_url %>" alt="" />
+              <p>Requested On:
+                <%= requestedOn[i] %>
+              </p>
+              <p>Years Blogging:
+                <%= approvedBloggers[i].years_blogging %>
+              </p>
+              <p>
+                Blogger Website:
+                <a href="<%= approvedBloggers[i].link %>">Website</a>
+              </p>
+              <p>Genre:
+                <%= approvedBloggers[i].genre %>
+              </p>
+              <p>
+                Writing Snippet:
+                <%- approvedBloggers[i].sample.slice(0, approvedBloggers[i].sample.indexOf("<br>")) +
+                      "..." %>
+              </p>
+              <a href="/admin/view/blogger/<%= approvedBloggers[i].id %>">View Blogger</a>
+
+              <hr />
+            </li>
+            <% } %>
+          </ul>
+        </section>
+      </main>
+
+
+    </div>
+
+
+  </div>
+
 
   <% include footer %>
   <!-- JavaScript Links -->

@@ -14,37 +14,46 @@
   <!-- Mandy's navbar -->
   <% include navbar %>
 
-  <section class="pending-bloggers">
-    <h1>Approved Blog Posts</h1>
-    <% if(!approvedBlogs) { %>
-    <p>You currently have no approved blog posts.</p>
-    <% } %>
-    <ul>
-      <% for(let i = 0; i < approvedBlogs.length; i++) { %>
-      <li>
-        <h3>
-          <%= approvedBlogs[i].blog_title %>
-        </h3>
-        <h4>Post Created On:
-          <%= requestedOn[i] %>
-        </h4>
-        <h4>By:
-          <%= approvedBlogs[i].blogger_name %>
-        </h4>
-        <p>
-          Preview:
-          <%- approvedBlogs[i].blog_content.slice(0,
-            approvedBlogs[i].blog_content.indexOf("<br />")) + "..." %>
-        </p>
-        <a href="/admin/view/approved-blog/<%= approvedBlogs[i].id %>">View Blog</a>
-        <span> | </span>
-        <a href="/admin/reject/blog/<%= approvedBlogs[i].id %>">Revoke Approval</a>
-        <hr />
-      </li>
-      <% } %>
-    </ul>
-    <span> | </span> <a href="/admin/home">Return to Home</a>
-  </section>
+  <div class="row">
+    <% include side-nav %>
+
+    <div class="col s12 m9 l10 container">
+      <section class="pending-bloggers">
+        <h1>Approved Blog Posts</h1>
+        <% if(!approvedBlogs) { %>
+        <p>You currently have no approved blog posts.</p>
+        <% } %>
+        <ul>
+          <% for(let i = 0; i < approvedBlogs.length; i++) { %>
+          <li>
+            <h3>
+              <%= approvedBlogs[i].blog_title %>
+            </h3>
+            <h4>Post Created On:
+              <%= requestedOn[i] %>
+            </h4>
+            <h4>By:
+              <%= approvedBlogs[i].blogger_name %>
+            </h4>
+            <p>
+              Preview:
+              <%- approvedBlogs[i].blog_content.slice(0,
+                    approvedBlogs[i].blog_content.indexOf("<br />")) + "..." %>
+            </p>
+            <a href="/admin/view/approved-blog/<%= approvedBlogs[i].id %>">View Blog</a>
+            <span> | </span>
+            <a href="/admin/reject/blog/<%= approvedBlogs[i].id %>">Revoke Approval</a>
+            <hr />
+          </li>
+          <% } %>
+        </ul>
+        <span> | </span> <a href="/admin/home">Return to Home</a>
+      </section>
+
+    </div>
+  </div>
+
+
   <% include footer %>
   <!-- JavaScript Links -->
   <% include materializejs %>

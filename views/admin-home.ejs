@@ -148,10 +148,17 @@
 
               </div>
             </div>
-
-
           </section>
 
+
+
+
+
+        </div>
+
+        <!-- END OF FIRST ROW -->
+
+        <div class="row">
           <section class="col s12 m6 l6 x12 pending-blogs">
             <div class="card z-depth-3 wite-text">
               <div class="card-content yellow">
@@ -174,7 +181,7 @@
                     <p>
                       Preview:
                       <%- firstThreeBlogs[i].blog_content.slice(0,
-                            firstThreeBlogs[i].blog_content.indexOf("<br>")) + "..." %>
+                                  firstThreeBlogs[i].blog_content.indexOf("<br>")) + "..." %>
                     </p>
                     <a href="/admin/view/blog/<%= firstThreeBlogs[i].id %>">View Blog</a>
                     <span> | </span>
@@ -221,8 +228,8 @@
                 </ul>
           </section>
 
-
         </div>
+
     </div>
 
 
@@ -232,7 +239,7 @@
 
   <div class="row">
     <div class="col">
-      <section class="col  s12 m12 l12 x12 approved-blogs">
+      <section class="col  s12 m10 l10 x10 offset-s2 approved-blogs">
         <div class="card z-depth-3  teal lighten-2">
           <div class="card-content white-text">
             <h2>Manage Blog Posts</h2>
