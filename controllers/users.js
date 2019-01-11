@@ -39,22 +39,7 @@ module.exports = {
         "blogs.blog_content"
       )
       .join("bloggers", "bloggers.id", "=", "blogger_id")
-
-      // if (req.session.blogger) {
-      //   let unReadMessages = knex("admin_messages")
-      //     .select("id")
-      //     .where("admin_messages.blogger_id", req.session.blogger.id)
-      //     .andWhere("unread", true)
-      // } else {
-      //   let unReadMessages = new Promise((resolve, reject) => {
-      //     resolve(undefined)
-      //   })
-      // }
-
-      // Promise.all(blogsAndBloggers, unReadMessages)
       .then(results => {
-
-
         res.render("splash", {
           blogs: results,
           bloggers: results,
@@ -107,9 +92,9 @@ module.exports = {
       .select("blogs.*", "bloggers.blogger_name")
       .join("bloggers", "bloggers.id", "blogs.blogger_id");
     Promise.all([user, bloggers, blogs]).then(results => {
-      console.log(results[0]);
+      console.log(results[0][0]);
       res.render("main_page", {
-        user: results[0],
+        user: results[0][0],
         bloggers: results[1],
         blogs: results[2],
         //NECESSARY VARS FOR NAVBAR OPTIONS
@@ -118,6 +103,19 @@ module.exports = {
         loggedInAdmin: req.session.admin
       });
     });
+  },
+
+  addComment: (req, res) => {
+      knex('comments')
+        .insert({
+          content: req.body.content,
+          user_id: req.session.user.id,
+          blog_id: req.params.id
+        })
+        .then(() => {
+          console.log(req.params.content);
+          res.redirect(`/article/${req.params.id}`)
+        })
   },
 
   profile: (req, res) => {

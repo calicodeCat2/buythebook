@@ -47,23 +47,34 @@
       </div>
     </div>
     <div class="container">
-
-      <h4>Comments</h4>
-      <% for (let i = 0; i < comments.length; i++) { %>
-      <div class="comment card">
-        <div class="card-content">
-          <h5 class="light-blue-text">
-            <%= comments[i].screen_name %>
-          </h5>
+      <div class="row">
+        <form class="col s12" action="/new/comment/<%= blog.id %>" method="post">
+          <div class="row">
+            <div class="input-field col s12">
+              <textarea id="textarea1" name="content" class="materialize-textarea"></textarea>
+              <label for="textarea1">Add Your Comment</label>
+              <button class="btn-large" type="submit" name="button">Submit</button>
+            </div>
+          </div>
+        </form>
+      </div>
+        <h4>Comments</h4>
+        <% for (let i = 0; i < comments.length; i++) { %>
+        <div class="comment card">
+          <div class="card-content">
+            <h5 class="light-blue-text">
+              <%= comments[i].screen_name %></h5>
           <h5>
 
             <%= comments[i].content %>
           </h5>
 
         </div>
-      </div>
-      <% } %>
-    </div>
+
+        <% } %>
+</div>
+
+
     </div>
   </main>
 
