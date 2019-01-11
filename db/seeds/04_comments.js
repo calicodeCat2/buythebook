@@ -5,7 +5,7 @@ exports.seed = function(knex, Promise) {
     .then(function() {
       return knex("comments").insert([
         {
-          content: "Really, your going with that.",
+          content: "Really, you're going with that.",
           blog_id: 2,
           user_id: 1
         },

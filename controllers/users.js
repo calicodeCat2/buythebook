@@ -53,7 +53,7 @@ module.exports = {
 
       // Promise.all(blogsAndBloggers, unReadMessages)
       .then(results => {
-        console.log(results)
+
 
         res.render("splash", {
           blogs: results,
@@ -107,6 +107,7 @@ module.exports = {
       .select("blogs.*", "bloggers.blogger_name")
       .join("bloggers", "bloggers.id", "blogs.blogger_id");
     Promise.all([user, bloggers, blogs]).then(results => {
+      console.log(results[0]);
       res.render("main_page", {
         user: results[0],
         bloggers: results[1],
@@ -134,6 +135,7 @@ module.exports = {
       )
       .join("blogs", "blogger_id", "=", "bloggers.id")
       .where("bloggers.id", req.params.id)
+      .where("blogs.approved", "true")
       .then(results => {
         let blogger = results[0];
         let blogs = results;
