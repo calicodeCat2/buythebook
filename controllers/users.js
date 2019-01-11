@@ -218,21 +218,21 @@ module.exports = {
   editProfile: (req, res) => {
     knex("users")
       .where('users.id', '=', req.session.user.id)
-        .then(() => {
-          if (user.user_password === req.body.user_password) {
-            knex('users')
+      .then(() => {
+        if (user.user_password === req.body.user_password) {
+          knex('users')
             .where('users.id', '=', req.session.user.id)
             .update({
               user_name: req.body.user_name,
               screen_name: req.body.screen_name,
 
             })
-            res.redirect('/user/login')
-          } else {
-            res.redirect('/user/profile')
-          }
+          res.redirect('/user/login')
+        } else {
+          res.redirect('/user/profile')
+        }
 
-        });
+      });
   },
 
 

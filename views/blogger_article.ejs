@@ -13,20 +13,23 @@
   <% include navbar %>
   <main class="container">
 
-  <div class="row">
-  <div class="col s12 m12  z-depth-1">
-    <div class="card light-blue darken-1">
-      <div class="card-content white-text">
-        <span class="card-title"><h2 class="grey-text text-lighten-3">
-          <%= blog.blog_title %>
-        </h2>
-        <img src="<%= blog.image_url %>" height="100px" alt="">
-        <h5>by: <%= blog.blogger_name %></h5>
-          </span>
+    <div class="row">
+      <div class="col s12 m12  z-depth-1">
+        <div class="card light-blue darken-1">
+          <div class="card-content white-text">
+            <span class="card-title">
+              <h2 class="grey-text text-lighten-3">
+                <%= blog.blog_title %>
+              </h2>
+              <img src="<%= blog.image_url %>" height="100px" alt="">
+              <h5>by:
+                <%= blog.blogger_name %>
+              </h5>
+            </span>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
 
     <div class="article">
       <div class="content">
@@ -42,26 +45,27 @@
       </div>
     </div>
     <div class="container">
-        <h5>Comments</h5>
-        <% for (let i = 0; i < comments.length; i++) { %>
-        <div class="comment card">
-          <div class="card-content">
-            <p class="light-blue-text">
-              <%= comments[i].screen_name %></p>
+      <h5>Comments</h5>
+      <% for (let i = 0; i < comments.length; i++) { %>
+      <div class="comment card">
+        <div class="card-content">
+          <p class="light-blue-text">
+            <%= comments[i].screen_name %>
+          </p>
           <p>
             <%= comments[i].content %>
           </p>
 
-            </div>
         </div>
-        <% } %>
       </div>
+      <% } %>
     </div>
-    </main>
+    </div>
+  </main>
 
-    <% include footer %>
-    <!-- JavaScript Links -->
-    <% include materializejs %>
+  <% include footer %>
+  <!-- JavaScript Links -->
+  <% include materializejs %>
 </body>
 
 </html>

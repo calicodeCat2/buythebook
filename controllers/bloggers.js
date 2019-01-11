@@ -53,7 +53,6 @@ module.exports = {
     Promise.all([adminMessages, accessBlogs])
       .then(results => {
         let unReadMessages = results[0]
-        console.log(unReadMessages)
         let blogs = results[1]
         res.render("blogger_home", { blogs: blogs, unReadMessages: unReadMessages, loggedInUser: req.session.user, loggedInAdmin: req.session.admin, loggedInBlogger: req.session.blogger })
       })
@@ -153,7 +152,6 @@ module.exports = {
           req.body.admin_password &&
           admin.blogger_password === req.body.admin_password
         ) {
-          console.log(req.session);
           req.session.user = null;
           req.session.blogger = null;
           req.session.admin = admin;
@@ -290,7 +288,8 @@ module.exports = {
       })
       .then(() => {
         res.redirect("/admin/home");
-      });
+      })
+      .catch(err => console.log(err));
   },
   adminBloggerView: (req, res) => {
     knex("bloggers")
@@ -307,7 +306,8 @@ module.exports = {
           loggedInBlogger: req.session.blogger,
           loggedInAdmin: req.session.admin
         });
-      });
+      })
+      .catch(err => console.log(err));
   },
   adminRejectBlogger: (req, res) => {
     knex("bloggers")
@@ -339,7 +339,8 @@ module.exports = {
           loggedInBlogger: req.session.blogger,
           loggedInAdmin: req.session.admin
         });
-      });
+      })
+      .catch(err => console.log(err));
   },
   adminViewApprovedBloggers: (req, res) => {
     knex("bloggers")
@@ -361,6 +362,38 @@ module.exports = {
           loggedInBlogger: req.session.blogger,
           loggedInAdmin: req.session.admin
         });
-      });
+      })
+      .catch(err => console.log(err));
+  },
+  addNewAdmin: (req, res) => {
+    knex("bloggers")
+      .where("bloggers.approved", "=", "true")
+      .orderBy("created_at")
+      .whereNot("role", "=", "admin")
+      .andWhereNot("rejected", "=", "true")
+      .then(results => {
+        res.render("promote-to-admin", {
+          potentialAdmins: results,
+          //NECESSARY VARS FOR NAVBAR OPTIONS
+          loggedInUser: req.session.user,
+          loggedInBlogger: req.session.blogger,
+          loggedInAdmin: req.session.admin
+        })
+      }).catch(err => console.log(err));
+
+  },
+  promoteToAdmin: (req, res) => {
+    knex("bloggers")
+      .where("bloggers.approved", "=", "true")
+      .whereNot("role", "=", "admin")
+      .andWhereNot("rejected", "=", "true")
+      .andWhere('bloggers.id', req.params.blogger_id)
+      .update({
+        role: "admin"
+      })
+      .then(() => {
+        res.redirect("/admin/add-admin")
+      })
+      .catch(err => console.log(err));
   }
 };

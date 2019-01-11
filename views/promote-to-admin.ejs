@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Admin Promotions</title>
+    <!-- Materialize Link -->
+    <% include materializestyle %>
+</head>
+
+<body>
+    <!-- Mandy's navbar -->
+    <% include navbar %>
+    <div class="row">
+
+        <% include side-nav %>
+
+        <div class="col s12 m9 l10 container">
+            <main>
+                <div class="row"></div>
+                <div class="row"></div>
+
+                <div class="col s12 m6 l6 x12 potential-admins ">
+                    <div class="card z-depth-3">
+                        <div class="card-content light-blue lighten-2 white-text">
+                            <h1>Promote a Blogger to Admin</h1>
+                            <% for(let i = 0; i < potentialAdmins.length; i++) { %>
+                            <div class="blogger">
+                                <h3>
+                                    <%= potentialAdmins[i].blogger_name %>
+                                </h3>
+                                <img src="<%= potentialAdmins[i].image_url %>" alt="" />
+                                <p>Years Blogging:
+                                    <%= potentialAdmins[i].years_blogging %>
+                                </p>
+                                <p>
+                                    Blogger Website:
+                                    <a href="<%= potentialAdmins[i].link %>">Website</a>
+                                </p>
+                                <p>Genre:
+                                    <%= potentialAdmins[i].genre %>
+                                </p>
+                                <p class="white-text">
+                                    Writing Snippet:
+                                    <%- potentialAdmins[i].sample.slice(0, 140) +
+                                                "..." %>
+                                </p>
+                                <div class="row options flow-text">
+                                    <a class="grey-text text-lighten-5" href="/admin/view/blogger/<%= potentialAdmins[i].id %>">View
+                                        Blogger</a>
+                                    <span> | </span>
+                                    <a class="grey-text text-lighten-5" href="/admin/promote/blogger/<%= potentialAdmins[i].id %>">Promote
+                                        Blogger</a>
+
+                                    <hr />
+                                </div>
+
+                            </div>
+
+                            <% } %>
+
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+
+        </div>
+    </div>
+
+</body>
+
+</html>
