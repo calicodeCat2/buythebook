@@ -71,7 +71,7 @@
                     </p>
                     <p>
                       Blogger Website:
-                      <a href="<%= firstThreeRegs[i].link %>">Website</a>
+                      <a class="btn pink accent-2" href="<%= firstThreeRegs[i].link %>">Website</a>
                     </p>
                     <p>Genre:
                       <%= firstThreeRegs[i].genre %>
@@ -82,20 +82,21 @@
                             "..." %>
                     </p>
                     <div class="row options flow-text">
-                      <a class="grey-text text-lighten-5" href="/admin/view/blogger/<%= firstThreeRegs[i].id %>">View
+                      <a class="btn pink accent-2" class="grey-text text-lighten-5" href="/admin/view/blogger/<%= firstThreeRegs[i].id %>">View
                         Blogger</a>
                       <span> | </span>
-                      <a class="grey-text text-lighten-5" href="/admin/approve/blogger/<%= firstThreeRegs[i].id %>">Approve
+                      <a class="btn pink accent-2" class="grey-text text-lighten-5" href="/admin/approve/blogger/<%= firstThreeRegs[i].id %>">Approve
                         Blogger</a>
                       <span> | </span>
-                      <a class="grey-text text-lighten-5" href="/admin/reject/blogger/<%= firstThreeRegs[i].id %>">Reject
+                      <a class="btn pink accent-2" class="grey-text text-lighten-5" href="/admin/reject/blogger/<%= firstThreeRegs[i].id %>">Reject
                         Blogger</a>
                       <hr />
                     </div>
 
                   </li>
                   <% } %>
-                  <a class="flow-tex grey-text text-lighten-5" href="/admin/pending-regs">View All</a>
+                  <a class="btn pink accent-2" class="flow-tex grey-text text-lighten-5" href="/admin/pending-regs">View
+                    All</a>
                 </ul>
 
               </div>
@@ -127,7 +128,7 @@
                     </p>
                     <p>
                       Blogger Website:
-                      <a class="grey-text text-lighten-5" href="<%= firstThreeBloggers[i].link %>">Website</a>
+                      <a class="btn pink accent-2" class="grey-text text-lighten-5" href="<%= firstThreeBloggers[i].link %>">Website</a>
                     </p>
                     <p>Genre:
                       <%= firstThreeBloggers[i].genre %>
@@ -137,13 +138,13 @@
                       <%- firstThreeBloggers[i].sample.slice(0, firstThreeBloggers[i].sample.indexOf("<br>"))
                             + "..." %>
                     </p>
-                    <a class="grey-text text-lighten-5 flow-text" href="/admin/view/blogger/<%= firstThreeBloggers[i].id %>">View
+                    <a class="btn pink accent-2" class="btn" href="/admin/view/blogger/<%= firstThreeBloggers[i].id %>">View
                       Blogger</a>
 
                     <hr />
                   </li>
                   <% } %>
-                  <a class="grey-text text-lighten-5 flow-text" href="/admin/manage-bloggers">View All</a>
+                  <a class="btn pink accent-2" class="btn" href="/admin/manage-bloggers">View All</a>
                 </ul>
 
               </div>
@@ -183,15 +184,15 @@
                       <%- firstThreeBlogs[i].blog_content.slice(0,
                                   firstThreeBlogs[i].blog_content.indexOf("<br>")) + "..." %>
                     </p>
-                    <a href="/admin/view/blog/<%= firstThreeBlogs[i].id %>">View Blog</a>
+                    <a class="btn pink accent-2" href="/admin/view/blog/<%= firstThreeBlogs[i].id %>">View Blog</a>
                     <span> | </span>
-                    <a href="/admin/approve/blog/<%= firstThreeBlogs[i].id %>">Approve Blog</a>
+                    <a class="btn pink accent-2" href="/admin/approve/blog/<%= firstThreeBlogs[i].id %>">Approve Blog</a>
                     <span> | </span>
-                    <a href="/admin/reject/blog/<%= firstThreeBlogs[i].id %>">Reject Blog</a>
+                    <a class="btn pink accent-2" href="/admin/reject/blog/<%= firstThreeBlogs[i].id %>">Reject Blog</a>
                     <hr />
                   </li>
                   <% } %>
-                  <a href="/admin/pending-blogs">View All</a>
+                  <a class="btn pink accent-2" href="/admin/pending-blogs">View All</a>
                 </ul>
 
               </div>
@@ -210,21 +211,21 @@
                 <ul>
                   <% for(let i = 0; i < firstThreeBanReqs.length; i++) { %>
                   <li>
-                    <p class="">Screen Name:
+                    <h3 class="">Screen Name:
                       <%= firstThreeBanReqs[i].screen_name %>
-                    </p>
-                    <a class="grey-text text-lighten-5 flow-text" href="/admin/users/ban/<%= firstThreeBanReqs[i].id %>">Approve
+                    </h3>
+                    <a class="btn pink accent-2" class="btn" href="/admin/users/ban/<%= firstThreeBanReqs[i].id %>">Approve
                       Ban</a>
                     <span> | </span>
-                    <a class="grey-text text-lighten-5 flow-text" href="/admin/users/view/<%= firstThreeBanReqs[i].id %>">View
+                    <a class="btn pink accent-2" class="btn" href="/admin/users/view/<%= firstThreeBanReqs[i].id %>">View
                       User</a>
                     <span> | </span>
-                    <a class="grey-text text-lighten-5 flow-text" href="/admin/users/unban/<%= firstThreeBanReqs[i].id %>">Reject
+                    <a class="btn pink accent-2" class="btn" href="/admin/users/unban/<%= firstThreeBanReqs[i].id %>">Reject
                       Ban</a>
                   </li>
                   <% } %>
                   <hr>
-                  <a class="grey-text text-lighten-5 flow-text" href="/admin/user-bans">View All</a>
+                  <a class="btn pink accent-2" class="btn" href="/admin/user-bans">View All</a>
                 </ul>
           </section>
 
@@ -258,10 +259,12 @@
                         <%- firstThreeApprovedBlogs[i].blog_content.slice(0,
                                             firstThreeApprovedBlogs[i].blog_content.indexOf("<br>")) + "..." %>
                       </p>
-                      <a href="/admin/view/approved-blog/<%= firstThreeApprovedBlogs[i].id %>">View Blog</a>
+                      <a class="btn pink accent-2" href="/admin/view/approved-blog/<%= firstThreeApprovedBlogs[i].id %>">View
+                        Blog</a>
                     </li>
                     <% } %>
-                    <a href="/admin/approved-blogs">View All</a>
+                    <hr>
+                    <a class="btn-large pink accent-2" href="/admin/approved-blogs">View All</a>
                   </ul>
 
                 </div>
