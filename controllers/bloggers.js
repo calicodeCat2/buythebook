@@ -57,7 +57,7 @@ module.exports = {
         res.render("blogger_home", { blogs: blogs, unReadMessages: unReadMessages, loggedInUser: req.session.user, loggedInAdmin: req.session.admin, loggedInBlogger: req.session.blogger })
       })
     },
-  
+
   logout: (req, res) => {
     req.session.user = null;
     req.session.blogger = null;
