@@ -134,6 +134,9 @@ module.exports = app => {
     bloggerAuthMiddleware,
     bloggers.viewAdminMessages
   );
+
+  app.get("/admin/add-admin", adminAuthMiddleware, bloggers.addNewAdmin)
+  app.get("/admin/promote/blogger/:blogger_id", adminAuthMiddleware, bloggers.promoteToAdmin)
 };
 
 function adminAuthMiddleware(req, res, next) {

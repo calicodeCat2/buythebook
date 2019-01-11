@@ -6,43 +6,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Blogger Home Page</title>
-  <!-- Materialize Link -->
-  <% include materializestyle %>
-  <!-- Include Quill -->
-     <style media="">
-         /* .current_blogs{
-             text-align: center;
-             margin-right: 300px;
-             margin-left: 300px;
-             padding: 20px;
-             border: 1px steelblue;
-         }
-         .fan_data{
-             text-align: center;
-             margin: 20px;
-             margin-left: 200px;
-         }
-         .col{
-             text-align: center;
-            
-         }
-         .each_blog{
-             border-bottom: 1px solid teal;
-         } */
-    </style>
+    <!-- Materialize Link -->
+    <% include materializestyle %>
+    <!-- Include Quill -->
+
 </head>
 
 <body>
     <!-- Mandy's navbar -->
     <% include navbar %>
-
-    <h3>Welcome,
-        <%= loggedInBlogger.blogger_name %>
-    </h3>
+    <div class="row"></div>
+    <main class="container">
+        <div class="row">
+            <div class="col s12 m12  z-depth-1">
+                <div class="card light-blue darken-1">
+                    <div class="card-content white-text">
+                        <span class="card-title">
+                            <div class="row">
+                                <h1>Welcome</h1>
+                                <h1>
+                                    <%= loggedInBlogger.blogger_name %>
+                                </h1>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     <div class="current_blogs">
         <h5>All Blogs:</h5>
-        
             <% for(let i = 0 ; i < blogs.length ; i++){ %>
         <div class="each_blog">
             <h4><%= blogs[i].blog_title%></h4>
@@ -56,10 +49,10 @@
         </div>
             <%}%>
     </div>
-
-    <% include footer %>
-    <!-- JavaScript Links -->
-    <% include materializejs %>
+</main>
+        <% include footer %>
+        <!-- JavaScript Links -->
+        <% include materializejs %>
 </body>
 
 </html>

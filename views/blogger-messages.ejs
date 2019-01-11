@@ -17,18 +17,38 @@
 
   <main class="container">
     <h1>Messages from Your Boss</h1>
-    <section class="messages">
-      <% for(let i = 0; i < messages.length; i++) { %>
-      <div class="card message">
-        <h4>
-          <%= messages[i].message_title %>
-        </h4>
-        <div class="content">
-          <%= messages[i].message_content %>
+
+    <% for(let i = 0; i < messages.length; i++) { %>
+    <div class="col s12 m12 l12 x12">
+      <div class="card grey lighten-4">
+        <div class="card-action">
+          <% if(messages[i].unread ) { %>
+          <!-- left off here, need to write route to mark message as read -->
+
+          <a href="/bloggers/messages/read/"><i class="material-icons">done</i></a>
+          <span class="left-badge pink white-text">Unread</span>
+          <% } %>
+        </div>
+        <div class="card-content">
+          <section class="messages">
+
+            <div class="message">
+              <h4>
+                <%= messages[i].message_title %>
+              </h4>
+              <div class="content">
+                <%= messages[i].message_content %>
+              </div>
+            </div>
+
+          </section>
         </div>
       </div>
-      <% } %>
-    </section>
+    </div>
+    <% } %>
+
+
+
   </main>
 
   <% include footer %>
