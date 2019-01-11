@@ -12,11 +12,20 @@
   <!-- Mandy's navbar -->
   <% include navbar %>
     <main class="container">
-
       <div class="row">
-        <h1>Welcome </h1>
-        <h1><%= user.screen_name %></h1>
+      <div class="col s12 m12  z-depth-1">
+        <div class="card light-blue darken-1">
+          <div class="card-content white-text">
+            <span class="card-title">
+              <div class="row">
+              <h1>Welcome to BuytheBook's Content</h1>
+              <h1><%= user.screen_name %></h1>
+            </div>
+              </span>
+          </div>
+        </div>
       </div>
+    </div>
 
       <div class="row">
         <div class="col s4 writers ">
@@ -26,17 +35,17 @@
                 <%= bloggers[i].blogger_name %>
               </h4>
               <img src="<%= bloggers[i].image_url %>" height="125px" alt="Writer Picture">
-              <article>
+              <h5>
                 <%= bloggers[i].genre %>
-              </article>
-              <a href="/profile/<%= bloggers[i].id %>">Profile</a>
+              </h5>
+              <a href="/profile/<%= bloggers[i].id %>" class="black-text">Profile</a>
             <% } %>
         </div>
 
         <div class="col s8 articles z-depth-1">
           <h2>Our Articles</h2>
             <% for (i = 0; i < blogs.length; i++) { %>
-              <h5><a href="/article/<%= blogs[i].id %>">
+              <h5><a href="/article/<%= blogs[i].id %>" class="black-text">
                   <%= blogs[i].blog_title %></a></h5>
               <h5>
                 <%= blogs[i].blogger_name %>

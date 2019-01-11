@@ -135,6 +135,7 @@ module.exports = {
       )
       .join("blogs", "blogger_id", "=", "bloggers.id")
       .where("bloggers.id", req.params.id)
+      .where("blogs.approved", "true")
       .then(results => {
         let blogger = results[0];
         let blogs = results;
