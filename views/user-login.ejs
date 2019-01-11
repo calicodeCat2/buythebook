@@ -12,18 +12,19 @@
   <!-- Mandy's navbar -->
   <% include navbar %>
 
-  <h1>Login or Register</h1>
-  <div class="container">
-    <div class="row">
-      <div class="col">
+  <main class="container">
+    <div class="row z-depth-3">
+      <div class="col s5 offset-s1 login">
         <h3>Active Users: Login</h3>
         <form class="" action="/users/main" method="post">
           <input type="text" name="user_email" placeholder="Email" />
           <input type="text" name="user_password" placeholder="Password" />
-          <button type="submit" name="button">Login</button>
+          <button class="btn-large" type="submit" name="button">Login</button>
         </form>
       </div>
-      <div class="col">
+      <div class="row">
+
+      <div class="col s5 registration">
         <h3>New Users: Register</h3>
         <form class="" action="/user/login" method="post">
           <input type="text" name="user_name" placeholder="Name" />
@@ -31,11 +32,13 @@
           <input type="text" name="user_email" placeholder="Email" />
           <input type="text" name="user_password" placeholder="Password" />
           <input type="text" name="confirm_password" placeholder="Confirm Password" />
-          <button type="submit" name="button">Register</button>
+          <button class="btn-large" type="submit" name="button">Register</button>
         </form>
       </div>
+      </div>
     </div>
-  </div>
+
+  </main>
   <% include footer %>
   <!-- JavaScript Links -->
   <% include materializejs %>
