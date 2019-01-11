@@ -4,7 +4,8 @@ module.exports = {
     connection: {
       database: "buybookdata",
       host: "127.0.0.1",
-
+      user: "postgres",
+      password: "12345"
 
     },
     migrations: {
