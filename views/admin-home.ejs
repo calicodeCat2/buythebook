@@ -230,51 +230,55 @@
 
         </div>
 
-    </div>
+        <!-- MANAGAE BLOG SECTION -->
 
+        <div class="row">
+          <div class="col">
+            <section class="col  s12 m12 l12 x12 approved-blogs">
+              <div class="card z-depth-3  teal lighten-2">
+                <div class="card-content white-text">
+                  <h2>Manage Blog Posts</h2>
+                  <% if(!firstThreeApprovedBlogs) { %>
+                  <p>You currently have no approved blog posts.</p>
+                  <% } %>
+                  <ul>
+                    <% for (let i = 0; i < firstThreeApprovedBlogs.length; i++) { %>
+                    <li>
+                      <h3>
+                        <%= firstThreeApprovedBlogs[i].blog_title %>
+                      </h3>
+                      <h4>Post Created On:
+                        <%= approvedBlogCreatedOn[i] %>
+                      </h4>
+                      <h4>By:
+                        <%= firstThreeApprovedBlogs[i].blogger_name %>
+                      </h4>
+                      <p>
+                        Preview:
+                        <%- firstThreeApprovedBlogs[i].blog_content.slice(0,
+                                            firstThreeApprovedBlogs[i].blog_content.indexOf("<br>")) + "..." %>
+                      </p>
+                      <a href="/admin/view/approved-blog/<%= firstThreeApprovedBlogs[i].id %>">View Blog</a>
+                    </li>
+                    <% } %>
+                    <a href="/admin/approved-blogs">View All</a>
+                  </ul>
 
-  </div>
+                </div>
+              </div>
 
-  <!-- BETWEEN FIRST AND SECOND ROWS -->
-
-  <div class="row">
-    <div class="col">
-      <section class="col  s12 m10 l10 x10 offset-s2 approved-blogs">
-        <div class="card z-depth-3  teal lighten-2">
-          <div class="card-content white-text">
-            <h2>Manage Blog Posts</h2>
-            <% if(!firstThreeApprovedBlogs) { %>
-            <p>You currently have no approved blog posts.</p>
-            <% } %>
-            <ul>
-              <% for (let i = 0; i < firstThreeApprovedBlogs.length; i++) { %>
-              <li>
-                <h3>
-                  <%= firstThreeApprovedBlogs[i].blog_title %>
-                </h3>
-                <h4>Post Created On:
-                  <%= approvedBlogCreatedOn[i] %>
-                </h4>
-                <h4>By:
-                  <%= firstThreeApprovedBlogs[i].blogger_name %>
-                </h4>
-                <p>
-                  Preview:
-                  <%- firstThreeApprovedBlogs[i].blog_content.slice(0,
-                                    firstThreeApprovedBlogs[i].blog_content.indexOf("<br>")) + "..." %>
-                </p>
-                <a href="/admin/view/approved-blog/<%= firstThreeApprovedBlogs[i].id %>">View Blog</a>
-              </li>
-              <% } %>
-              <a href="/admin/approved-blogs">View All</a>
-            </ul>
+            </section>
 
           </div>
+
         </div>
 
-      </section>
 
     </div>
+
+
+
+
 
 
 

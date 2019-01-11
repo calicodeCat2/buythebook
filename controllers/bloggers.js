@@ -110,6 +110,7 @@ module.exports = {
         "admin_messages.blogger_id",
         req.session.blogger.id
       )
+      .orderBy("unread", "desc")
 
     let unReadMessages = knex("admin_messages")
       .select("id")
