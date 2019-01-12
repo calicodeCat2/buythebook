@@ -92,7 +92,6 @@ module.exports = {
       .select("blogs.*", "bloggers.blogger_name")
       .join("bloggers", "bloggers.id", "blogs.blogger_id");
     Promise.all([user, bloggers, blogs]).then(results => {
-      console.log(results[0][0]);
       res.render("main_page", {
         user: results[0][0],
         bloggers: results[1],
@@ -106,16 +105,15 @@ module.exports = {
   },
 
   addComment: (req, res) => {
-      knex('comments')
-        .insert({
-          content: req.body.content,
-          user_id: req.session.user.id,
-          blog_id: req.params.id
-        })
-        .then(() => {
-          console.log(req.params.content);
-          res.redirect(`/article/${req.params.id}`)
-        })
+    knex('comments')
+      .insert({
+        content: req.body.content,
+        user_id: req.session.user.id,
+        blog_id: req.params.id
+      })
+      .then(() => {
+        res.redirect(`/article/${req.params.id}`)
+      })
   },
 
   profile: (req, res) => {
@@ -351,7 +349,6 @@ module.exports = {
     Promise.all([user, comments]).then(results => {
       let user = results[0][0];
       let comentHistory = results[1];
-      console.log(comentHistory);
       let commentCreatedOn = comentHistory.map(comment =>
         moment(comment.created_at)
           .toString()

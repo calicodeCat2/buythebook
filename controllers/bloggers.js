@@ -36,7 +36,6 @@ module.exports = {
 
           res.redirect("/blogger/home");
         } else {
-          console.log("Wrong Pass");
           req.flash("Info", "Invalid Password");
           res.redirect("/blogger/login");
         }
@@ -56,8 +55,8 @@ module.exports = {
         let blogs = results[1]
         res.render("blogger_home", { blogs: blogs, unReadMessages: unReadMessages, loggedInUser: req.session.user, loggedInAdmin: req.session.admin, loggedInBlogger: req.session.blogger })
       })
-    },
-  
+  },
+
   logout: (req, res) => {
     req.session.user = null;
     req.session.blogger = null;
@@ -94,7 +93,7 @@ module.exports = {
       });
   },
 
-  editBlog : (req, res) => {
+  editBlog: (req, res) => {
     knex("blogs").then(results => {
       let blogs = results
       res.render("blogs")
