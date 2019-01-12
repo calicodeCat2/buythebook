@@ -149,7 +149,7 @@ module.exports = {
   adminLogin: (req, res) => {
     knex("bloggers")
       .andWhere("role", "admin")
-      .where("blogger_email", req.body.admin_email)
+      .where("blogger_email", req.body.admin_email.toLowerCase())
       .then(results => {
         let admin = results[0];
         if (!admin) {
