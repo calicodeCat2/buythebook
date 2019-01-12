@@ -36,9 +36,8 @@ module.exports = app => {
   app.get("/blogger/new", bloggerAuthMiddleware, bloggers.newBlogPage);
   app.post("/blogger/new", bloggerAuthMiddleware, bloggers.newBlog);
 
-  //Edit an existing blog
-  //app.get("/blogger/edit" ,bloggerAuthMiddleware, bloggers.editBlog)
-
+  //mark message as read 
+  app.get("/bloggers/messages/read", bloggerAuthMiddleware, bloggers.bloggerHome)
   //Mandy's routes
   //Admin routes
   app.get("/admin/login", bloggers.adminLoginPage);
