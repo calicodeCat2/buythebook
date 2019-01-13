@@ -25,7 +25,7 @@
           <% if(messages[i].unread ) { %>
           <!-- left off here, need to write route to mark message as read -->
 
-          <a href="/bloggers/messages/read/"><i class="material-icons">done</i></a>
+          <a href="/bloggers/messages/read/<%= messages[i].message_id %>"><i class="material-icons">done</i></a>
           <span class="left-badge pink white-text">Unread</span>
           <%}%>
         </div>
@@ -40,7 +40,7 @@
                 <%= messages[i].message_content %>
               </div>
             </div>
-            
+
           </section>
         </div>
       </div>

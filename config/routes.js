@@ -27,6 +27,7 @@ module.exports = app => {
   app.get("/blogger/login", bloggers.bloggerLoginPage);
 
   app.post("/blogger/login", bloggers.bloggerLogin);
+  // app.post("/blogs/register", bloggers.register)
 
   //Redirect Blogger to home/main profile page
   app.get("/blogger/home", bloggerAuthMiddleware, bloggers.bloggerHome);
@@ -37,7 +38,9 @@ module.exports = app => {
   app.post("/blogger/new", bloggerAuthMiddleware, bloggers.newBlog);
 
   //mark message as read 
-  app.get("/bloggers/messages/read", bloggerAuthMiddleware, bloggers.bloggerHome)
+  app.get("/bloggers/messages/read/:message_id", bloggerAuthMiddleware, bloggers.markAsRead)
+
+
   //Mandy's routes
   //Admin routes
   app.get("/admin/login", bloggers.adminLoginPage);

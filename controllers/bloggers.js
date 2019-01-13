@@ -15,8 +15,13 @@ module.exports = {
       loggedInAdmin: req.session.admin,
     });
   },
-  // This logs in the bloggers then redirects them to their home page
+  // register: (req, res) => {
+  //   knex("bloggers")
+  //     .insert({
 
+  //     })
+  // },
+  // This logs in the bloggers then redirects them to their home page
   bloggerLogin: (req, res) => {
     knex("bloggers")
       .andWhere("role", "blogger")
@@ -99,6 +104,16 @@ module.exports = {
       res.render("blogs")
     })
   },
+  markAsRead: (req, res) => {
+    knex("admin_messages")
+      .where('admin_messages.id', req.params.message_id)
+      .update({
+        unread: false
+      }).then(() => {
+        res.redirect("/blogger/messages")
+      })
+
+  },
 
   viewAdminMessages: (req, res) => {
     let messages = knex("bloggers")
@@ -109,7 +124,8 @@ module.exports = {
         "admin_messages.message_title",
         "admin_messages.message_content",
         "admin_messages.unread",
-        "admin_messages.blogger_id"
+        "admin_messages.blogger_id",
+        knex.ref('admin_messages.id').as('message_id')
       )
       .innerJoin(
         "admin_messages",
@@ -125,6 +141,7 @@ module.exports = {
 
     Promise.all([messages, unReadMessages])
       .then(results => {
+        console.log(results[0])
         res.render("blogger-messages", {
           messages: results[0],
           //NECESSARY VARS FOR NAVBAR OPTIONS
