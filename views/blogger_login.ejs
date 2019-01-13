@@ -33,20 +33,44 @@
         <div class="col s5 registration">
           <h3>New Bloggers: Register</h3>
           <form class="" action="/blogs/register" method="post">
-            <input type="text" name="name" placeholder="Name" />
-            <input type="text" name="email" placeholder="Email" />
-            <input type="text" name="blogger_password" placeholder="Password" />
-            <input type="text" name="confirm_password" placeholder="Confirm Password" />
-            <input type="date" name="DOB" placeholder="Date of Birth" />
-            <label for="select">Years Blogging</label>
-            <select class="" name="years_blogging">
-              <option value="">Not long</option>
-              <option value="">2 years</option>
-              <option value="">3 years</option>
-            </select>
-            <input type="text" name="link" placeholder="Personal Link" />
-            <input type="text" name="sample" placeholder="Writing Sample" />
-            <input class="btn-large offset-s2" type="submit" value="register">
+            <div class="input-field">
+              <input type="text" name="name" placeholder="Name" />
+
+            </div>
+            <div class="input-field">
+              <input type="text" name="email" placeholder="Email" />
+            </div>
+            <div class="input-field">
+              <input type="text" name="blogger_password" placeholder="Password" />
+            </div>
+            <div class="input-field">
+              <input type="text" name="confirm_password" placeholder="Confirm Password" />
+            </div>
+            <div class="input-field col s12">
+
+              <select id="genre" name="genre">
+                <option value="" disabled selected>Choose genre</option>
+                <% for (let i = 0; i < genres.length; i++) { %>
+                <option value="<%= genres[i].genre_name %>">
+                  <%= genres[i].genre_name %>
+                </option>
+                <% } %>
+                <label>Materialize Select</label>
+              </select>
+
+            </div>
+            <div class="input-field">
+              <input type="text" name="link" placeholder="Personal Link" />
+
+            </div>
+            <div class="input-field">
+
+              <input type="text" name="sample" placeholder="Writing Sample" />
+            </div>
+            <div class="input-field">
+              <input class="btn-large offset-s2" type="submit" value="register">
+
+            </div>
           </form>
         </div>
       </div>

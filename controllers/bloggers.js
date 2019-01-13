@@ -8,19 +8,27 @@ module.exports = {
   },
   //THIS RENDERS THE BLOGGER LOGIN PAGE
   bloggerLoginPage: function (req, res) {
-    res.render("blogger_login", {
-      //NECESSARY VARS FOR NAVBAR OPTIONS
-      loggedInUser: req.session.user,
-      loggedInBlogger: req.session.blogger,
-      loggedInAdmin: req.session.admin,
-    });
-  },
-  // register: (req, res) => {
-  //   knex("bloggers")
-  //     .insert({
+    knex("genre")
+      .then(results => {
+        res.render("blogger_login", {
+          genres: results,
+          //NECESSARY VARS FOR NAVBAR OPTIONS
+          loggedInUser: req.session.user,
+          loggedInBlogger: req.session.blogger,
+          loggedInAdmin: req.session.admin,
+        });
+      })
 
-  //     })
-  // },
+  },
+  register: (req, res) => {
+    knex("bloggers")
+      .insert({
+        blogger_name: req.body.name,
+        blogger_email: req.body.email.toLowerCase(),
+        blogger_password: req.body.blogger_password,
+
+      })
+  },
   // This logs in the bloggers then redirects them to their home page
   bloggerLogin: (req, res) => {
     knex("bloggers")

@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
+  var elems = document.querySelectorAll('select');
+  var instances = M.FormSelect.init(elems, options);
   if (document.querySelector("#editor-container")) {
     var quill = new Quill("#editor-container", {
       modules: {
