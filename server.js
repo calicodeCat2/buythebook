@@ -3,7 +3,13 @@ const path = require("path");
 const flash = require("connect-flash");
 const app = express();
 const bodyParser = require("body-parser");
+const { Pool } = require('pg');
 const port = process.env.PORT || 8000;
+
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: true
+});
 
 app.use(
   bodyParser.json({
@@ -26,6 +32,6 @@ app.set("view engine", "ejs");
 var routes_setter = require("./config/routes.js");
 routes_setter(app);
 
-app.listen(port, function() {
+app.listen(port, function () {
   console.log("Listening on", port);
 });

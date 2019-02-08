@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 module.exports = {
   development: {
     client: "pg",
@@ -21,7 +23,7 @@ module.exports = {
       directory: __dirname + "/db/migrations"
     },
     seeds: {
-      directory: __dirname + "/db/seeds/production"
+      directory: __dirname + "/db/seeds"
     }
   }
 };
