@@ -40,6 +40,7 @@ module.exports = {
       )
       .join("bloggers", "bloggers.id", "=", "blogger_id")
       .then(results => {
+        console.log(results)
         res.render("splash", {
           blogs: results,
           bloggers: results,

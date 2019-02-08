@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
-  var elems = document.querySelectorAll('select');
-  var instances = M.FormSelect.init(elems, options);
+  // var elems = document.querySelectorAll('select');
+  // var instances = M.FormSelect.init(elems, options);
   if (document.querySelector("#editor-container")) {
     var quill = new Quill("#editor-container", {
       modules: {
@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
           [{ align: [] }],
           [{ font: [] }],
           ["bold", "italic", "strike"],
-          ["link", "blockquote", "code-block", "image"],
+          ["link", "blockquote", "code-block", "image"],  
           [{ color: [] }, { background: [] }],
           [{ list: "ordered" }, { list: "bullet" }]
         ]
